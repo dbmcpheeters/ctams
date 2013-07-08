@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CTAMS xmlns:ns2="ctams">
+    <bandContestResult>
+        <id>result1</id>
+        <contest>abcd</contest>
+        <band>0</band>
+        <piping1Place>4</piping1Place>
+        <piping2Place>4</piping2Place>
+        <ensemblePlace>1</ensemblePlace>
+        <drummingPlace>1</drummingPlace>
+        <points>99</points>
+        <place>2</place>
+        <challengeUp>false</challengeUp>
+        <piping1Eval>C</piping1Eval>
+        <piping2Eval>D</piping2Eval>
+        <ensembleEval>B</ensembleEval>
+        <drummingEval>A</drummingEval>
+    </bandContestResult>
+</CTAMS>

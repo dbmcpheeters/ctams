@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CTAMS xmlns:ns2="ctams">
+    <bandMembers>
+        <id>andymember</id>
+        <person>andy</person>
+        <type>PipeMajor</type>
+    </bandMembers>
+</CTAMS>

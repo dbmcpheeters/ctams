@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CTAMS xmlns:ns2="ctams">
+    <judge>
+        <id>andy</id>
+        <person>andy</person>
+        <qualifications>
+            <panel>B</panel>
+            <type>BandEnsemble</type>
+        </qualifications>
+    </judge>
+</CTAMS>

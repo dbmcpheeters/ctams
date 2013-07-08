@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CTAMS xmlns:ns2="ctams">
+    <soloContestResult>
+        <id>res1</id>
+        <contest>gr2</contest>
+        <soloist>elaine</soloist>
+        <place>1</place>
+        <cpl>4</cpl>
+    </soloContestResult>
+</CTAMS>

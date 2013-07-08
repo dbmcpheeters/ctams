@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CTAMS xmlns:ns2="ctams">
+    <soloRegistrations>
+        <id>soloreg</id>
+        <person>elaine</person>
+        <number>129</number>
+        <grade>TWO</grade>
+        <type>Piping</type>
+        <seaon>2013</seaon>
+        <start>2013-07-04T22:59:00-06:00</start>
+        <end>2013-06-03T20:00:00-06:00</end>
+    </soloRegistrations>
+</CTAMS>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CTAMS xmlns:ns2="ctams">
+    <soloContest>
+        <id>gr2</id>
+        <venue>ppcf</venue>
+        <eventType>MSR</eventType>
+        <grade>TWO</grade>
+        <season>2013</season>
+        <date>2013-06-04T21:56:00-06:00</date>
+        <primaryJudge>andy</primaryJudge>
+        <judge2>bob</judge2>
+        <judge3>jamie</judge3>
+        <leet>0</leet>
+        <contestants>1</contestants>
+    </soloContest>
+</CTAMS>

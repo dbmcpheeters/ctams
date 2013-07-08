@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CTAMS xmlns:ns2="ctams">
+    <bandContest>
+        <id>abcd</id>
+        <venue>ppcf</venue>
+        <eventType>MEDLEY</eventType>
+        <grade>FOUR</grade>
+        <season>2013</season>
+        <date>2013-06-04T21:56:00-06:00</date>
+        <piping1>jamie</piping1>
+        <piping2>bob</piping2>
+        <ensemble>andy</ensemble>
+        <drumming>eoin</drumming>
+    </bandContest>
+</CTAMS>
