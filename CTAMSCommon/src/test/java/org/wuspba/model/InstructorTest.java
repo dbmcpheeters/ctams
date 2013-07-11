@@ -15,32 +15,31 @@ import org.junit.Test;
  *
  * @author atrimble
  */
-public class RosterTest extends AbstractTest {
+public class InstructorTest extends AbstractTest {
 
-    private static final Logger LOG = Logger.getLogger(RosterTest.class);
+    private static final Logger LOG = Logger.getLogger(InstructorTest.class);
 
     @Test
-    public void testRoster() {
+    public void testVenue() {
             
         String packageName = CTAMSDocument.class.getPackage().getName();
 
         try {
             JAXBContext jc = JAXBContext.newInstance(packageName);
             Unmarshaller u = jc.createUnmarshaller();
-            Object obj = u.unmarshal(getClass().getResourceAsStream("/roster.xml"));
+            Object obj = u.unmarshal(getClass().getResourceAsStream("/instructor.xml"));
 
             assertTrue(obj instanceof CTAMSDocument);
 
             CTAMSDocument ctams = (CTAMSDocument)obj;
             
-            assertEquals(ctams.getRosters().size(), 1);
-            Roster r = ctams.getRosters().get(0);
+            assertEquals(ctams.getInstructors().size(), 1);
+            Instructor instructor = ctams.getInstructors().get(0);
 
-            assertEquals(r.getId(), roster.getId());
-            assertEquals(r.getMembers().size(), 2);
-            assertEquals(r.getMembers().get(0), andyMember);
-            assertEquals(r.getMembers().get(1), jamieMember);
-            
+            assertEquals(instructor.getId(), andyInstructor.getId());
+            assertEquals(instructor.getPerson(), andyInstructor.getPerson());
+            assertEquals(instructor.getType(), andyInstructor.getType());
+
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();

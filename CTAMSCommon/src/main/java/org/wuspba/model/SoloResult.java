@@ -8,11 +8,14 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -33,13 +36,17 @@ public class SoloResult implements Serializable {
     @XmlElement(name = "id", required = true)
     private String id;
 
-    @Column(name = "ContestID")
+    @ManyToOne
+    @JoinColumn(name = "ContestID")
+    @XmlIDREF
     @XmlElement(name = "contest", required = true)
-    private String contest;
+    private SoloContest contest;
 
-    @Column(name = "PersonID")
+    @ManyToOne
+    @JoinColumn(name = "PersonID")
+    @XmlIDREF
     @XmlElement(name = "soloist", required = true)
-    private String soloist;
+    private Person soloist;
 
     @Column(name = "PlaceGiven")
     @XmlElement(name = "place", required = true)
@@ -66,28 +73,28 @@ public class SoloResult implements Serializable {
     /**
      * @return the contest
      */
-    public String getContest() {
+    public SoloContest getContest() {
         return contest;
     }
 
     /**
      * @param contest the contest to set
      */
-    public void setContest(String contest) {
+    public void setContest(SoloContest contest) {
         this.contest = contest;
     }
 
     /**
      * @return the soloist
      */
-    public String getSoloist() {
+    public Person getSoloist() {
         return soloist;
     }
 
     /**
      * @param soloist the soloist to set
      */
-    public void setSoloist(String soloist) {
+    public void setSoloist(Person soloist) {
         this.soloist = soloist;
     }
 
@@ -117,5 +124,20 @@ public class SoloResult implements Serializable {
      */
     public void setCpl(String cpl) {
         this.cpl = cpl;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null && obj instanceof SoloResult) {
+            return ((SoloResult)obj).getId().equals(getId());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 79 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
     }
 }

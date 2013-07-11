@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,6 +20,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -38,18 +41,22 @@ public class BandRegistration implements Serializable {
     @XmlElement(name = "id", required = true)
     private String id;
 
-    @Column(name = "BandID")
+    @ManyToOne
+    @JoinColumn(name = "BandID")
+    @XmlIDREF
     @XmlElement(name = "band", required = true)
-    private String band;
+    private Band band;
 
     @Column(name = "GradeID")
     @Enumerated(EnumType.ORDINAL)
     @XmlElement(name = "grade", required = true)
     private Grade grade;
 
-    @Column(name = "RosterID")
+    @ManyToOne
+    @JoinColumn(name = "RosterID")
+    @XmlIDREF
     @XmlElement(name = "roster", required = true)
-    private String roster;
+    private Roster roster;
 
     @Column(name = "SeasonID")
     @XmlElement(name = "seaon", required = true)
@@ -82,14 +89,14 @@ public class BandRegistration implements Serializable {
     /**
      * @return the band
      */
-    public String getBand() {
+    public Band getBand() {
         return band;
     }
 
     /**
      * @param band the band to set
      */
-    public void setBand(String band) {
+    public void setBand(Band band) {
         this.band = band;
     }
 
@@ -110,14 +117,14 @@ public class BandRegistration implements Serializable {
     /**
      * @return the roster
      */
-    public String getRoster() {
+    public Roster getRoster() {
         return roster;
     }
 
     /**
      * @param roster the roster to set
      */
-    public void setRoster(String roster) {
+    public void setRoster(Roster roster) {
         this.roster = roster;
     }
 
@@ -161,5 +168,20 @@ public class BandRegistration implements Serializable {
      */
     public void setEnd(Date end) {
         this.end = end;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null && obj instanceof BandRegistration) {
+            return ((BandRegistration)obj).getId().equals(getId());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 61 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
     }
 }

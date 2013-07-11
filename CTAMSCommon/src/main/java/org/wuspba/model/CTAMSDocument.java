@@ -20,12 +20,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CTAMSDocument {
     @XmlElement(name = "band")
     private final List<Band> bands = new ArrayList<Band>();
+    
+    @XmlElement(name = "person")
+    private final List<Person> people = new ArrayList<Person>();
 
     @XmlElement(name = "judge")
     private final List<Judge> judges = new ArrayList<Judge>();
-
-    @XmlElement(name = "person")
-    private final List<Person> people = new ArrayList<Person>();
 
     @XmlElement(name = "venue")
     private final List<Venue> venues = new ArrayList<Venue>();
@@ -42,17 +42,20 @@ public class CTAMSDocument {
     @XmlElement(name = "soloContest")
     private final List<SoloContest> soloContests = new ArrayList<SoloContest>();
     
-    @XmlElement(name = "bandMembers")
+    @XmlElement(name = "bandMember")
     private final List<BandMember> bandMembers = new ArrayList<BandMember>();
     
-    @XmlElement(name = "bandRegistrations")
+    @XmlElement(name = "bandRegistration")
     private final List<BandRegistration> bandRegistrations = new ArrayList<BandRegistration>();
     
-    @XmlElement(name = "rosters")
+    @XmlElement(name = "roster")
     private final List<Roster> rosters = new ArrayList<Roster>();
     
-    @XmlElement(name = "soloRegistrations")
+    @XmlElement(name = "soloRegistration")
     private final List<SoloRegistration> soloRegistrations = new ArrayList<SoloRegistration>();
+    
+    @XmlElement(name = "instructor")
+    private final List<Instructor> instructors = new ArrayList<Instructor>();
 
     /**
      * @return the bands
@@ -136,5 +139,12 @@ public class CTAMSDocument {
      */
     public List<SoloRegistration> getSoloRegistrations() {
         return soloRegistrations;
+    }
+
+    /**
+     * @return the instructors
+     */
+    public List<Instructor> getInstructors() {
+        return instructors;
     }
 }

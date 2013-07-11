@@ -16,12 +16,33 @@ import org.apache.log4j.Logger;
  */
 public class CreateXML extends AbstractTest {
     
-    private static final Logger LOG = Logger.getLogger(BandTest.class);
+    private static final Logger LOG = Logger.getLogger(CreateXML.class);
     
     public static void main(String[] args) {
+        createData();
 
         CTAMSDocument doc = new CTAMSDocument();
-        doc.getBandRegistrations().add(bandRegistration);
+        doc.getPeople().add(elaine);
+        doc.getPeople().add(bob);
+        doc.getPeople().add(andy);
+        doc.getPeople().add(jamie);
+//        doc.getBandMembers().add(andyMember);
+//        doc.getBandMembers().add(jamieMember);
+//        doc.getInstructors().add(andyInstructor);
+//        doc.getPeople().add(eoin);
+        doc.getJudges().add(judgeBob);
+        doc.getJudges().add(judgeAndy);
+        doc.getJudges().add(judgeJamie);
+        doc.getJudges().add(judgeEoin);
+//        doc.getVenues().add(venue);
+//        doc.getBands().add(skye);
+//        doc.getBandContests().add(bandContest);
+//        doc.getRosters().add(roster);
+//        doc.getBandRegistrations().add(bandRegistration);
+//        doc.getBandContestResults().add(bandResult);
+        doc.getSoloContests().add(soloContest);
+//        doc.getSoloRegistrations().add(soloRegistration);
+        doc.getSoloContestResults().add(soloResult);
             
         String packageName = CTAMSDocument.class.getPackage().getName();
 

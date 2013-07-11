@@ -321,4 +321,19 @@ public class Person {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null && obj instanceof Person) {
+            return ((Person)obj).getId().equals(getId());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 73 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
+    }
 }

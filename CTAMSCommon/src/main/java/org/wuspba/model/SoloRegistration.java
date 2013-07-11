@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,6 +20,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -38,9 +41,11 @@ public class SoloRegistration implements Serializable {
     @XmlElement(name = "id", required = true)
     private String id;
 
-    @Column(name = "PersonID")
+    @ManyToOne
+    @JoinColumn(name = "PersonID")
+    @XmlIDREF
     @XmlElement(name = "person", required = true)
-    private String person;
+    private Person person;
 
     @Column(name = "SoloNumber")
     @XmlElement(name = "number", required = true)
@@ -87,14 +92,14 @@ public class SoloRegistration implements Serializable {
     /**
      * @return the person
      */
-    public String getPerson() {
+    public Person getPerson() {
         return person;
     }
 
     /**
      * @param person the person to set
      */
-    public void setPerson(String person) {
+    public void setPerson(Person person) {
         this.person = person;
     }
 
@@ -180,5 +185,20 @@ public class SoloRegistration implements Serializable {
      */
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null && obj instanceof SoloRegistration) {
+            return ((SoloRegistration)obj).getId().equals(getId());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 71 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
     }
 }

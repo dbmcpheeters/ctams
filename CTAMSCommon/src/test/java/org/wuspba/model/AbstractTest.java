@@ -41,6 +41,7 @@ public class AbstractTest {
     protected static Person elaine;
     protected static Venue venue;
     protected static SoloRegistration soloRegistration;
+    protected static Instructor andyInstructor;
 
     @BeforeClass
     public static void createData() {
@@ -64,6 +65,7 @@ public class AbstractTest {
         createBandMembers();
         createRoster();
         createBandRegistration();
+        createInstructor();
     }
 
     private static void createJudgeQualifications() {
@@ -82,29 +84,29 @@ public class AbstractTest {
 
     private static void createJudgeEoin() {
         judgeEoin = new Judge();
-        judgeEoin.setId("eoin");
-        judgeEoin.setPerson(eoin.getId());
+        judgeEoin.setId("eoinJudge");
+        judgeEoin.setPerson(eoin);
         judgeEoin.getQualifications().add(drummingQual);
     }
 
     private static void createJudgeAndy() {
         judgeAndy = new Judge();
-        judgeAndy.setId("andy");
-        judgeAndy.setPerson(andy.getId());
+        judgeAndy.setId("andyJudge");
+        judgeAndy.setPerson(andy);
         judgeAndy.getQualifications().add(ensembleQual);
     }
 
     private static void createJudgeJamie() {
         judgeJamie = new Judge();
-        judgeJamie.setId("jamie");
-        judgeJamie.setPerson(jamie.getId());
+        judgeJamie.setId("jamieJudge");
+        judgeJamie.setPerson(jamie);
         judgeJamie.getQualifications().add(pipingQual);
     }
 
     private static void createJudgeBob() {
         judgeBob = new Judge();
-        judgeBob.setId("bob");
-        judgeBob.setPerson(bob.getId());
+        judgeBob.setId("bobJudge");
+        judgeBob.setPerson(bob);
         judgeBob.getQualifications().add(pipingQual);
     }
 
@@ -115,7 +117,7 @@ public class AbstractTest {
         venue.setBranch(Branch.INTERMOUNTAIN);
         venue.setCity("Colorado Springs");
         venue.setEmail("joseph.poch@innovativemoments.com");
-        venue.setId("ppcf");
+        venue.setId("venue");
         venue.setLocation("Memorial Park");
         venue.setName("Pikes Peak Celtic Festival");
         venue.setPhone("555-555-5555");
@@ -133,7 +135,7 @@ public class AbstractTest {
         eoin.setCity("Colorado Springs");
         eoin.setEmail("eoin@comcast.net");
         eoin.setFirstName("Eoin");
-        eoin.setId("eoin");
+        eoin.setId("eoinPerson");
         eoin.setLastName("McMahon");
         eoin.setLifeMember(false);
         eoin.setMiddleName("");
@@ -153,7 +155,7 @@ public class AbstractTest {
         andy.setCity("Colorado Springs");
         andy.setEmail("andy.trimble@gmail.com");
         andy.setFirstName("Andy");
-        andy.setId("andy");
+        andy.setId("andyPerson");
         andy.setLastName("Trimble");
         andy.setLifeMember(true);
         andy.setMiddleName("Ryan");
@@ -173,7 +175,7 @@ public class AbstractTest {
         jamie.setCity("Denver");
         jamie.setEmail("douche@baggery.com");
         jamie.setFirstName("Jamie");
-        jamie.setId("jamie");
+        jamie.setId("jamiePerson");
         jamie.setLastName("Cuthill");
         jamie.setLifeMember(false);
         jamie.setMiddleName("Ross");
@@ -193,7 +195,7 @@ public class AbstractTest {
         bob.setCity("Denver");
         bob.setEmail("dont.have@one.com");
         bob.setFirstName("Robert");
-        bob.setId("bob");
+        bob.setId("bobPerson");
         bob.setLastName("Mason");
         bob.setLifeMember(false);
         bob.setMiddleName("");
@@ -213,7 +215,7 @@ public class AbstractTest {
         elaine.setCity("Fort Collins");
         elaine.setEmail("elaine.hoffman@aol.com");
         elaine.setFirstName("Elaine");
-        elaine.setId("elaine");
+        elaine.setId("elainePerson");
         elaine.setLastName("Hoffman");
         elaine.setLifeMember(true);
         elaine.setMiddleName("");
@@ -229,15 +231,15 @@ public class AbstractTest {
     private static void createBandContest() {
         bandContest = new BandContest();
         bandContest.setDate(date);
-        bandContest.setDrumming(judgeEoin.getId());
-        bandContest.setEnsemble(judgeAndy.getId());
+        bandContest.setDrumming(judgeEoin);
+        bandContest.setEnsemble(judgeAndy);
         bandContest.setEventType(BandEventType.MEDLEY);
         bandContest.setGrade(Grade.FOUR);
-        bandContest.setId("abcd");
-        bandContest.setPiping1(judgeJamie.getId());
-        bandContest.setPiping2(judgeBob.getId());
+        bandContest.setId("bandContest");
+        bandContest.setPiping1(judgeJamie);
+        bandContest.setPiping2(judgeBob);
         bandContest.setSeason(2013);
-        bandContest.setVenue(venue.getId());
+        bandContest.setVenue(venue);
     }
 
     private static void createBand() {
@@ -249,7 +251,7 @@ public class AbstractTest {
         skye.setDissolved(true);
         skye.setEmail("andy.trimble@gmail.com");
         skye.setGrade(Grade.THREE);
-        skye.setId("0");
+        skye.setId("skyeBand");
         skye.setName("Colorado Skye");
         skye.setTelephone("719-963-9844");
         skye.setType(BandType.Competitive);
@@ -259,14 +261,14 @@ public class AbstractTest {
 
     private static void createBandResult() {
         bandResult = new BandResult();
-        bandResult.setBand(skye.getId());
+        bandResult.setBand(skye);
         bandResult.setChallengeUp(false);
-        bandResult.setContest(bandContest.getId());
+        bandResult.setContest(bandContest);
         bandResult.setDrummingEval("A");
         bandResult.setDrummingPlace(1);
         bandResult.setEnsembleEval("B");
         bandResult.setEnsemblePlace(1);
-        bandResult.setId("result1");
+        bandResult.setId("bandResult");
         bandResult.setPiping1Eval("C");
         bandResult.setPiping1Place(4);
         bandResult.setPiping2Eval("D");
@@ -281,30 +283,30 @@ public class AbstractTest {
         soloContest.setDate(date);
         soloContest.setEventType(SoloEventType.MSR);
         soloContest.setGrade(Grade.TWO);
-        soloContest.setId("gr2");
-        soloContest.setJudge2(judgeBob.getId());
-        soloContest.setJudge3(judgeJamie.getId());
+        soloContest.setId("soloContest");
+        soloContest.setJudge2(judgeBob);
+        soloContest.setJudge3(judgeJamie);
         soloContest.setLeet(0);
-        soloContest.setPrimaryJudge(judgeAndy.getId());
+        soloContest.setPrimaryJudge(judgeAndy);
         soloContest.setSeason(2013);
-        soloContest.setVenue(venue.getId());
+        soloContest.setVenue(venue);
     }
 
     private static void createSoloResult() {
         soloResult = new SoloResult();
-        soloResult.setContest(soloContest.getId());
+        soloResult.setContest(soloContest);
         soloResult.setCpl("4");
-        soloResult.setId("res1");
+        soloResult.setId("soloResult");
         soloResult.setPlace(1);
-        soloResult.setSoloist(elaine.getId());
+        soloResult.setSoloist(elaine);
     }
 
     private static void createSoloRegistration() {
         soloRegistration = new SoloRegistration();
         soloRegistration.setEnd(end);
         soloRegistration.setGrade(Grade.TWO);
-        soloRegistration.setId("soloreg");
-        soloRegistration.setPerson(elaine.getId());
+        soloRegistration.setId("soloRegistration");
+        soloRegistration.setPerson(elaine);
         soloRegistration.setSeason(2013);
         soloRegistration.setStart(start);
         soloRegistration.setType(Instrument.Piping);
@@ -313,31 +315,38 @@ public class AbstractTest {
 
     private static void createBandMembers() {
         andyMember = new BandMember();
-        andyMember.setId("andymember");
-        andyMember.setPerson(andy.getId());
+        andyMember.setId("andyMember");
+        andyMember.setPerson(andy);
         andyMember.setType(BandMemberType.PipeMajor);
         
         jamieMember = new BandMember();
-        jamieMember.setId("jameimember");
-        jamieMember.setPerson(jamie.getId());
+        jamieMember.setId("jameiMember");
+        jamieMember.setPerson(jamie);
         jamieMember.setType(BandMemberType.Piper);
     }
 
     private static void createRoster() {
         roster = new Roster();
         roster.setId("roster");
-        roster.getMembers().add(andyMember.getId());
-        roster.getMembers().add(jamieMember.getId());
+        roster.getMembers().add(andyMember);
+        roster.getMembers().add(jamieMember);
     }
 
     private static void createBandRegistration() {
         bandRegistration = new BandRegistration();
-        bandRegistration.setBand(skye.getId());
+        bandRegistration.setBand(skye);
         bandRegistration.setEnd(end);
         bandRegistration.setGrade(Grade.ONE);
-        bandRegistration.setId("skyereg");
-        bandRegistration.setRoster(roster.getId());
+        bandRegistration.setId("bandRegistration");
+        bandRegistration.setRoster(roster);
         bandRegistration.setSeason(2009);
         bandRegistration.setStart(start);
+    }
+
+    private static void createInstructor() {
+        andyInstructor = new Instructor();
+        andyInstructor.setId("andyInstructor");
+        andyInstructor.setPerson(andy);
+        andyInstructor.setType(Instrument.Piping);
     }
 }

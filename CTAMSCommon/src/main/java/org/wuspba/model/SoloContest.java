@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,6 +20,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -40,9 +43,11 @@ public class SoloContest implements Serializable {
     @XmlElement(name = "id", required = true)
     private String id;
 
-    @Column(name = "VenueID")
+    @ManyToOne
+    @JoinColumn(name = "VenueID")
+    @XmlIDREF
     @XmlElement(name = "venue", required = true)
-    private String venue;
+    private Venue venue;
 
     @Column(name = "EventTypeID")
     @XmlElement(name = "eventType", required = true)
@@ -62,17 +67,23 @@ public class SoloContest implements Serializable {
     @XmlElement(name = "date", required = true)
     private Date date;
 
-    @Column(name = "PrimaryJudge")
+    @ManyToOne
+    @JoinColumn(name = "PrimaryJudge")
+    @XmlIDREF
     @XmlElement(name = "primaryJudge", required = true)
-    private String primaryJudge;
+    private Judge primaryJudge;
 
-    @Column(name = "Judge2")
+    @ManyToOne
+    @JoinColumn(name = "Judge2")
+    @XmlIDREF
     @XmlElement(name = "judge2")
-    private String judge2 = null;
+    private Judge judge2 = null;
 
-    @Column(name = "Judge3")
+    @ManyToOne
+    @JoinColumn(name = "Judge3")
+    @XmlIDREF
     @XmlElement(name = "judge3")
-    private String judge3 = null;
+    private Judge judge3 = null;
 
     @Column(name = "LeetNumber")
     @XmlElement(name = "leet")
@@ -99,14 +110,14 @@ public class SoloContest implements Serializable {
     /**
      * @return the venue
      */
-    public String getVenue() {
+    public Venue getVenue() {
         return venue;
     }
 
     /**
      * @param venue the venue to set
      */
-    public void setVenue(String venue) {
+    public void setVenue(Venue venue) {
         this.venue = venue;
     }
 
@@ -169,42 +180,42 @@ public class SoloContest implements Serializable {
     /**
      * @return the primaryJudge
      */
-    public String getPrimaryJudge() {
+    public Judge getPrimaryJudge() {
         return primaryJudge;
     }
 
     /**
      * @param primaryJudge the primaryJudge to set
      */
-    public void setPrimaryJudge(String primaryJudge) {
+    public void setPrimaryJudge(Judge primaryJudge) {
         this.primaryJudge = primaryJudge;
     }
 
     /**
      * @return the judge2
      */
-    public String getJudge2() {
+    public Judge getJudge2() {
         return judge2;
     }
 
     /**
      * @param judge2 the judge2 to set
      */
-    public void setJudge2(String judge2) {
+    public void setJudge2(Judge judge2) {
         this.judge2 = judge2;
     }
 
     /**
      * @return the judge3
      */
-    public String getJudge3() {
+    public Judge getJudge3() {
         return judge3;
     }
 
     /**
      * @param judge3 the judge3 to set
      */
-    public void setJudge3(String judge3) {
+    public void setJudge3(Judge judge3) {
         this.judge3 = judge3;
     }
 
@@ -234,5 +245,20 @@ public class SoloContest implements Serializable {
      */
     public void setContestants(int contestants) {
         this.contestants = contestants;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null && obj instanceof SoloContest) {
+            return ((SoloContest)obj).getId().equals(getId());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
     }
 }

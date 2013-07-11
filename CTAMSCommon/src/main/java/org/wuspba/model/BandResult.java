@@ -8,11 +8,14 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -37,13 +40,17 @@ public class BandResult implements Serializable {
     @XmlElement(name = "id", required = true)
     private String id;
 
-    @Column(name = "ContestID")
-    @XmlElement(name = "contest", required = true)
-    private String contest;
+    @ManyToOne
+    @JoinColumn(name = "BandContestID")
+    @XmlIDREF
+    @XmlElement(name = "bandContest", required = true)
+    private BandContest contest;
 
-    @Column(name = "BandID")
+    @ManyToOne
+    @JoinColumn(name = "BandID")
+    @XmlIDREF
     @XmlElement(name = "band", required = true)
-    private String band;
+    private Band band;
 
     @Column(name = "Piping1Place")
     @XmlElement(name = "piping1Place", required = true)
@@ -260,28 +267,43 @@ public class BandResult implements Serializable {
     /**
      * @return the contest
      */
-    public String getContest() {
+    public BandContest getContest() {
         return contest;
     }
 
     /**
      * @param contest the contest to set
      */
-    public void setContest(String contest) {
+    public void setContest(BandContest contest) {
         this.contest = contest;
     }
 
     /**
      * @return the band
      */
-    public String getBand() {
+    public Band getBand() {
         return band;
     }
 
     /**
      * @param band the band to set
      */
-    public void setBand(String band) {
+    public void setBand(Band band) {
         this.band = band;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null && obj instanceof BandResult) {
+            return ((BandResult)obj).getId().equals(getId());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
     }
 }

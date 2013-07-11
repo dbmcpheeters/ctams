@@ -18,4 +18,9 @@
         <lifeMember>true</lifeMember>
         <branch>INTERMOUNTAIN</branch>
     </person>
+    <instructor>
+        <id>andyInstructor</id>
+        <person>andyPerson</person>
+        <type>Piping</type>
+    </instructor>
 </CTAMS>

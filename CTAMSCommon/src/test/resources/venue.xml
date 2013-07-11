@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <CTAMS xmlns:ns2="ctams">
     <venue>
-        <id>ppcf</id>
+        <id>venue</id>
         <name>Pikes Peak Celtic Festival</name>
         <sponsor>Innovative Moments</sponsor>
         <lcoation>Memorial Park</lcoation>

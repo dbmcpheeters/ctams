@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
-  <persistence-unit name="org.wuspba_CTAMSCommon_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="org.wuspba.ctams" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>org.wuspba.model.Band</class>
     <class>org.wuspba.model.BandContest</class>
@@ -8,13 +8,45 @@
     <class>org.wuspba.model.BandRegistration</class>
     <class>org.wuspba.model.BandResult</class>
     <class>org.wuspba.model.Judge</class>
+    <class>org.wuspba.model.Instructor</class>
+    <class>org.wuspba.model.JudgeQualification</class>
+    <class>org.wuspba.model.Person</class>
+    <class>org.wuspba.model.Roster</class>
+    <class>org.wuspba.model.SoloContest</class>
+    <class>org.wuspba.model.SoloRegistration</class>
+    <class>org.wuspba.model.SoloResult</class>
+    <class>org.wuspba.model.Venue</class>
     <properties>
       <property name="hibernate.connection.username" value="root"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
       <property name="hibernate.connection.password" value=""/>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/ctams?zeroDateTimeBehavior=convertToNull"/>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="org.wuspba.ctams_test" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>org.wuspba.model.Band</class>
+    <class>org.wuspba.model.BandContest</class>
+    <class>org.wuspba.model.BandMember</class>
+    <class>org.wuspba.model.BandRegistration</class>
+    <class>org.wuspba.model.BandResult</class>
+    <class>org.wuspba.model.Instructor</class>
+    <class>org.wuspba.model.Judge</class>
+    <class>org.wuspba.model.JudgeQualification</class>
+    <class>org.wuspba.model.Person</class>
+    <class>org.wuspba.model.Roster</class>
+    <class>org.wuspba.model.SoloContest</class>
+    <class>org.wuspba.model.SoloRegistration</class>
+    <class>org.wuspba.model.SoloResult</class>
+    <class>org.wuspba.model.Venue</class>
+    <properties>
+      <property name="hibernate.connection.username" value="root"/>
+      <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+      <property name="hibernate.connection.password" value=""/>
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/ctams_test?zeroDateTimeBehavior=convertToNull"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
     </properties>
   </persistence-unit>
 </persistence>

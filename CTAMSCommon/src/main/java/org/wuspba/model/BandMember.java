@@ -10,11 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -35,9 +38,11 @@ public class BandMember implements Serializable {
     @XmlElement(name = "id", required = true)
     private String id;
 
-    @Column(name = "PersonID")
+    @ManyToOne
+    @JoinColumn(name = "PersonID")
+    @XmlIDREF
     @XmlElement(name = "person", required = true)
-    private String person;
+    private Person person;
 
     @Column(name = "PositionID")
     @Enumerated(EnumType.ORDINAL)
@@ -61,14 +66,14 @@ public class BandMember implements Serializable {
     /**
      * @return the person
      */
-    public String getPerson() {
+    public Person getPerson() {
         return person;
     }
 
     /**
      * @param person the person to set
      */
-    public void setPerson(String person) {
+    public void setPerson(Person person) {
         this.person = person;
     }
 
@@ -84,5 +89,20 @@ public class BandMember implements Serializable {
      */
     public void setType(BandMemberType type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null && obj instanceof BandMember) {
+            return ((BandMember)obj).getId().equals(getId());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 41 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
     }
 }

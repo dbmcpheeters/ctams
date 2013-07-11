@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <CTAMS xmlns:ns2="ctams">
-    <rosters>
+    <bandMember>
+        <id>andyMember</id>
+        <person>andy</person>
+        <type>PipeMajor</type>
+    </bandMember>
+    <bandMember>
+        <id>jameiMember</id>
+        <person>jamie</person>
+        <type>Piper</type>
+    </bandMember>
+    <roster>
         <id>roster</id>
-        <members>andymember</members>
-        <members>jameimember</members>
-    </rosters>
+        <members>andyMember</members>
+        <members>jameiMember</members>
+    </roster>
 </CTAMS>

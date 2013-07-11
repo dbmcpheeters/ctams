@@ -1,12 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <CTAMS xmlns:ns2="ctams">
-    <bandRegistrations>
-        <id>skyereg</id>
-        <band>0</band>
+    <band>
+        <id>skyeBand</id>
+        <name>Colorado Skye</name>
+        <address>214 S Hancock</address>
+        <city>Colorado Springs</city>
+        <state>CO</state>
+        <zip>80903</zip>
+        <telephone>719-963-9844</telephone>
+        <email>andy.trimble@gmail.com</email>
+        <url>www.coloradoskye.com</url>
+        <grade>THREE</grade>
+        <branch>INTERMOUNTAIN</branch>
+        <dissolved>true</dissolved>
+        <type>Competitive</type>
+    </band>
+    <person>
+        <id>andyPerson</id>
+        <title>Mr.</title>
+        <firstName>Andy</firstName>
+        <middleName>Ryan</middleName>
+        <nickName>The Man</nickName>
+        <lastName>Trimble</lastName>
+        <suffix></suffix>
+        <email>andy.trimble@gmail.com</email>
+        <address>214 S Hancock Ave.</address>
+        <city>Colorado Springs</city>
+        <state>CO</state>
+        <zip>80903</zip>
+        <phone>719-555-5555</phone>
+        <notes>What a bad ass!</notes>
+        <lifeMember>true</lifeMember>
+        <branch>INTERMOUNTAIN</branch>
+    </person>
+    <person>
+        <id>jamiePerson</id>
+        <title>Mrs.</title>
+        <firstName>Jamie</firstName>
+        <middleName>Ross</middleName>
+        <nickName>The Douche</nickName>
+        <lastName>Cuthill</lastName>
+        <suffix></suffix>
+        <email>douche@baggery.com</email>
+        <address>231 Lame St.</address>
+        <city>Denver</city>
+        <state>CO</state>
+        <zip>80831</zip>
+        <phone>303-555-5555</phone>
+        <notes>Lame!</notes>
+        <lifeMember>false</lifeMember>
+        <branch>NORTHERN</branch>
+    </person>
+    <bandMember>
+        <id>andyMember</id>
+        <person>andyPerson</person>
+        <type>PipeMajor</type>
+    </bandMember>
+    <bandMember>
+        <id>jameiMember</id>
+        <person>jamiePerson</person>
+        <type>Piper</type>
+    </bandMember>
+    <bandRegistration>
+        <id>bandRegistration</id>
+        <band>skyeBand</band>
         <grade>ONE</grade>
         <roster>roster</roster>
         <seaon>2009</seaon>
         <start>2013-07-04T22:59:00-06:00</start>
         <end>2013-06-03T20:00:00-06:00</end>
-    </bandRegistrations>
+    </bandRegistration>
+    <roster>
+        <id>roster</id>
+        <members>andyMember</members>
+        <members>jameiMember</members>
+    </roster>
 </CTAMS>

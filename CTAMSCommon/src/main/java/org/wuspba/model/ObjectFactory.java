@@ -24,7 +24,7 @@ public class ObjectFactory {
     private static final QName PERSON_QNAME = new QName("ctams", "Person");
     private static final QName SOLO_CONTEST_QNAME = new QName("ctams", "SoloContest");
     private static final QName SOLO_RESULT_QNAME = new QName("ctams", "SoloResult");
-    private static final QName SOLOIST_QNAME = new QName("ctams", "Soloist");
+    private static final QName INSTRUCTOR_QNAME = new QName("ctams", "Instructor");
     private static final QName VENUE_QNAME = new QName("ctams", "Venue");
     
     @XmlElementDecl(scope = CTAMSDocument.class, namespace = "ctams", name = "CTAMS")
@@ -75,5 +75,10 @@ public class ObjectFactory {
     @XmlElementDecl(scope = Venue.class, namespace = "ctams", name = "Venue")
     JAXBElement<Venue> createVenue(Venue value) {
         return new JAXBElement<Venue>(VENUE_QNAME, Venue.class, value);
+    }
+
+    @XmlElementDecl(scope = Instructor.class, namespace = "ctams", name = "Instructor")
+    JAXBElement<Instructor> createInstructor(Instructor value) {
+        return new JAXBElement<Instructor>(INSTRUCTOR_QNAME, Instructor.class, value);
     }
 }

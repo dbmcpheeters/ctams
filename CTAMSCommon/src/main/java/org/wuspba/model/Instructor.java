@@ -5,14 +5,13 @@
 package org.wuspba.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -27,27 +26,28 @@ import javax.xml.bind.annotation.XmlType;
  * @author atrimble
  */
 @Entity
-@Table(name = "Roster")
-@XmlType(propOrder = {"id", "members"})
+@Table(name = "Instructor")
+@XmlType(propOrder = {"id", "person", "type"})
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "Roster")
-public class Roster implements Serializable {
-    
+@XmlRootElement(name = "Instructor")
+public class Instructor implements Serializable {
+
     @Id
-    @Column(name = "RosterID")
+    @Column(name = "InstructorID")
     @XmlID
     @XmlElement(name = "id", required = true)
     private String id;
 
-    @OneToMany
-    @JoinTable(
-        name = "Band_Member",
-        joinColumns = @JoinColumn(name = "RosterID")
-    )
+    @ManyToOne
+    @JoinColumn(name = "PersonID")
     @XmlIDREF
-    @XmlElement(name = "members", required = true)
-    private final List<BandMember> members = 
-            new ArrayList<BandMember>();
+    @XmlElement(name = "person", required = true)
+    private Person person;
+
+    @Column(name = "TypeID")
+    @Enumerated(EnumType.ORDINAL)
+    @XmlElement(name = "type", required = true)
+    private Instrument type;
 
     /**
      * @return the id
@@ -64,16 +64,37 @@ public class Roster implements Serializable {
     }
 
     /**
-     * @return the members
+     * @return the person
      */
-    public List<BandMember> getMembers() {
-        return members;
+    public Person getPerson() {
+        return person;
+    }
+
+    /**
+     * @param person the person to set
+     */
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    /**
+     * @return the type
+     */
+    public Instrument getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(Instrument type) {
+        this.type = type;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Roster) {
-            return ((Roster)obj).getId().equals(getId());
+        if(obj != null && obj instanceof Instructor) {
+            return ((Instructor)obj).getId().equals(getId());
         }
         return false;
     }

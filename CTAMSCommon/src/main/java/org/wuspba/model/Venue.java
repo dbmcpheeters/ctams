@@ -286,4 +286,19 @@ public class Venue implements Serializable {
     public void setBranch(Branch branch) {
         this.branch = branch;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null && obj instanceof Venue) {
+            return ((Venue)obj).getId().equals(getId());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
+    }
 }

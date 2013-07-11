@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <CTAMS xmlns:ns2="ctams">
     <band>
-        <id>0</id>
+        <id>skyeBand</id>
         <name>Colorado Skye</name>
         <address>214 S Hancock</address>
         <city>Colorado Springs</city>
