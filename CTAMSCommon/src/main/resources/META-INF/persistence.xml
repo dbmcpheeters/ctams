@@ -41,12 +41,12 @@
     <class>org.wuspba.model.SoloResult</class>
     <class>org.wuspba.model.Venue</class>
     <properties>
-      <property name="hibernate.connection.username" value="root"/>
-      <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+      <property name="hibernate.connection.url" value="jdbc:derby:memory:ctams_test"/>
+      <property name="hibernate.connection.driver_class" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="create"/>
+      <property name="hibernate.connection.username" value=""/>
       <property name="hibernate.connection.password" value=""/>
-      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/ctams_test?zeroDateTimeBehavior=convertToNull"/>
-      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
     </properties>
   </persistence-unit>
 </persistence>
