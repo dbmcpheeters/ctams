@@ -52,12 +52,12 @@ public class SoloRegistration implements Serializable {
     private int number;
 
     @Column(name = "GradeID")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "grade", required = true)
     private Grade grade;
 
     @Column(name = "SoloTypeID")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "type", required = true)
     private Instrument type;
 

@@ -45,7 +45,7 @@ public class Instructor implements Serializable {
     private Person person;
 
     @Column(name = "TypeID")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "type", required = true)
     private Instrument type;
 

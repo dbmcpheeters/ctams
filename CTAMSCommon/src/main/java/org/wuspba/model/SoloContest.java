@@ -54,7 +54,7 @@ public class SoloContest implements Serializable {
     private SoloEventType eventType;
 
     @Column(name = "GradeID")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "grade", required = true)
     private Grade grade;
 

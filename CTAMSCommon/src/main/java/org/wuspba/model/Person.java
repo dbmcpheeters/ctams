@@ -94,7 +94,7 @@ public class Person {
     private boolean lifeMember = false;
 
     @Column(name = "BranchId")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "branch")
     private Branch branch = Branch.OTHER;
 

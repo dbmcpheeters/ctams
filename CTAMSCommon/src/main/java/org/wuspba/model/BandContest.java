@@ -50,12 +50,12 @@ public class BandContest implements Serializable {
     private Venue venue;
 
     @Column(name = "EventTypeID")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "eventType", required = true)
     private BandEventType eventType;
 
     @Column(name = "GradeID")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "grade", required = true)
     private Grade grade;
 

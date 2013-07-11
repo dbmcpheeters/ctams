@@ -87,7 +87,7 @@ public class Venue implements Serializable {
     private boolean soloContest;
 
     @Column(name = "BranchID")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "branch", required = true)
     private Branch branch;
 

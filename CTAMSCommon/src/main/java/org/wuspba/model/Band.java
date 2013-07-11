@@ -71,12 +71,12 @@ public class Band implements Serializable {
     private String url;
     
     @Column(name = "GradeID")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "grade", required = true)
     private Grade grade;
 
     @Column(name = "BranchID")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "branch", required = true)
     private Branch branch;
 

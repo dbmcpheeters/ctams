@@ -45,7 +45,7 @@ public class BandMember implements Serializable {
     private Person person;
 
     @Column(name = "PositionID")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "type", required = true)
     private BandMemberType type;
 

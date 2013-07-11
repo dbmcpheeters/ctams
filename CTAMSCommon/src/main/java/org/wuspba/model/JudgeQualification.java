@@ -33,12 +33,12 @@ public class JudgeQualification implements Serializable {
     private String id;
 
     @Column(name = "PanelType")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "panel", required = true)
     private JudgePanelType panel;
 
     @Column(name = "QualificationType")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "type", required = true)
     private JudgeType type;
 

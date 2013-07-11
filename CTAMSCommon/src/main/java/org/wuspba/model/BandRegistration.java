@@ -48,7 +48,7 @@ public class BandRegistration implements Serializable {
     private Band band;
 
     @Column(name = "GradeID")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @XmlElement(name = "grade", required = true)
     private Grade grade;
 
