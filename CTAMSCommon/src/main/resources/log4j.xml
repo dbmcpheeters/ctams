@@ -10,7 +10,7 @@
     </appender> 
 
     <root>
-        <priority value="debug"></priority>
+        <priority value="info"></priority>
         <!-- log all log entries on console -->
         <appender-ref ref="consoleAppender"/>
     </root>

@@ -4,6 +4,7 @@
  */
 package org.wuspba.model;
 
+import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -15,7 +16,7 @@ import org.junit.Test;
  *
  * @author atrimble
  */
-public class BandRegistrationTest extends AbstractTest {
+public class BandRegistrationTest extends AbstractHibernateTest {
 
     private static final Logger LOG = Logger.getLogger(BandRegistrationTest.class);
 
@@ -36,17 +37,40 @@ public class BandRegistrationTest extends AbstractTest {
             assertEquals(ctams.getBandRegistrations().size(), 1);
             BandRegistration reg = ctams.getBandRegistrations().get(0);
 
-            assertEquals(reg.getBand(), bandRegistration.getBand());
-            assertEquals(reg.getEnd(), bandRegistration.getEnd());
-            assertEquals(reg.getGrade(), bandRegistration.getGrade());
-            assertEquals(reg.getId(), bandRegistration.getId());
-            assertEquals(reg.getRoster(), bandRegistration.getRoster());
-            assertEquals(reg.getSeason(), bandRegistration.getSeason());
-            assertEquals(reg.getStart(), bandRegistration.getStart());
+            testEquality(reg, bandRegistration);
             
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
+    }
+
+    @Test
+    public void testPersistence() {
+        EntityManager entityManager = factory.createEntityManager();
+        
+        BandRegistration reg = entityManager.find(BandRegistration.class, bandRegistration.getId());
+        assertNotNull(reg);
+        assertEquals(reg, bandRegistration);
+
+        testEquality(reg, bandRegistration);
+
+        reg.setSeason(2019);
+
+        entityManager.merge(reg);
+        
+        reg = entityManager.find(BandRegistration.class, bandRegistration.getId());
+        assertNotNull(reg);
+        assertNotEquals(reg.getSeason(), bandRegistration.getSeason());
+    }
+
+    private void testEquality(BandRegistration r1, BandRegistration r2) {
+        assertEquals(r1.getBand(), r2.getBand());
+        testDates(r1.getEnd(), r2.getEnd());
+        assertEquals(r1.getGrade(), r2.getGrade());
+        assertEquals(r1.getId(), r2.getId());
+        assertEquals(r1.getRoster(), r2.getRoster());
+        assertEquals(r1.getSeason(), r2.getSeason());
+        testDates(r1.getStart(), r2.getStart());
     }
 }

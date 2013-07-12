@@ -4,13 +4,18 @@
  */
 package org.wuspba.model;
 
+import java.sql.DriverManager;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceUnit;
 import org.apache.log4j.Logger;
-import org.junit.Test;
+import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -20,26 +25,166 @@ public class AbstractHibernateTest extends AbstractTest {
 
     private static final Logger LOG = Logger.getLogger(AbstractHibernateTest.class);
 
-    private EntityManagerFactory factory;
+    protected static EntityManagerFactory factory;
 
-    @Test
-    public void testHibernate() {
+    @BeforeClass
+    public static void initialize() {
+        try {
+            LOG.info("Starting in-memory database for unit tests");
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            DriverManager.getConnection("jdbc:derby:memory:ctams_test;create=true").close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        AbstractTest.createData();
+
         factory = Persistence.createEntityManagerFactory("org.wuspba.ctams_test");
 
-        /* List down all the employees */
-        addBand(skye);
-        
-        /* List down new list of the employees */
-        listBands();
+        populateData();
+    }
 
-        /* Update employee's records */
-        updateBand(skye.getId());
-        
-        /* List down new list of the employees */
-        listBands();
+    @AfterClass
+    public static void shutdown() {
+        try {
+            DriverManager.getConnection("jdbc:derby:memory:ctams_test;shutdown=true").close();
+        } catch (Exception ex) {
+            //ex.printStackTrace();
+        }
+    }
 
-        /* Delete an employee from the database */
-        deleteBand(skye.getId());
+    protected void testDates(Date d1, Date d2) {
+        GregorianCalendar cal1 = new GregorianCalendar();
+        GregorianCalendar cal2 = new GregorianCalendar();
+        cal1.setTime(d1);
+        cal2.setTime(d2);
+        
+        assertEquals(cal1.get(Calendar.YEAR), cal2.get(Calendar.YEAR));
+        assertEquals(cal1.get(Calendar.MONTH), cal2.get(Calendar.MONTH));
+        assertEquals(cal1.get(Calendar.DAY_OF_MONTH), cal2.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private static void populateData() {
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(skye);
+        tx.commit();
+
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(eoin);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(andy);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(jamie);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(bob);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(elaine);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(venue);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(drummingQual);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(pipingQual);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(ensembleQual);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(judgeEoin);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(judgeAndy);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(judgeJamie);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(judgeBob);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(bandContest);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(bandResult);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(soloContest);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(soloResult);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(soloRegistration);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(andyMember);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(jamieMember);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(roster);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(bandRegistration);
+        tx.commit();
+        
+        tx = entityManager.getTransaction();
+        tx.begin();
+        entityManager.persist(andyInstructor);
+        tx.commit();
     }
 
     public void addBand(Band band) {

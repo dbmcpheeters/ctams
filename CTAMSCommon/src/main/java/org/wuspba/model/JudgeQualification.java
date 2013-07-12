@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "Judge_Qualifications")
 @XmlType(propOrder = {"id", "panel", "type"})
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "Judge")
+@XmlRootElement(name = "JudgeQualification")
 public class JudgeQualification implements Serializable {
 
     @Id

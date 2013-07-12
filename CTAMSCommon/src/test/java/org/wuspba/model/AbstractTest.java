@@ -70,14 +70,17 @@ public class AbstractTest {
 
     private static void createJudgeQualifications() {
         pipingQual = new JudgeQualification();
+        pipingQual.setId("pipingQual");
         pipingQual.setPanel(JudgePanelType.A);
         pipingQual.setType(JudgeType.BandPiping);
 
         ensembleQual = new JudgeQualification();
+        ensembleQual.setId("ensembleQual");
         ensembleQual.setPanel(JudgePanelType.B);
         ensembleQual.setType(JudgeType.BandEnsemble);
 
         drummingQual = new JudgeQualification();
+        drummingQual.setId("drummingQual");
         drummingQual.setPanel(JudgePanelType.Local);
         drummingQual.setType(JudgeType.BandDrumming);
     }

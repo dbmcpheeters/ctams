@@ -4,6 +4,7 @@
  */
 package org.wuspba.model;
 
+import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -15,7 +16,7 @@ import org.junit.Test;
  *
  * @author atrimble
  */
-public class SoloRegistrationTest extends AbstractTest {
+public class SoloRegistrationTest extends AbstractHibernateTest {
 
     private static final Logger LOG = Logger.getLogger(SoloRegistrationTest.class);
 
@@ -36,17 +37,40 @@ public class SoloRegistrationTest extends AbstractTest {
             assertEquals(ctams.getSoloRegistrations().size(), 1);
             SoloRegistration reg = ctams.getSoloRegistrations().get(0);
 
-            assertEquals(reg.getEnd(), soloRegistration.getEnd());
-            assertEquals(reg.getGrade(), soloRegistration.getGrade());
-            assertEquals(reg.getId(), soloRegistration.getId());
-            assertEquals(reg.getPerson(), soloRegistration.getPerson());
-            assertEquals(reg.getSeason(), soloRegistration.getSeason());
-            assertEquals(reg.getStart(), soloRegistration.getStart());
-            assertEquals(reg.getType(), soloRegistration.getType());
+            testEquality(reg, soloRegistration);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
+    }
+
+    @Test
+    public void testPersistence() {
+        EntityManager entityManager = factory.createEntityManager();
+        
+        SoloRegistration contest = entityManager.find(SoloRegistration.class, soloRegistration.getId());
+        assertNotNull(contest);
+        assertEquals(contest, soloRegistration);
+
+        testEquality(contest, soloRegistration);
+
+        contest.setNumber(99);
+
+        entityManager.merge(contest);
+        
+        contest = entityManager.find(SoloRegistration.class, soloRegistration.getId());
+        assertNotNull(contest);
+        assertNotEquals(contest.getNumber(), soloRegistration.getNumber());
+    }
+
+    private void testEquality(SoloRegistration r1, SoloRegistration r2) {
+        testDates(r1.getEnd(), r2.getEnd());
+        assertEquals(r1.getGrade(), r2.getGrade());
+        assertEquals(r1.getId(), r2.getId());
+        assertEquals(r1.getPerson(), r2.getPerson());
+        assertEquals(r1.getSeason(), r2.getSeason());
+        testDates(r1.getStart(), r2.getStart());
+        assertEquals(r1.getType(), r2.getType());
     }
 }

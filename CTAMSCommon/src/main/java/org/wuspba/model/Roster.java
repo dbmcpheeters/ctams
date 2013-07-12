@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -39,11 +40,7 @@ public class Roster implements Serializable {
     @XmlElement(name = "id", required = true)
     private String id;
 
-    @OneToMany
-    @JoinTable(
-        name = "Band_Member",
-        joinColumns = @JoinColumn(name = "RosterID")
-    )
+    @ManyToMany
     @XmlIDREF
     @XmlElement(name = "members", required = true)
     private final List<BandMember> members = 

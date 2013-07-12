@@ -4,6 +4,7 @@
  */
 package org.wuspba.model;
 
+import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -15,7 +16,7 @@ import org.junit.Test;
  *
  * @author atrimble
  */
-public class RosterTest extends AbstractTest {
+public class RosterTest extends AbstractHibernateTest {
 
     private static final Logger LOG = Logger.getLogger(RosterTest.class);
 
@@ -44,6 +45,33 @@ public class RosterTest extends AbstractTest {
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
+        }
+    }
+
+    @Test
+    public void testPersistence() {
+        EntityManager entityManager = factory.createEntityManager();
+        
+        Roster ros = entityManager.find(Roster.class, roster.getId());
+        assertNotNull(ros);
+        assertEquals(ros, roster);
+
+        testEquality(ros, roster);
+
+        ros.getMembers().remove(andyMember);
+
+        entityManager.merge(ros);
+        
+        ros = entityManager.find(Roster.class, roster.getId());
+        assertNotNull(ros);
+        assertNotEquals(ros.getMembers().size(), roster.getMembers().size());
+    }
+
+    private void testEquality(Roster r1, Roster r2) {
+        assertEquals(r1.getId(), r2.getId());
+        assertEquals(r1.getMembers().size(), r2.getMembers().size());
+        for(int i = 0; i < r1.getMembers().size(); ++i) {
+            assertEquals(r1.getMembers().get(i), r2.getMembers().get(i));
         }
     }
 }

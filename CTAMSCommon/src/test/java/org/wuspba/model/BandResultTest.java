@@ -4,6 +4,7 @@
  */
 package org.wuspba.model;
 
+import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -15,7 +16,7 @@ import org.junit.Test;
  *
  * @author atrimble
  */
-public class BandResultTest extends AbstractTest {
+public class BandResultTest extends AbstractHibernateTest {
     private static final Logger LOG = Logger.getLogger(BandResultTest.class);
 
     @Test
@@ -35,22 +36,45 @@ public class BandResultTest extends AbstractTest {
             assertEquals(ctams.getBandContestResults().size(), 1);
             BandResult result = ctams.getBandContestResults().get(0);
 
-            assertEquals(result.getBand(), bandResult.getBand());
-            assertEquals(result.getContest(), bandResult.getContest());
-            assertEquals(result.getDrummingEval(), bandResult.getDrummingEval());
-            assertEquals(result.getDrummingPlace(), bandResult.getDrummingPlace());
-            assertEquals(result.getEnsembleEval(), bandResult.getEnsembleEval());
-            assertEquals(result.getId(), bandResult.getId());
-            assertEquals(result.getPiping1Eval(), bandResult.getPiping1Eval());
-            assertEquals(result.getPiping1Place(), bandResult.getPiping1Place());
-            assertEquals(result.getPiping2Eval(), bandResult.getPiping2Eval());
-            assertEquals(result.getPiping2Place(), bandResult.getPiping2Place());
-            assertEquals(result.getPlace(), bandResult.getPlace());
-            assertEquals(result.getPoints(), bandResult.getPoints());
+            testEquality(result, bandResult);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
+    }
+
+    @Test
+    public void testPersistence() {
+        EntityManager entityManager = factory.createEntityManager();
+        
+        BandResult result = entityManager.find(BandResult.class, bandResult.getId());
+        assertNotNull(result);
+        assertEquals(result, bandResult);
+
+        testEquality(result, bandResult);
+
+        result.setPiping1Eval("Sucks");
+
+        entityManager.merge(result);
+        
+        result = entityManager.find(BandResult.class, bandResult.getId());
+        assertNotNull(result);
+        assertNotEquals(result.getPiping1Eval(), bandResult.getPiping1Eval());
+    }
+
+    private void testEquality(BandResult r1, BandResult r2) {
+        assertEquals(r1.getBand(), r2.getBand());
+        assertEquals(r1.getContest(), r2.getContest());
+        assertEquals(r1.getDrummingEval(), r2.getDrummingEval());
+        assertEquals(r1.getDrummingPlace(), r2.getDrummingPlace());
+        assertEquals(r1.getEnsembleEval(), r2.getEnsembleEval());
+        assertEquals(r1.getId(), r2.getId());
+        assertEquals(r1.getPiping1Eval(), r2.getPiping1Eval());
+        assertEquals(r1.getPiping1Place(), r2.getPiping1Place());
+        assertEquals(r1.getPiping2Eval(), r2.getPiping2Eval());
+        assertEquals(r1.getPiping2Place(), r2.getPiping2Place());
+        assertEquals(r1.getPlace(), r2.getPlace());
+        assertEquals(r1.getPoints(), r2.getPoints());
     }
 }

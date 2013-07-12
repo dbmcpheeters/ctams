@@ -4,6 +4,7 @@
  */
 package org.wuspba.model;
 
+import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -15,7 +16,7 @@ import org.junit.Test;
  *
  * @author atrimble
  */
-public class VenueTest extends AbstractTest {
+public class VenueTest extends AbstractHibernateTest {
 
     private static final Logger LOG = Logger.getLogger(Venue.class);
 
@@ -36,22 +37,45 @@ public class VenueTest extends AbstractTest {
             assertEquals(ctams.getVenues().size(), 1);
             Venue v = ctams.getVenues().get(0);
 
-            assertEquals(v.getAddress(), venue.getAddress());
-            assertEquals(v.getBranch(), venue.getBranch());
-            assertEquals(v.getCity(), venue.getCity());
-            assertEquals(v.getEmail(), venue.getEmail());
-            assertEquals(v.getId(), venue.getId());
-            assertEquals(v.getLocation(), venue.getLocation());
-            assertEquals(v.getName(), venue.getName());
-            assertEquals(v.getPhone(), venue.getPhone());
-            assertEquals(v.getSponsor(), venue.getSponsor());
-            assertEquals(v.getState(), venue.getState());
-            assertEquals(v.getUrl(), venue.getUrl());
-            assertEquals(v.getZip(), venue.getZip());
+            testEquality(v, venue);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
+    }
+
+    @Test
+    public void testPersistence() {
+        EntityManager entityManager = factory.createEntityManager();
+        
+        Venue v = entityManager.find(Venue.class, venue.getId());
+        assertNotNull(v);
+        assertEquals(v, venue);
+
+        testEquality(v, venue);
+
+        v.setCity("Denver");
+
+        entityManager.merge(v);
+        
+        v = entityManager.find(Venue.class, venue.getId());
+        assertNotNull(v);
+        assertNotEquals(v.getCity(), venue.getCity());
+    }
+
+    private void testEquality(Venue v1, Venue v2) {
+        assertEquals(v1.getAddress(), v2.getAddress());
+        assertEquals(v1.getBranch(), v2.getBranch());
+        assertEquals(v1.getCity(), v2.getCity());
+        assertEquals(v1.getEmail(), v2.getEmail());
+        assertEquals(v1.getId(), v2.getId());
+        assertEquals(v1.getLocation(), v2.getLocation());
+        assertEquals(v1.getName(), v2.getName());
+        assertEquals(v1.getPhone(), v2.getPhone());
+        assertEquals(v1.getSponsor(), v2.getSponsor());
+        assertEquals(v1.getState(), v2.getState());
+        assertEquals(v1.getUrl(), v2.getUrl());
+        assertEquals(v1.getZip(), v2.getZip());
     }
 }

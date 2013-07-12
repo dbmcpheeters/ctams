@@ -21,9 +21,9 @@
     <judge>
         <id>andyJudge</id>
         <person>andyPerson</person>
-        <qualifications>
+        <qualification>
             <panel>B</panel>
             <type>BandEnsemble</type>
-        </qualifications>
+        </qualification>
     </judge>
 </CTAMS>
