@@ -72,34 +72,34 @@
     <judge>
         <id>bobJudge</id>
         <person>bobPerson</person>
-        <qualifications>
+        <qualification>
             <panel>A</panel>
             <type>BandPiping</type>
-        </qualifications>
+        </qualification>
     </judge>
     <judge>
         <id>andyJudge</id>
         <person>andyPerson</person>
-        <qualifications>
+        <qualification>
             <panel>B</panel>
             <type>BandEnsemble</type>
-        </qualifications>
+        </qualification>
     </judge>
     <judge>
         <id>jamieJudge</id>
         <person>jamiePerson</person>
-        <qualifications>
+        <qualification>
             <panel>A</panel>
             <type>BandPiping</type>
-        </qualifications>
+        </qualification>
     </judge>
     <judge>
         <id>eoinJudge</id>
         <person>eoinPerson</person>
-        <qualifications>
+        <qualification>
             <panel>Local</panel>
             <type>BandDrumming</type>
-        </qualifications>
+        </qualification>
     </judge>
     <venue>
         <id>venue</id>
