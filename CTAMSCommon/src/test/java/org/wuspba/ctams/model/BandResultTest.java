@@ -4,8 +4,6 @@
  */
 package org.wuspba.ctams.model;
 
-import org.wuspba.ctams.model.CTAMSDocument;
-import org.wuspba.ctams.model.BandResult;
 import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

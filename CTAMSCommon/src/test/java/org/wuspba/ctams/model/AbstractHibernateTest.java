@@ -4,7 +4,6 @@
  */
 package org.wuspba.ctams.model;
 
-import org.wuspba.ctams.model.Band;
 import java.sql.DriverManager;
 import java.util.Calendar;
 import java.util.Date;
@@ -70,183 +69,29 @@ public class AbstractHibernateTest extends AbstractTest {
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
         entityManager.persist(skye);
-        tx.commit();
-
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(eoin);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(andy);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(jamie);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(bob);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(elaine);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(venue);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(drummingQual);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(pipingQual);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(ensembleQual);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(judgeEoin);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(judgeAndy);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(judgeJamie);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(judgeBob);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(bandContest);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(bandResult);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(soloContest);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(soloResult);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(soloRegistration);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(andyMember);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(jamieMember);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(roster);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(bandRegistration);
-        tx.commit();
-        
-        tx = entityManager.getTransaction();
-        tx.begin();
         entityManager.persist(andyInstructor);
         tx.commit();
-    }
-
-    public void addBand(Band band) {
-        EntityManager entityManager = factory.createEntityManager();
-
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-
-        entityTransaction.begin();
-
-        entityManager.persist(skye);
-
-        entityTransaction.commit();
-    }
-    /* Method to  READ all the employees */
-
-    public void listBands() {
-        EntityManager entityManager = factory.createEntityManager();
-
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-
-        entityTransaction.begin();
-
-        Band band = entityManager.find(Band.class, skye.getId());
-
-        LOG.info("Name: " + band.getName());
-        LOG.info("Grade: " + band.getGrade());
-        LOG.info("City: " + band.getCity());
-
-        entityTransaction.commit();
-                
-    }
-    /* Method to UPDATE salary for an employee */
-
-    public void updateBand(String bandID) {
-        EntityManager entityManager = factory.createEntityManager();
-
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-
-        entityTransaction.begin();
-
-        Band band = entityManager.find(Band.class, skye.getId());
-
-        band.setCity("Denver");
-
-        entityManager.persist(band);
-
-        entityTransaction.commit();
-    }
-    /* Method to DELETE an employee from the records */
-
-    public void deleteBand(String id) {
-        EntityManager entityManager = factory.createEntityManager();
-
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-
-        entityTransaction.begin();
-
-        Band band = entityManager.find(Band.class, skye.getId());
-
-        entityManager.remove(band);
-
-        entityTransaction.commit();
     }
 }

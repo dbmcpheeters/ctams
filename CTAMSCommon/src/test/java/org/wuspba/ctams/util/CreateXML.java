@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.wuspba.ctams.model;
+package org.wuspba.ctams.util;
 
 import org.wuspba.ctams.model.CTAMSDocument;
 import java.io.StringWriter;
@@ -10,6 +10,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import org.apache.log4j.Logger;
+import org.wuspba.ctams.model.AbstractTest;
+import org.wuspba.ctams.model.CTAMSDocument;
 
 /**
  *

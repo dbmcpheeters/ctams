@@ -4,29 +4,6 @@
  */
 package org.wuspba.ctams.model;
 
-import org.wuspba.ctams.model.SoloRegistration;
-import org.wuspba.ctams.model.Instructor;
-import org.wuspba.ctams.model.JudgeType;
-import org.wuspba.ctams.model.BandType;
-import org.wuspba.ctams.model.BandEventType;
-import org.wuspba.ctams.model.JudgePanelType;
-import org.wuspba.ctams.model.BandContest;
-import org.wuspba.ctams.model.BandRegistration;
-import org.wuspba.ctams.model.Band;
-import org.wuspba.ctams.model.Grade;
-import org.wuspba.ctams.model.Instrument;
-import org.wuspba.ctams.model.JudgeQualification;
-import org.wuspba.ctams.model.BandMemberType;
-import org.wuspba.ctams.model.SoloEventType;
-import org.wuspba.ctams.model.Judge;
-import org.wuspba.ctams.model.Branch;
-import org.wuspba.ctams.model.SoloResult;
-import org.wuspba.ctams.model.BandResult;
-import org.wuspba.ctams.model.Person;
-import org.wuspba.ctams.model.SoloContest;
-import org.wuspba.ctams.model.BandMember;
-import org.wuspba.ctams.model.Roster;
-import org.wuspba.ctams.model.Venue;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import org.junit.BeforeClass;

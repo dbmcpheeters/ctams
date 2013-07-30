@@ -4,8 +4,6 @@
  */
 package org.wuspba.ctams.model;
 
-import org.wuspba.ctams.model.CTAMSDocument;
-import org.wuspba.ctams.model.BandContest;
 import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -50,7 +48,7 @@ public class BandContestTest extends AbstractHibernateTest {
     @Test
     public void testPersistence() {
         EntityManager entityManager = factory.createEntityManager();
-        
+
         BandContest contest = entityManager.find(BandContest.class, bandContest.getId());
         assertNotNull(contest);
         assertEquals(contest, bandContest);

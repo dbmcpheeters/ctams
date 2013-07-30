@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Fri Jul 12 21:01:19 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:21 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -12,11 +12,11 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:21 MDT 2013:
-Shutting down instance a816c00e-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:24 MDT 2013:
+Shutting down instance a816c00e-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 ----------------------------------------------------------------
-Fri Jul 12 21:01:21 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 207981bd-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:24 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 207981bd-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -28,11 +28,11 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:22 MDT 2013:
-Shutting down instance 207981bd-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:24 MDT 2013:
+Shutting down instance 207981bd-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 ----------------------------------------------------------------
-Fri Jul 12 21:01:22 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 1a6702f9-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:24 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 1a6702f9-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -44,11 +44,11 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:23 MDT 2013:
-Shutting down instance 1a6702f9-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:25 MDT 2013:
+Shutting down instance 1a6702f9-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 ----------------------------------------------------------------
-Fri Jul 12 21:01:23 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 75d88435-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:25 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 75d88435-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -60,11 +60,11 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:24 MDT 2013:
-Shutting down instance 75d88435-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:26 MDT 2013:
+Shutting down instance 75d88435-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 ----------------------------------------------------------------
-Fri Jul 12 21:01:24 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance f8408575-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:26 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance f8408575-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -76,11 +76,11 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:24 MDT 2013:
-Shutting down instance f8408575-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:26 MDT 2013:
+Shutting down instance f8408575-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 ----------------------------------------------------------------
-Fri Jul 12 21:01:24 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 17f606b1-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:26 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 17f606b1-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -92,11 +92,11 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:25 MDT 2013:
-Shutting down instance 17f606b1-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:27 MDT 2013:
+Shutting down instance 17f606b1-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 ----------------------------------------------------------------
-Fri Jul 12 21:01:25 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 992f87ed-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:27 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 992f87ed-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -108,11 +108,11 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:25 MDT 2013:
-Shutting down instance 992f87ed-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:27 MDT 2013:
+Shutting down instance 992f87ed-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 ----------------------------------------------------------------
-Fri Jul 12 21:01:25 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a081c92b-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:27 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a081c92b-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -124,11 +124,11 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:26 MDT 2013:
-Shutting down instance a081c92b-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:28 MDT 2013:
+Shutting down instance a081c92b-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 ----------------------------------------------------------------
-Fri Jul 12 21:01:26 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 65614a67-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:28 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 65614a67-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -140,11 +140,11 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:26 MDT 2013:
-Shutting down instance 65614a67-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:28 MDT 2013:
+Shutting down instance 65614a67-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 ----------------------------------------------------------------
-Fri Jul 12 21:01:26 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 31968ba5-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:28 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 31968ba5-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -156,11 +156,11 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:27 MDT 2013:
-Shutting down instance 31968ba5-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:29 MDT 2013:
+Shutting down instance 31968ba5-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 ----------------------------------------------------------------
-Fri Jul 12 21:01:27 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 9bc58ce4-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:29 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 9bc58ce4-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -172,11 +172,11 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:27 MDT 2013:
-Shutting down instance 9bc58ce4-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:29 MDT 2013:
+Shutting down instance 9bc58ce4-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 ----------------------------------------------------------------
-Fri Jul 12 21:01:27 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 66bc0e20-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:29 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance 66bc0e20-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -188,11 +188,11 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:27 MDT 2013:
-Shutting down instance 66bc0e20-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:29 MDT 2013:
+Shutting down instance 66bc0e20-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 ----------------------------------------------------------------
-Fri Jul 12 21:01:27 MDT 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance e6bc4f5f-013f-d5f9-b3d1-000003c543c0 
+Mon Jul 29 21:06:29 MDT 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance e6bc4f5f-0140-2d8a-6c47-000003c152f8 
 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
 Loaded from file:/Users/atrimble/.m2/repository/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar
 java.vendor=Oracle Corporation
@@ -204,5 +204,5 @@ os.version=10.8.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Fri Jul 12 21:01:28 MDT 2013:
-Shutting down instance e6bc4f5f-013f-d5f9-b3d1-000003c543c0 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
+Mon Jul 29 21:06:30 MDT 2013:
+Shutting down instance e6bc4f5f-0140-2d8a-6c47-000003c152f8 on database directory memory:/Users/atrimble/Software/CTAMS/CTAMSCommon/ctams_test with class loader sun.misc.Launcher$AppClassLoader@5e7d093a 
