@@ -16,13 +16,13 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.wuspba.ctams.model.Band;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.Grade;
-import org.wuspba.ctams.util.AbstractTest;
+import org.wuspba.ctams.util.TestData;
 
 /**
  *
  * @author atrimble
  */
-public class BandRepositoryTest extends AbstractTest {
+public class BandRepositoryTest {
 
     private static BandRepository repository;
     
@@ -41,7 +41,7 @@ public class BandRepositoryTest extends AbstractTest {
     
     @Before
     public void setUp() {
-        repository.save(skye);
+        repository.save(TestData.INSTANCE.skye);
     }
     
     @After
@@ -53,10 +53,10 @@ public class BandRepositoryTest extends AbstractTest {
      */
     @Test
     public void testFindByName() {
-        List<Band> ret = repository.findByName(skye.getName());
+        List<Band> ret = repository.findByName(TestData.INSTANCE.skye.getName());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), skye);
+        assertEquals(ret.get(0), TestData.INSTANCE.skye);
         
         ret = repository.findByName("Skye");
         assertEquals(ret.size(), 0);
@@ -67,10 +67,10 @@ public class BandRepositoryTest extends AbstractTest {
      */
     @Test
     public void testFindById() {
-        List<Band> ret = repository.findById(skye.getId());
+        List<Band> ret = repository.findById(TestData.INSTANCE.skye.getId());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), skye);
+        assertEquals(ret.get(0), TestData.INSTANCE.skye);
         
         ret = repository.findById("abcd");
         assertEquals(ret.size(), 0);
@@ -81,10 +81,10 @@ public class BandRepositoryTest extends AbstractTest {
      */
     @Test
     public void testFindByBranch() {
-        List<Band> ret = repository.findByBranch(skye.getBranch());
+        List<Band> ret = repository.findByBranch(TestData.INSTANCE.skye.getBranch());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), skye);
+        assertEquals(ret.get(0), TestData.INSTANCE.skye);
         
         ret = repository.findByBranch(Branch.GREATBASIN);
         assertEquals(ret.size(), 0);
@@ -95,10 +95,10 @@ public class BandRepositoryTest extends AbstractTest {
      */
     @Test
     public void testFindByGrade() {
-        List<Band> ret = repository.findByGrade(skye.getGrade());
+        List<Band> ret = repository.findByGrade(TestData.INSTANCE.skye.getGrade());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), skye);
+        assertEquals(ret.get(0), TestData.INSTANCE.skye);
         
         ret = repository.findByGrade(Grade.ONE);
         assertEquals(ret.size(), 0);
@@ -109,10 +109,10 @@ public class BandRepositoryTest extends AbstractTest {
      */
     @Test
     public void testFindByState() {
-        List<Band> ret = repository.findByState(skye.getState());
+        List<Band> ret = repository.findByState(TestData.INSTANCE.skye.getState());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), skye);
+        assertEquals(ret.get(0), TestData.INSTANCE.skye);
         
         ret = repository.findByState("CA");
         assertEquals(ret.size(), 0);
@@ -123,10 +123,10 @@ public class BandRepositoryTest extends AbstractTest {
      */
     @Test
     public void testFindByDissolved() {
-        List<Band> ret = repository.findByDissolved(skye.isDissolved());
+        List<Band> ret = repository.findByDissolved(TestData.INSTANCE.skye.isDissolved());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), skye);
+        assertEquals(ret.get(0), TestData.INSTANCE.skye);
         
         ret = repository.findByDissolved(false);
         assertEquals(ret.size(), 0);

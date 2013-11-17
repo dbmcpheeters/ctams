@@ -4,19 +4,19 @@
  */
 package org.wuspba.ctams.model;
 
-import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.wuspba.ctams.util.TestData;
 
 /**
  *
  * @author atrimble
  */
-public class VenueTest extends AbstractHibernateTest {
+public class VenueTest extends AbstractUnitTest {
 
     private static final Logger LOG = Logger.getLogger(Venue.class);
 
@@ -37,31 +37,12 @@ public class VenueTest extends AbstractHibernateTest {
             assertEquals(ctams.getVenues().size(), 1);
             Venue v = ctams.getVenues().get(0);
 
-            testEquality(v, venue);
+            testEquality(v, TestData.INSTANCE.venue);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
-    }
-
-    @Test
-    public void testPersistence() {
-        EntityManager entityManager = factory.createEntityManager();
-
-        Venue v = entityManager.find(Venue.class, venue.getId());
-        assertNotNull(v);
-        assertEquals(v, venue);
-
-        testEquality(v, venue);
-
-        v.setCity("Denver");
-
-        entityManager.merge(v);
-
-        v = entityManager.find(Venue.class, venue.getId());
-        assertNotNull(v);
-        assertNotEquals(v.getCity(), venue.getCity());
     }
 
     private void testEquality(Venue v1, Venue v2) {

@@ -4,19 +4,19 @@
  */
 package org.wuspba.ctams.model;
 
-import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.wuspba.ctams.util.TestData;
 
 /**
  *
  * @author atrimble
  */
-public class BandTest extends AbstractHibernateTest {
+public class BandTest extends AbstractUnitTest {
 
     private static final Logger LOG = Logger.getLogger(BandTest.class);
 
@@ -37,31 +37,12 @@ public class BandTest extends AbstractHibernateTest {
             assertEquals(ctams.getBands().size(), 1);
             Band band = ctams.getBands().get(0);
 
-            testEquality(band, skye);
+            testEquality(band, TestData.INSTANCE.skye);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
-    }
-
-    @Test
-    public void testPersistence() {
-        EntityManager entityManager = factory.createEntityManager();
-        
-        Band band = entityManager.find(Band.class, skye.getId());
-        assertNotNull(band);
-        assertEquals(band, skye);
-
-        testEquality(band, skye);
-
-        band.setCity("Denver");
-
-        entityManager.merge(band);
-        
-        band = entityManager.find(Band.class, skye.getId());
-        assertNotNull(band);
-        assertNotEquals(band.getCity(), skye.getCity());
     }
 
     private void testEquality(Band band1, Band band2) {

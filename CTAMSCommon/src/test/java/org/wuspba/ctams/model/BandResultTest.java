@@ -4,19 +4,19 @@
  */
 package org.wuspba.ctams.model;
 
-import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.wuspba.ctams.util.TestData;
 
 /**
  *
  * @author atrimble
  */
-public class BandResultTest extends AbstractHibernateTest {
+public class BandResultTest extends AbstractUnitTest {
     private static final Logger LOG = Logger.getLogger(BandResultTest.class);
 
     @Test
@@ -36,31 +36,12 @@ public class BandResultTest extends AbstractHibernateTest {
             assertEquals(ctams.getBandContestResults().size(), 1);
             BandResult result = ctams.getBandContestResults().get(0);
 
-            testEquality(result, bandResult);
+            testEquality(result, TestData.INSTANCE.bandResult);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
-    }
-
-    @Test
-    public void testPersistence() {
-        EntityManager entityManager = factory.createEntityManager();
-        
-        BandResult result = entityManager.find(BandResult.class, bandResult.getId());
-        assertNotNull(result);
-        assertEquals(result, bandResult);
-
-        testEquality(result, bandResult);
-
-        result.setPiping1Eval("Sucks");
-
-        entityManager.merge(result);
-        
-        result = entityManager.find(BandResult.class, bandResult.getId());
-        assertNotNull(result);
-        assertNotEquals(result.getPiping1Eval(), bandResult.getPiping1Eval());
     }
 
     private void testEquality(BandResult r1, BandResult r2) {

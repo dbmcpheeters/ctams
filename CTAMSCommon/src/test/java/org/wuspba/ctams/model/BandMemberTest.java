@@ -4,19 +4,19 @@
  */
 package org.wuspba.ctams.model;
 
-import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.wuspba.ctams.util.TestData;
 
 /**
  *
  * @author atrimble
  */
-public class BandMemberTest extends AbstractHibernateTest {
+public class BandMemberTest extends AbstractUnitTest {
 
     private static final Logger LOG = Logger.getLogger(BandMemberTest.class);
 
@@ -37,31 +37,12 @@ public class BandMemberTest extends AbstractHibernateTest {
             assertEquals(ctams.getBandMembers().size(), 1);
             BandMember member = ctams.getBandMembers().get(0);
 
-            testEquality(member, andyMember);
+            testEquality(member, TestData.INSTANCE.andyMember);
             
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
-    }
-
-    @Test
-    public void testPersistence() {
-        EntityManager entityManager = factory.createEntityManager();
-        
-        BandMember member = entityManager.find(BandMember.class, andyMember.getId());
-        assertNotNull(member);
-        assertEquals(member, andyMember);
-
-        testEquality(member, andyMember);
-
-        member.setType(BandMemberType.Instructor);
-
-        entityManager.merge(member);
-        
-        member = entityManager.find(BandMember.class, andyMember.getId());
-        assertNotNull(member);
-        assertNotEquals(member.getType(), andyMember.getType());
     }
 
     private void testEquality(BandMember m1, BandMember m2) {

@@ -4,19 +4,19 @@
  */
 package org.wuspba.ctams.model;
 
-import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.wuspba.ctams.util.TestData;
 
 /**
  *
  * @author atrimble
  */
-public class SoloRegistrationTest extends AbstractHibernateTest {
+public class SoloRegistrationTest extends AbstractUnitTest {
 
     private static final Logger LOG = Logger.getLogger(SoloRegistrationTest.class);
 
@@ -37,31 +37,12 @@ public class SoloRegistrationTest extends AbstractHibernateTest {
             assertEquals(ctams.getSoloRegistrations().size(), 1);
             SoloRegistration reg = ctams.getSoloRegistrations().get(0);
 
-            testEquality(reg, soloRegistration);
+            testEquality(reg, TestData.INSTANCE.soloRegistration);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
-    }
-
-    @Test
-    public void testPersistence() {
-        EntityManager entityManager = factory.createEntityManager();
-        
-        SoloRegistration contest = entityManager.find(SoloRegistration.class, soloRegistration.getId());
-        assertNotNull(contest);
-        assertEquals(contest, soloRegistration);
-
-        testEquality(contest, soloRegistration);
-
-        contest.setNumber(99);
-
-        entityManager.merge(contest);
-        
-        contest = entityManager.find(SoloRegistration.class, soloRegistration.getId());
-        assertNotNull(contest);
-        assertNotEquals(contest.getNumber(), soloRegistration.getNumber());
     }
 
     private void testEquality(SoloRegistration r1, SoloRegistration r2) {

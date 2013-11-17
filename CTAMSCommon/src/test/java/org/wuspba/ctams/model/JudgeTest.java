@@ -4,19 +4,19 @@
  */
 package org.wuspba.ctams.model;
 
-import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.wuspba.ctams.util.TestData;
 
 /**
  *
  * @author atrimble
  */
-public class JudgeTest extends AbstractHibernateTest {
+public class JudgeTest extends AbstractUnitTest {
     private static final Logger LOG = Logger.getLogger(JudgeTest.class);
 
     @Test
@@ -36,31 +36,12 @@ public class JudgeTest extends AbstractHibernateTest {
             assertEquals(ctams.getJudges().size(), 1);
             Judge judge = ctams.getJudges().get(0);
 
-            testEquality(judge, judgeAndy);
+            testEquality(judge, TestData.INSTANCE.judgeAndy);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
-    }
-
-    @Test
-    public void testPersistence() {
-        EntityManager entityManager = factory.createEntityManager();
-        
-        Judge judge = entityManager.find(Judge.class, judgeAndy.getId());
-        assertNotNull(judge);
-        assertEquals(judge, judgeAndy);
-
-        testEquality(judge, judgeAndy);
-
-        judge.setPerson(eoin);
-
-        entityManager.merge(judge);
-        
-        judge = entityManager.find(Judge.class, judgeAndy.getId());
-        assertNotNull(judge);
-        assertNotEquals(judge.getPerson(), judgeAndy.getPerson());
     }
 
     private void testEquality(Judge j1, Judge j2) {

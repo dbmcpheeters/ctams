@@ -16,35 +16,33 @@ import org.wuspba.ctams.model.CTAMSDocument;
  *
  * @author atrimble
  */
-public class CreateXML extends AbstractTest {
+public class CreateXML {
     
     private static final Logger LOG = Logger.getLogger(CreateXML.class);
     
     public static void main(String[] args) {
-        createData();
-
         CTAMSDocument doc = new CTAMSDocument();
-        doc.getPeople().add(elaine);
-        doc.getPeople().add(bob);
-        doc.getPeople().add(andy);
-        doc.getPeople().add(jamie);
-//        doc.getBandMembers().add(andyMember);
-//        doc.getBandMembers().add(jamieMember);
-//        doc.getInstructors().add(andyInstructor);
-//        doc.getPeople().add(eoin);
-        doc.getJudges().add(judgeBob);
-        doc.getJudges().add(judgeAndy);
-        doc.getJudges().add(judgeJamie);
-        doc.getJudges().add(judgeEoin);
-//        doc.getVenues().add(venue);
-//        doc.getBands().add(skye);
-//        doc.getBandContests().add(bandContest);
-//        doc.getRosters().add(roster);
-//        doc.getBandRegistrations().add(bandRegistration);
-//        doc.getBandContestResults().add(bandResult);
-        doc.getSoloContests().add(soloContest);
-//        doc.getSoloRegistrations().add(soloRegistration);
-        doc.getSoloContestResults().add(soloResult);
+        doc.getPeople().add(TestData.INSTANCE.elaine);
+        doc.getPeople().add(TestData.INSTANCE.bob);
+        doc.getPeople().add(TestData.INSTANCE.andy);
+        doc.getPeople().add(TestData.INSTANCE.jamie);
+//        doc.getBandMembers().add(TestData.INSTANCE.andyMember);
+//        doc.getBandMembers().add(TestData.INSTANCE.jamieMember);
+//        doc.getInstructors().add(TestData.INSTANCE.andyInstructor);
+//        doc.getPeople().add(TestData.INSTANCE.eoin);
+        doc.getJudges().add(TestData.INSTANCE.judgeBob);
+        doc.getJudges().add(TestData.INSTANCE.judgeAndy);
+        doc.getJudges().add(TestData.INSTANCE.judgeJamie);
+        doc.getJudges().add(TestData.INSTANCE.judgeEoin);
+//        doc.getVenues().add(TestData.INSTANCE.venue);
+//        doc.getBands().add(TestData.INSTANCE.skye);
+//        doc.getBandContests().add(TestData.INSTANCE.bandContest);
+//        doc.getRosters().add(TestData.INSTANCE.roster);
+//        doc.getBandRegistrations().add(TestData.INSTANCE.bandRegistration);
+//        doc.getBandContestResults().add(TestData.INSTANCE.bandResult);
+        doc.getSoloContests().add(TestData.INSTANCE.soloContest);
+//        doc.getSoloRegistrations().add(TestData.INSTANCE.soloRegistration);
+        doc.getSoloContestResults().add(TestData.INSTANCE.soloResult);
             
         String packageName = CTAMSDocument.class.getPackage().getName();
 

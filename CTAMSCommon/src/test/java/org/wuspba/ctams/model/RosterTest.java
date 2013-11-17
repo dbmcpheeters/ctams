@@ -4,19 +4,19 @@
  */
 package org.wuspba.ctams.model;
 
-import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.wuspba.ctams.util.TestData;
 
 /**
  *
  * @author atrimble
  */
-public class RosterTest extends AbstractHibernateTest {
+public class RosterTest extends AbstractUnitTest {
 
     private static final Logger LOG = Logger.getLogger(RosterTest.class);
 
@@ -37,31 +37,12 @@ public class RosterTest extends AbstractHibernateTest {
             assertEquals(ctams.getRosters().size(), 1);
             Roster r = ctams.getRosters().get(0);
 
-            testEquality(r, roster);
+            testEquality(r, TestData.INSTANCE.roster);
             
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
-    }
-
-    @Test
-    public void testPersistence() {
-        EntityManager entityManager = factory.createEntityManager();
-        
-        Roster ros = entityManager.find(Roster.class, roster.getId());
-        assertNotNull(ros);
-        assertEquals(ros, roster);
-
-        testEquality(ros, roster);
-
-        ros.getMembers().remove(andyMember);
-
-        entityManager.merge(ros);
-        
-        ros = entityManager.find(Roster.class, roster.getId());
-        assertNotNull(ros);
-        assertNotEquals(ros.getMembers().size(), roster.getMembers().size());
     }
 
     private void testEquality(Roster r1, Roster r2) {

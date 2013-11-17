@@ -4,19 +4,19 @@
  */
 package org.wuspba.ctams.model;
 
-import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.wuspba.ctams.util.TestData;
 
 /**
  *
  * @author atrimble
  */
-public class InstructorTest extends AbstractHibernateTest {
+public class InstructorTest extends AbstractUnitTest {
 
     private static final Logger LOG = Logger.getLogger(InstructorTest.class);
 
@@ -37,31 +37,12 @@ public class InstructorTest extends AbstractHibernateTest {
             assertEquals(ctams.getInstructors().size(), 1);
             Instructor instructor = ctams.getInstructors().get(0);
 
-            testEquality(instructor, andyInstructor);
+            testEquality(instructor, TestData.INSTANCE.andyInstructor);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
-    }
-
-    @Test
-    public void testPersistence() {
-        EntityManager entityManager = factory.createEntityManager();
-        
-        Instructor instructor = entityManager.find(Instructor.class, andyInstructor.getId());
-        assertNotNull(instructor);
-        assertEquals(instructor, andyInstructor);
-
-        testEquality(instructor, andyInstructor);
-
-        instructor.setType(Instrument.Snare);
-
-        entityManager.merge(instructor);
-        
-        instructor = entityManager.find(Instructor.class, andyInstructor.getId());
-        assertNotNull(instructor);
-        assertNotEquals(instructor.getType(), andyInstructor.getType());
     }
 
     private void testEquality(Instructor i1, Instructor i2) {

@@ -4,19 +4,19 @@
  */
 package org.wuspba.ctams.model;
 
-import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.wuspba.ctams.util.TestData;
 
 /**
  *
  * @author atrimble
  */
-public class SoloContestTest extends AbstractHibernateTest {
+public class SoloContestTest extends AbstractUnitTest {
 
     private static final Logger LOG = Logger.getLogger(SoloContestTest.class);
 
@@ -37,31 +37,12 @@ public class SoloContestTest extends AbstractHibernateTest {
             assertEquals(ctams.getSoloContests().size(), 1);
             SoloContest contest = ctams.getSoloContests().get(0);
 
-            testEquality(contest, soloContest);
+            testEquality(contest, TestData.INSTANCE.soloContest);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
-    }
-
-    @Test
-    public void testPersistence() {
-        EntityManager entityManager = factory.createEntityManager();
-        
-        SoloContest contest = entityManager.find(SoloContest.class, soloContest.getId());
-        assertNotNull(contest);
-        assertEquals(contest, soloContest);
-
-        testEquality(contest, soloContest);
-
-        contest.setLeet(9);
-
-        entityManager.merge(contest);
-        
-        contest = entityManager.find(SoloContest.class, soloContest.getId());
-        assertNotNull(contest);
-        assertNotEquals(contest.getLeet(), soloContest.getLeet());
     }
 
     private void testEquality(SoloContest c1, SoloContest c2) {

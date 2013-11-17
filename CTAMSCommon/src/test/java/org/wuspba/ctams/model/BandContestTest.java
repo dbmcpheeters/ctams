@@ -4,19 +4,19 @@
  */
 package org.wuspba.ctams.model;
 
-import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.wuspba.ctams.util.TestData;
 
 /**
  *
  * @author atrimble
  */
-public class BandContestTest extends AbstractHibernateTest {
+public class BandContestTest extends AbstractUnitTest {
 
     private static final Logger LOG = Logger.getLogger(BandContestTest.class);
 
@@ -37,7 +37,7 @@ public class BandContestTest extends AbstractHibernateTest {
             assertEquals(ctams.getBandContests().size(), 1);
             BandContest contest = ctams.getBandContests().get(0);
 
-            testEquality(contest, bandContest);
+            testEquality(contest, TestData.INSTANCE.bandContest);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
@@ -45,25 +45,6 @@ public class BandContestTest extends AbstractHibernateTest {
         }
     }
     
-    @Test
-    public void testPersistence() {
-        EntityManager entityManager = factory.createEntityManager();
-
-        BandContest contest = entityManager.find(BandContest.class, bandContest.getId());
-        assertNotNull(contest);
-        assertEquals(contest, bandContest);
-
-        testEquality(contest, bandContest);
-
-        contest.setSeason(2019);
-
-        entityManager.merge(contest);
-        
-        contest = entityManager.find(BandContest.class, bandContest.getId());
-        assertNotNull(contest);
-        assertNotEquals(contest.getSeason(), bandContest.getSeason());
-    }
-
     private void testEquality(BandContest c1, BandContest c2) {
         testDates(c1.getDate(), c2.getDate());
         assertEquals(c1.getDrumming(), c2.getDrumming());

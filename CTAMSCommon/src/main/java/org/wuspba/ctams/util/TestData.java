@@ -6,7 +6,6 @@ package org.wuspba.ctams.util;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
-import org.junit.BeforeClass;
 import org.wuspba.ctams.model.Band;
 import org.wuspba.ctams.model.BandContest;
 import org.wuspba.ctams.model.BandEventType;
@@ -35,39 +34,39 @@ import org.wuspba.ctams.model.Venue;
  *
  * @author atrimble
  */
-public class AbstractTest {
+public enum TestData {
+    INSTANCE;
 
-    private static Date date = new GregorianCalendar(2013, 5, 4, 21, 56).getTime();
-    private static Date start = new GregorianCalendar(2013, 6, 4, 22, 59).getTime();
-    private static Date end = new GregorianCalendar(2013, 5, 3, 20, 0).getTime();
+    private final Date date = new GregorianCalendar(2013, 5, 4, 21, 56).getTime();
+    private final Date start = new GregorianCalendar(2013, 6, 4, 22, 59).getTime();
+    private final Date end = new GregorianCalendar(2013, 5, 3, 20, 0).getTime();
 
-    protected static Band skye;
-    protected static BandRegistration bandRegistration;
-    protected static Roster roster;
-    protected static BandMember andyMember;
-    protected static BandMember jamieMember;
-    protected static BandContest bandContest;
-    protected static BandResult bandResult;
-    protected static SoloContest soloContest;
-    protected static SoloResult soloResult;
-    protected static JudgeQualification drummingQual;
-    protected static JudgeQualification pipingQual;
-    protected static JudgeQualification ensembleQual;
-    protected static Judge judgeEoin;
-    protected static Judge judgeAndy;
-    protected static Judge judgeJamie;
-    protected static Judge judgeBob;
-    protected static Person eoin;
-    protected static Person andy;
-    protected static Person jamie;
-    protected static Person bob;
-    protected static Person elaine;
-    protected static Venue venue;
-    protected static SoloRegistration soloRegistration;
-    protected static Instructor andyInstructor;
+    public Band skye;
+    public BandRegistration bandRegistration;
+    public Roster roster;
+    public BandMember andyMember;
+    public BandMember jamieMember;
+    public BandContest bandContest;
+    public BandResult bandResult;
+    public SoloContest soloContest;
+    public SoloResult soloResult;
+    public JudgeQualification drummingQual;
+    public JudgeQualification pipingQual;
+    public JudgeQualification ensembleQual;
+    public Judge judgeEoin;
+    public Judge judgeAndy;
+    public Judge judgeJamie;
+    public Judge judgeBob;
+    public Person eoin;
+    public Person andy;
+    public Person jamie;
+    public Person bob;
+    public Person elaine;
+    public Venue venue;
+    public SoloRegistration soloRegistration;
+    public Instructor andyInstructor;
 
-    @BeforeClass
-    public static void createData() {
+    TestData() {
         createBand();
         birthEoin();
         birthAndy();
@@ -91,7 +90,7 @@ public class AbstractTest {
         createInstructor();
     }
 
-    private static void createJudgeQualifications() {
+    private void createJudgeQualifications() {
         pipingQual = new JudgeQualification();
         pipingQual.setId("pipingQual");
         pipingQual.setPanel(JudgePanelType.A);
@@ -108,35 +107,35 @@ public class AbstractTest {
         drummingQual.setType(JudgeType.BandDrumming);
     }
 
-    private static void createJudgeEoin() {
+    private void createJudgeEoin() {
         judgeEoin = new Judge();
         judgeEoin.setId("eoinJudge");
         judgeEoin.setPerson(eoin);
         judgeEoin.getQualifications().add(drummingQual);
     }
 
-    private static void createJudgeAndy() {
+    private  void createJudgeAndy() {
         judgeAndy = new Judge();
         judgeAndy.setId("andyJudge");
         judgeAndy.setPerson(andy);
         judgeAndy.getQualifications().add(ensembleQual);
     }
 
-    private static void createJudgeJamie() {
+    private  void createJudgeJamie() {
         judgeJamie = new Judge();
         judgeJamie.setId("jamieJudge");
         judgeJamie.setPerson(jamie);
         judgeJamie.getQualifications().add(pipingQual);
     }
 
-    private static void createJudgeBob() {
+    private  void createJudgeBob() {
         judgeBob = new Judge();
         judgeBob.setId("bobJudge");
         judgeBob.setPerson(bob);
         judgeBob.getQualifications().add(pipingQual);
     }
 
-    private static void createVenue() {
+    private  void createVenue() {
         venue = new Venue();
         venue.setAddress("333 Pikes Peak Ave.");
         venue.setBandContest(true);
@@ -154,7 +153,7 @@ public class AbstractTest {
         venue.setZip("80903");
     }
     
-    private static void birthEoin() {
+    private  void birthEoin() {
         eoin = new Person();
         eoin.setAddress("1555 Northrop Grumman Pt.");
         eoin.setBranch(Branch.GREATBASIN);
@@ -174,7 +173,7 @@ public class AbstractTest {
         eoin.setZip("80902");
     }
     
-    private static void birthAndy() {
+    private  void birthAndy() {
         andy = new Person();
         andy.setAddress("214 S Hancock Ave.");
         andy.setBranch(Branch.INTERMOUNTAIN);
@@ -194,7 +193,7 @@ public class AbstractTest {
         andy.setZip("80903");
     }
     
-    private static void birthJamie() {
+    private  void birthJamie() {
         jamie = new Person();
         jamie.setAddress("231 Lame St.");
         jamie.setBranch(Branch.NORTHERN);
@@ -214,7 +213,7 @@ public class AbstractTest {
         jamie.setZip("80831");
     }
 
-    private static void birthBob() {
+    private  void birthBob() {
         bob = new Person();
         bob.setAddress("111 Bob Ave.");
         bob.setBranch(Branch.SOUTHERN);
@@ -234,7 +233,7 @@ public class AbstractTest {
         bob.setZip("80891");
     }
 
-    private static void birthElaine() {
+    private  void birthElaine() {
         elaine = new Person();
         elaine.setAddress("222 Elaine Ave.");
         elaine.setBranch(Branch.INTERMOUNTAIN);
@@ -254,7 +253,7 @@ public class AbstractTest {
         elaine.setZip("80291");
     }
 
-    private static void createBandContest() {
+    private  void createBandContest() {
         bandContest = new BandContest();
         bandContest.setDate(date);
         bandContest.setDrumming(judgeEoin);
@@ -268,7 +267,7 @@ public class AbstractTest {
         bandContest.setVenue(venue);
     }
 
-    private static void createBand() {
+    private  void createBand() {
         skye = new Band();
         skye.setAddress("214 S Hancock");
         skye.setCity("Colorado Springs");
@@ -285,7 +284,7 @@ public class AbstractTest {
         skye.setZip("80903");
     }
 
-    private static void createBandResult() {
+    private  void createBandResult() {
         bandResult = new BandResult();
         bandResult.setBand(skye);
         bandResult.setChallengeUp(false);
@@ -303,7 +302,7 @@ public class AbstractTest {
         bandResult.setPoints(99);
     }
 
-    private static void createSoloContest() {
+    private  void createSoloContest() {
         soloContest = new SoloContest();
         soloContest.setContestants(1);
         soloContest.setDate(date);
@@ -318,7 +317,7 @@ public class AbstractTest {
         soloContest.setVenue(venue);
     }
 
-    private static void createSoloResult() {
+    private  void createSoloResult() {
         soloResult = new SoloResult();
         soloResult.setContest(soloContest);
         soloResult.setCpl("4");
@@ -327,7 +326,7 @@ public class AbstractTest {
         soloResult.setSoloist(elaine);
     }
 
-    private static void createSoloRegistration() {
+    private  void createSoloRegistration() {
         soloRegistration = new SoloRegistration();
         soloRegistration.setEnd(end);
         soloRegistration.setGrade(Grade.TWO);
@@ -339,7 +338,7 @@ public class AbstractTest {
         soloRegistration.setNumber(129);
     }
 
-    private static void createBandMembers() {
+    private  void createBandMembers() {
         andyMember = new BandMember();
         andyMember.setId("andyMember");
         andyMember.setPerson(andy);
@@ -351,14 +350,14 @@ public class AbstractTest {
         jamieMember.setType(BandMemberType.Piper);
     }
 
-    private static void createRoster() {
+    private  void createRoster() {
         roster = new Roster();
         roster.setId("roster");
         roster.getMembers().add(andyMember);
         roster.getMembers().add(jamieMember);
     }
 
-    private static void createBandRegistration() {
+    private  void createBandRegistration() {
         bandRegistration = new BandRegistration();
         bandRegistration.setBand(skye);
         bandRegistration.setEnd(end);
@@ -369,7 +368,7 @@ public class AbstractTest {
         bandRegistration.setStart(start);
     }
 
-    private static void createInstructor() {
+    private  void createInstructor() {
         andyInstructor = new Instructor();
         andyInstructor.setId("andyInstructor");
         andyInstructor.setPerson(andy);
