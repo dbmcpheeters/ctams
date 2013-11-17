@@ -10,7 +10,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import org.apache.log4j.Logger;
-import org.wuspba.ctams.model.AbstractTest;
 import org.wuspba.ctams.model.CTAMSDocument;
 
 /**

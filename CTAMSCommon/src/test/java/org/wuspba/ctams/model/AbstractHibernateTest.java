@@ -4,6 +4,7 @@
  */
 package org.wuspba.ctams.model;
 
+import org.wuspba.ctams.util.AbstractTest;
 import java.sql.DriverManager;
 import java.util.Calendar;
 import java.util.Date;

@@ -11,5 +11,23 @@
     <modules>
         <module>CTAMSCommon</module>
         <module>CTAMSWS</module>
+        <module>CTAMSData</module>
     </modules>
+
+    <!--repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>libs-release-remote</name>
+            <url>http://repo.spring.io/libs-release-remote</url>
+        </repository>
+        <repository>
+            <snapshots />
+            <id>snapshots</id>
+            <name>libs-snapshot-remote</name>
+            <url>http://repo.spring.io/libs-snapshot-remote</url>
+        </repository>
+    </repositories-->
 </project>
