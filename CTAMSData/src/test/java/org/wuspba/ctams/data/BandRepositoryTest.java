@@ -6,42 +6,40 @@ package org.wuspba.ctams.data;
 
 import java.util.List;
 import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 import org.wuspba.ctams.model.Band;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.Grade;
 import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestUtils;
 
 /**
  *
  * @author atrimble
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {JPATestConfig.class})
+@Transactional
+@TransactionConfiguration(defaultRollback = true)
 public class BandRepositoryTest {
 
-    private static BandRepository repository;
+    @Autowired 
+    private BandRepository repository;
     
     public BandRepositoryTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(CTAMSTestDAO.class);
-        repository = context.getBean(BandRepository.class);
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
-        repository.save(TestData.INSTANCE.skye);
+        TestUtils.populateData(repository);
     }
     
     @After

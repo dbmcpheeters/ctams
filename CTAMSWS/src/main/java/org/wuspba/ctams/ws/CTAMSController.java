@@ -4,12 +4,13 @@
  */
 package org.wuspba.ctams.ws;
 
-import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.wuspba.ctams.data.BandRepository;
 
 /**
  *
@@ -19,9 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class CTAMSController {
 
+    @Autowired 
+    private BandRepository repository;
+
     @RequestMapping("/greeting")
     public @ResponseBody String greeting(
             @RequestParam(value="name", required=false, defaultValue="World") String name) {
-        return "Fuck " + name;
+        return repository.toString();
     }
 }
