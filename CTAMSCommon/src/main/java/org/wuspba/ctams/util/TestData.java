@@ -48,6 +48,7 @@ public enum TestData {
     public BandMember andyMember; // NOSONAR
     public BandMember jamieMember; // NOSONAR
     public BandContest bandContest; // NOSONAR
+    public BandContest bandNonContest; // NOSONAR
     public BandResult bandResult; // NOSONAR
     public SoloContest soloContest; // NOSONAR
     public SoloResult soloResult; // NOSONAR
@@ -266,6 +267,18 @@ public enum TestData {
         bandContest.setPiping2(judgeBob);
         bandContest.setSeason(2013);
         bandContest.setVenue(venue);
+        
+        bandNonContest = new BandContest();
+        bandNonContest.setDate(date);
+        bandNonContest.setDrumming(judgeEoin);
+        bandNonContest.setEnsemble(judgeAndy);
+        bandNonContest.setEventType(BandEventType.MEDLEY);
+        bandNonContest.setGrade(Grade.FOUR);
+        bandNonContest.setId("bandNonContest");
+        bandNonContest.setPiping1(judgeJamie);
+        bandNonContest.setPiping2(judgeBob);
+        bandNonContest.setSeason(2013);
+        bandNonContest.setVenue(venue);
     }
 
     private  void createBand() {
