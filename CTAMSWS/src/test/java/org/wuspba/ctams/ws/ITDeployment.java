@@ -7,9 +7,11 @@ package org.wuspba.ctams.ws;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URI;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -26,21 +28,47 @@ public class ITDeployment {
 
     private static final Logger LOG = LoggerFactory.getLogger(ITDeployment.class);
 
-    private static final String URL = "http://localhost:8080";
+    protected static String PROTOCOL = "http";
+    protected static String HOST = "localhost";
+    protected static int PORT = 8081;
+    protected static String PATH = "/test";
+
+    static {
+        if(System.getProperties().containsKey("ctams.protocol")) {
+            PROTOCOL = System.getProperty("ctams.protocol");
+        }
+        if(System.getProperties().containsKey("ctams.host")) {
+            HOST = System.getProperty("ctams.host");
+        }
+        if(System.getProperties().containsKey("ctams.port")) {
+            PORT = Integer.parseInt(System.getProperty("ctams.port"));
+        }
+        if(System.getProperties().containsKey("ctams.uri")) {
+            PATH = System.getProperty("ctams.uri") + PATH;
+        }
+    }
 
     @Test
     public void testActive() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(URL + TestController.TEST_URI);
 
-        try (CloseableHttpResponse response1 = httpclient.execute(httpGet)) {
+        URI uri = new URIBuilder()
+                .setScheme("http")
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .build();
+        
+        HttpGet httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
             
-            assertEquals(response1.getStatusLine().toString(), "HTTP/1.1 200 OK");
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
             
-            HttpEntity entity1 = response1.getEntity();
+            HttpEntity entity = response.getEntity();
 
             String buff;
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(entity1.getContent()))) {
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(entity.getContent()))) {
                 buff = in.readLine();
                 while (buff != null) {
                     assertEquals(buff, TestController.TEST_STRING);
@@ -48,7 +76,7 @@ public class ITDeployment {
                 }
             }
 
-            EntityUtils.consume(entity1);
+            EntityUtils.consume(entity);
         }
     }
 }

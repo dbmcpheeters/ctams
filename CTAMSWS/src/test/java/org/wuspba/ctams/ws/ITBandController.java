@@ -20,7 +20,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
@@ -42,11 +41,27 @@ public class ITBandController {
 
     private static final Logger LOG = LoggerFactory.getLogger(ITBandController.class);
 
-    private static final String HOST = "localhost";
-    private static final int PORT = 8080;
-    private static final String PATH = "/bands";
+    protected static String PROTOCOL = "http";
+    protected static String HOST = "localhost";
+    protected static int PORT = 8081;
+    protected static String PATH = "/bands";
 
     private static final Band SKYE = TestData.INSTANCE.skye;
+
+    static {
+        if(System.getProperties().containsKey("ctams.protocol")) {
+            PROTOCOL = System.getProperty("ctams.protocol");
+        }
+        if(System.getProperties().containsKey("ctams.host")) {
+            HOST = System.getProperty("ctams.host");
+        }
+        if(System.getProperties().containsKey("ctams.port")) {
+            PORT = Integer.parseInt(System.getProperty("ctams.port"));
+        }
+        if(System.getProperties().containsKey("ctams.uri")) {
+            PATH = System.getProperty("ctams.uri") + PATH;
+        }
+    }
 
     @BeforeClass
     static public void setup() throws Exception {
@@ -63,11 +78,13 @@ public class ITBandController {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         URI uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
                 .build();
+
+        LOG.info("Connecting to " + uri.toString());
         
         HttpGet httpGet = new HttpGet(uri);
 
@@ -89,7 +106,7 @@ public class ITBandController {
     public void testListName() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         URI uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -112,7 +129,7 @@ public class ITBandController {
         }
 
         uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -138,7 +155,7 @@ public class ITBandController {
     public void testListState() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         URI uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -161,7 +178,7 @@ public class ITBandController {
         }
 
         uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -187,7 +204,7 @@ public class ITBandController {
     public void testListBranch() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         URI uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -210,7 +227,7 @@ public class ITBandController {
         }
 
         uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -236,7 +253,7 @@ public class ITBandController {
     public void testListGrade() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         URI uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -259,7 +276,7 @@ public class ITBandController {
         }
 
         uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -285,7 +302,7 @@ public class ITBandController {
     public void testListDissolved() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         URI uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -308,7 +325,7 @@ public class ITBandController {
         }
 
         uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -338,7 +355,7 @@ public class ITBandController {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         URI uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -369,7 +386,7 @@ public class ITBandController {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         URI uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -411,7 +428,7 @@ public class ITBandController {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         URI uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
@@ -434,7 +451,7 @@ public class ITBandController {
         httpclient = HttpClients.createDefault();
 
         uri = new URIBuilder()
-                .setScheme("http")
+                .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)

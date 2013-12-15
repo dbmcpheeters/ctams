@@ -14,6 +14,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <org.wuspba.test>Andy</org.wuspba.test>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.wuspba</groupId>
@@ -116,8 +120,8 @@
             <version>4.3</version>
             <scope>test</scope>
         </dependency>
-            
     </dependencies>
+    
     <build>
         <finalName>ctams</finalName>
 
@@ -143,6 +147,9 @@
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <stopKey>foo</stopKey>
                     <stopPort>9999</stopPort>
+                    <httpConnector>
+                        <port>8081</port>
+                    </httpConnector>
                 </configuration>
                 <executions>
                     <execution>
@@ -164,6 +171,24 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>           
+                        <id>test-jar</id>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                        </configuration>
+                    </execution>       
+                </executions>    
             </plugin>
         </plugins>
     </build>
