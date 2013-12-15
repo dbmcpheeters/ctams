@@ -10,10 +10,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -44,7 +41,7 @@ public class Roster implements Serializable {
     @XmlIDREF
     @XmlElement(name = "members", required = true)
     private final List<BandMember> members = 
-            new ArrayList<BandMember>();
+            new ArrayList<>();
 
     /**
      * @return the id
@@ -69,7 +66,7 @@ public class Roster implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Roster) {
+        if(obj instanceof Roster) {
             return ((Roster)obj).getId().equals(getId());
         }
         return false;

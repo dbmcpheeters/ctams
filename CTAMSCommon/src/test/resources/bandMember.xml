@@ -21,6 +21,6 @@
     <bandMember>
         <id>andyMember</id>
         <person>andyPerson</person>
-        <type>PipeMajor</type>
+        <type>PIPE_MAJOR</type>
     </bandMember>
 </CTAMS>

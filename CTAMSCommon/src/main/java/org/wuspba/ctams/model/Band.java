@@ -273,7 +273,7 @@ public class Band implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Band) {
+        if(obj instanceof Band) {
             return ((Band)obj).getId().equals(getId());
         }
         return false;

@@ -5,17 +5,9 @@
 package org.wuspba.ctams.data;
 
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.DERBY;
-
-import java.util.List;
-
 import javax.sql.DataSource;
-
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.orm.jpa.JpaTransactionManager;

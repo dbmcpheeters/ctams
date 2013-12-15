@@ -289,7 +289,7 @@ public class Venue implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Venue) {
+        if(obj instanceof Venue) {
             return ((Venue)obj).getId().equals(getId());
         }
         return false;

@@ -12,5 +12,5 @@ import javax.xml.bind.annotation.XmlEnum;
  */
 @XmlEnum
 public enum BandMemberType {
-    PipeMajor, PipeSergeant, DrumSeargeant, Piper, Snare, Tenor, Bass, Instructor
+    PIPE_MAJOR, PIPE_SERGEANT, DRUM_SERGEANT, PIPER, SNARE, TENOR, BASS, INSTRUCTOR
 }

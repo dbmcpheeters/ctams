@@ -12,5 +12,5 @@ import javax.xml.bind.annotation.XmlEnum;
  */
 @XmlEnum
 public enum JudgePanelType {
-    A, B, Local, DrumMajor, Shadow
+    A, B, LOCAL, DRUM_MAJOR, SHADOW
 }

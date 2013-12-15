@@ -74,7 +74,7 @@
         <person>bobPerson</person>
         <qualification>
             <panel>A</panel>
-            <type>BandPiping</type>
+            <type>BAND_PIPING</type>
         </qualification>
     </judge>
     <judge>
@@ -82,7 +82,7 @@
         <person>andyPerson</person>
         <qualification>
             <panel>B</panel>
-            <type>BandEnsemble</type>
+            <type>BAND_ENSEMBLE</type>
         </qualification>
     </judge>
     <judge>
@@ -90,7 +90,7 @@
         <person>jamiePerson</person>
         <qualification>
             <panel>A</panel>
-            <type>BandPiping</type>
+            <type>BAND_PIPING</type>
         </qualification>
     </judge>
     <judge>
@@ -98,7 +98,7 @@
         <person>eoinPerson</person>
         <qualification>
             <panel>Local</panel>
-            <type>BandDrumming</type>
+            <type>BAND_DRUMMING</type>
         </qualification>
     </judge>
     <venue>

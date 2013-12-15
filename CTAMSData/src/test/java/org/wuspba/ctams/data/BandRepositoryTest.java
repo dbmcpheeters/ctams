@@ -98,7 +98,7 @@ public class BandRepositoryTest {
 
         assertEquals(ret.get(0), TestData.INSTANCE.skye);
         
-        ret = repository.findByGrade(Grade.ONE);
+        ret = repository.findByGrade(Grade.TWO);
         assertEquals(ret.size(), 0);
     }
 

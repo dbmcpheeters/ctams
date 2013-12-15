@@ -38,33 +38,34 @@ public enum TestData {
     INSTANCE;
 
     private final Date date = new GregorianCalendar(2013, 5, 4, 21, 56).getTime();
-    private final Date start = new GregorianCalendar(2013, 6, 4, 22, 59).getTime();
-    private final Date end = new GregorianCalendar(2013, 5, 3, 20, 0).getTime();
+    private final Date start = new GregorianCalendar(2013, 1, 1, 22, 59).getTime();
+    private final Date end = new GregorianCalendar(2013, 11, 30, 20, 0).getTime();
 
-    public Band skye;
-    public BandRegistration bandRegistration;
-    public Roster roster;
-    public BandMember andyMember;
-    public BandMember jamieMember;
-    public BandContest bandContest;
-    public BandResult bandResult;
-    public SoloContest soloContest;
-    public SoloResult soloResult;
-    public JudgeQualification drummingQual;
-    public JudgeQualification pipingQual;
-    public JudgeQualification ensembleQual;
-    public Judge judgeEoin;
-    public Judge judgeAndy;
-    public Judge judgeJamie;
-    public Judge judgeBob;
-    public Person eoin;
-    public Person andy;
-    public Person jamie;
-    public Person bob;
-    public Person elaine;
-    public Venue venue;
-    public SoloRegistration soloRegistration;
-    public Instructor andyInstructor;
+    public Band skye; // NOSONAR
+    public Band scots; // NOSONAR
+    public BandRegistration bandRegistration; // NOSONAR
+    public Roster roster; // NOSONAR
+    public BandMember andyMember; // NOSONAR
+    public BandMember jamieMember; // NOSONAR
+    public BandContest bandContest; // NOSONAR
+    public BandResult bandResult; // NOSONAR
+    public SoloContest soloContest; // NOSONAR
+    public SoloResult soloResult; // NOSONAR
+    public JudgeQualification drummingQual; // NOSONAR
+    public JudgeQualification pipingQual; // NOSONAR
+    public JudgeQualification ensembleQual; // NOSONAR
+    public Judge judgeEoin; // NOSONAR
+    public Judge judgeAndy; // NOSONAR
+    public Judge judgeJamie; // NOSONAR
+    public Judge judgeBob; // NOSONAR
+    public Person eoin; // NOSONAR
+    public Person andy; // NOSONAR
+    public Person jamie; // NOSONAR
+    public Person bob; // NOSONAR
+    public Person elaine; // NOSONAR
+    public Venue venue; // NOSONAR
+    public SoloRegistration soloRegistration; // NOSONAR
+    public Instructor andyInstructor; // NOSONAR
 
     TestData() {
         createBand();
@@ -94,17 +95,17 @@ public enum TestData {
         pipingQual = new JudgeQualification();
         pipingQual.setId("pipingQual");
         pipingQual.setPanel(JudgePanelType.A);
-        pipingQual.setType(JudgeType.BandPiping);
+        pipingQual.setType(JudgeType.BAND_PIPING);
 
         ensembleQual = new JudgeQualification();
         ensembleQual.setId("ensembleQual");
         ensembleQual.setPanel(JudgePanelType.B);
-        ensembleQual.setType(JudgeType.BandEnsemble);
+        ensembleQual.setType(JudgeType.BAND_ENSEMBLE);
 
         drummingQual = new JudgeQualification();
         drummingQual.setId("drummingQual");
-        drummingQual.setPanel(JudgePanelType.Local);
-        drummingQual.setType(JudgeType.BandDrumming);
+        drummingQual.setPanel(JudgePanelType.LOCAL);
+        drummingQual.setType(JudgeType.BAND_DRUMMING);
     }
 
     private void createJudgeEoin() {
@@ -279,9 +280,24 @@ public enum TestData {
         skye.setId("skyeBand");
         skye.setName("Colorado Skye");
         skye.setTelephone("719-963-9844");
-        skye.setType(BandType.Competitive);
+        skye.setType(BandType.COMPETITIVE);
         skye.setUrl("www.coloradoskye.com");
         skye.setZip("80903");
+
+        scots = new Band();
+        scots.setAddress("999 Holywood Blvd");
+        scots.setCity("Holywood");
+        scots.setState("CA");
+        scots.setBranch(Branch.SOUTHERN);
+        scots.setDissolved(false);
+        scots.setEmail("pipe.major@example.com");
+        scots.setGrade(Grade.ONE);
+        scots.setId("laScots");
+        scots.setName("LA Scots");
+        scots.setTelephone("555-555-555");
+        scots.setType(BandType.COMPETITIVE);
+        scots.setUrl("www.lascots.com");
+        scots.setZip("90210");
     }
 
     private  void createBandResult() {
@@ -334,7 +350,7 @@ public enum TestData {
         soloRegistration.setPerson(elaine);
         soloRegistration.setSeason(2013);
         soloRegistration.setStart(start);
-        soloRegistration.setType(Instrument.Piping);
+        soloRegistration.setType(Instrument.PIPING);
         soloRegistration.setNumber(129);
     }
 
@@ -342,12 +358,12 @@ public enum TestData {
         andyMember = new BandMember();
         andyMember.setId("andyMember");
         andyMember.setPerson(andy);
-        andyMember.setType(BandMemberType.PipeMajor);
+        andyMember.setType(BandMemberType.PIPE_MAJOR);
         
         jamieMember = new BandMember();
         jamieMember.setId("jameiMember");
         jamieMember.setPerson(jamie);
-        jamieMember.setType(BandMemberType.Piper);
+        jamieMember.setType(BandMemberType.PIPER);
     }
 
     private  void createRoster() {
@@ -361,7 +377,7 @@ public enum TestData {
         bandRegistration = new BandRegistration();
         bandRegistration.setBand(skye);
         bandRegistration.setEnd(end);
-        bandRegistration.setGrade(Grade.ONE);
+        bandRegistration.setGrade(Grade.THREE);
         bandRegistration.setId("bandRegistration");
         bandRegistration.setRoster(roster);
         bandRegistration.setSeason(2009);
@@ -372,6 +388,6 @@ public enum TestData {
         andyInstructor = new Instructor();
         andyInstructor.setId("andyInstructor");
         andyInstructor.setPerson(andy);
-        andyInstructor.setType(Instrument.Piping);
+        andyInstructor.setType(Instrument.PIPING);
     }
 }

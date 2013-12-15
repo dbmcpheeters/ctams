@@ -13,6 +13,11 @@ import org.springframework.data.repository.CrudRepository;
  * @author atrimble
  */
 public class TestUtils {
+
+    private TestUtils() {
+
+    }
+
     public static void populateData(CrudRepository repo) {
         repo.save(TestData.INSTANCE.skye);
         repo.save(TestData.INSTANCE.eoin);

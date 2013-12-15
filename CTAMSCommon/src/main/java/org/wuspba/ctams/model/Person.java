@@ -4,6 +4,7 @@
  */
 package org.wuspba.ctams.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -29,7 +30,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Person")
-public class Person {
+public class Person implements Serializable {
 
     @Id
     @Column(name = "PersonID")
@@ -324,7 +325,7 @@ public class Person {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Person) {
+        if(obj instanceof Person) {
             return ((Person)obj).getId().equals(getId());
         }
         return false;

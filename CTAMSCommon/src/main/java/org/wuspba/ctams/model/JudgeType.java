@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlEnum;
  */
 @XmlEnum
 public enum JudgeType {
-    BandPiping, BandDrumming, BandEnsemble,
-    SoloPiping, Piobaireachd, SoloSnare,
-    SoloBassTenor, DrumMajor
+    BAND_PIPING, BAND_DRUMMING, BAND_ENSEMBLE,
+    SOLO_PIPING, PIOBAIREACHD, SOLO_SNARE,
+    SOLO_BASS_TENOR, DRUM_MAJOR
 }

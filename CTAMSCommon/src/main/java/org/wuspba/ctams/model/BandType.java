@@ -12,5 +12,5 @@ import javax.xml.bind.annotation.XmlEnum;
  */
 @XmlEnum
 public enum BandType {
-    Competitive, Associate, Juvenile
+    COMPETITIVE, ASSOCIATE, JUVENILE
 }

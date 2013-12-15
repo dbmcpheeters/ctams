@@ -23,7 +23,7 @@
         <person>andyPerson</person>
         <qualification>
             <panel>B</panel>
-            <type>BandEnsemble</type>
+            <type>BAND_ENSEMBLE</type>
         </qualification>
     </judge>
 </CTAMS>

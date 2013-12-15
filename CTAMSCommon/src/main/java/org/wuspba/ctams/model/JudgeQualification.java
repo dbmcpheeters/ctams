@@ -86,7 +86,7 @@ public class JudgeQualification implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj != null && obj instanceof JudgeQualification) {
+        if(obj instanceof JudgeQualification) {
             return ((JudgeQualification)obj).getId().equals(getId());
         }
         return false;

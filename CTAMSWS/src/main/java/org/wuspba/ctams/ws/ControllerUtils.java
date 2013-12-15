@@ -21,6 +21,10 @@ import org.wuspba.ctams.model.CTAMSDocument;
  * @author atrimble
  */
 public class ControllerUtils {
+
+    private ControllerUtils() {
+
+    }
     
     private static final Logger LOG = LoggerFactory.getLogger(ControllerUtils.class);
     
@@ -34,7 +38,6 @@ public class ControllerUtils {
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
             m.setProperty(Marshaller.JAXB_ENCODING, "UTF-16");
-            //m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             m.marshal(doc, out);
 
             return out.toString();

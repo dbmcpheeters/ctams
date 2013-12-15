@@ -166,14 +166,14 @@ public class BandContest implements Serializable {
      * @return the date
      */
     public Date getDate() {
-        return date;
+        return (Date)date.clone();
     }
 
     /**
      * @param date the date to set
      */
     public void setDate(Date date) {
-        this.date = date;
+        this.date = (Date)date.clone();
     }
 
     /**
@@ -234,7 +234,7 @@ public class BandContest implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj != null && obj instanceof BandContest) {
+        if(obj instanceof BandContest) {
             return ((BandContest)obj).getId().equals(getId());
         }
         return false;

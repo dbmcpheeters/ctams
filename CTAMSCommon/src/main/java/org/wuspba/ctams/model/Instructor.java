@@ -93,7 +93,7 @@ public class Instructor implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Instructor) {
+        if(obj instanceof Instructor) {
             return ((Instructor)obj).getId().equals(getId());
         }
         return false;

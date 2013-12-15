@@ -146,33 +146,33 @@ public class BandRegistration implements Serializable {
      * @return the start
      */
     public Date getStart() {
-        return start;
+        return (Date)start.clone();
     }
 
     /**
      * @param start the start to set
      */
     public void setStart(Date start) {
-        this.start = start;
+        this.start = (Date)start.clone();
     }
 
     /**
      * @return the end
      */
     public Date getEnd() {
-        return end;
+        return (Date)end.clone();
     }
 
     /**
      * @param end the end to set
      */
     public void setEnd(Date end) {
-        this.end = end;
+        this.end = (Date)end.clone();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj != null && obj instanceof BandRegistration) {
+        if(obj instanceof BandRegistration) {
             return ((BandRegistration)obj).getId().equals(getId());
         }
         return false;

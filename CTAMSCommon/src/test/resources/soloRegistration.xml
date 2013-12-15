@@ -23,9 +23,9 @@
         <person>elainePerson</person>
         <number>129</number>
         <grade>TWO</grade>
-        <type>Piping</type>
+        <type>PIPING</type>
         <seaon>2013</seaon>
-        <start>2013-07-04T22:59:00-06:00</start>
-        <end>2013-06-03T20:00:00-06:00</end>
+        <start>2013-02-01T22:59:00-06:00</start>
+        <end>2013-12-30T21:00:00-06:00</end>
     </soloRegistration>
 </CTAMS>

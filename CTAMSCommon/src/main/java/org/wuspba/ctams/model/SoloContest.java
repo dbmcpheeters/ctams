@@ -167,14 +167,14 @@ public class SoloContest implements Serializable {
      * @return the date
      */
     public Date getDate() {
-        return date;
+        return (Date)date.clone();
     }
 
     /**
      * @param date the date to set
      */
     public void setDate(Date date) {
-        this.date = date;
+        this.date = (Date)date.clone();
     }
 
     /**
@@ -249,7 +249,7 @@ public class SoloContest implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj != null && obj instanceof SoloContest) {
+        if(obj instanceof SoloContest) {
             return ((SoloContest)obj).getId().equals(getId());
         }
         return false;

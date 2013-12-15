@@ -8,24 +8,18 @@ package org.wuspba.ctams.data;
 
 import java.util.List;
 import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import org.wuspba.ctams.model.Band;
 import org.wuspba.ctams.model.BandContest;
 import org.wuspba.ctams.model.BandEventType;
 import org.wuspba.ctams.model.Grade;
-import org.wuspba.ctams.model.Venue;
 import org.wuspba.ctams.util.TestData;
 import org.wuspba.ctams.util.TestUtils;
 
@@ -107,5 +101,80 @@ public class BandContestRepositoryTest {
         
         ret = repository.findBySeason(2009);
         assertEquals(ret.size(), 0); 
+    }
+
+    @Test
+    public void testFindByPipingJudge() {
+        List<BandContest> ret = repository.findByPipingJudge(TestData.INSTANCE.judgeJamie);
+        assertEquals(ret.size(), 1);
+
+        assertEquals(ret.get(0), TestData.INSTANCE.bandContest);
+        
+        ret = repository.findByPipingJudge(TestData.INSTANCE.judgeEoin);
+        assertEquals(ret.size(), 0);
+    }
+    
+    @Test
+    public void testFindByPipingJudgeAndSeason() {
+        List<BandContest> ret = repository.findByPipingJudgeAndSeason(TestData.INSTANCE.judgeJamie, 2013);
+        assertEquals(ret.size(), 1);
+
+        assertEquals(ret.get(0), TestData.INSTANCE.bandContest);
+        
+        ret = repository.findByPipingJudgeAndSeason(TestData.INSTANCE.judgeEoin, 2013);
+        assertEquals(ret.size(), 0);
+        
+        ret = repository.findByPipingJudgeAndSeason(TestData.INSTANCE.judgeJamie, 2009);
+        assertEquals(ret.size(), 0);
+    }
+    
+    @Test
+    public void testFindByDrummingJudge() {
+        List<BandContest> ret = repository.findByDrummingJudge(TestData.INSTANCE.judgeEoin);
+        assertEquals(ret.size(), 1);
+
+        assertEquals(ret.get(0), TestData.INSTANCE.bandContest);
+        
+        ret = repository.findByDrummingJudge(TestData.INSTANCE.judgeAndy);
+        assertEquals(ret.size(), 0);
+    }
+    
+    @Test
+    public void testFindByDrummingJudgeAndSeason() {
+        List<BandContest> ret = repository.findByDrummingJudgeAndSeason(TestData.INSTANCE.judgeEoin, 2013);
+        assertEquals(ret.size(), 1);
+
+        assertEquals(ret.get(0), TestData.INSTANCE.bandContest);
+        
+        ret = repository.findByDrummingJudgeAndSeason(TestData.INSTANCE.judgeAndy, 2013);
+        assertEquals(ret.size(), 0);
+        
+        ret = repository.findByDrummingJudgeAndSeason(TestData.INSTANCE.judgeEoin, 2009);
+        assertEquals(ret.size(), 0);
+    }
+    
+    @Test
+    public void testFindByEnsembleJudge() {
+        List<BandContest> ret = repository.findByEnsembleJudge(TestData.INSTANCE.judgeAndy);
+        assertEquals(ret.size(), 1);
+
+        assertEquals(ret.get(0), TestData.INSTANCE.bandContest);
+        
+        ret = repository.findByEnsembleJudge(TestData.INSTANCE.judgeEoin);
+        assertEquals(ret.size(), 0);
+    }
+    
+    @Test
+    public void testFindByEnsembleJudgeAndSeason() {
+        List<BandContest> ret = repository.findByEnsembleJudgeAndSeason(TestData.INSTANCE.judgeAndy, 2013);
+        assertEquals(ret.size(), 1);
+
+        assertEquals(ret.get(0), TestData.INSTANCE.bandContest);
+        
+        ret = repository.findByEnsembleJudgeAndSeason(TestData.INSTANCE.judgeEoin, 2013);
+        assertEquals(ret.size(), 0);
+        
+        ret = repository.findByEnsembleJudgeAndSeason(TestData.INSTANCE.judgeAndy, 2009);
+        assertEquals(ret.size(), 0);
     }
 }

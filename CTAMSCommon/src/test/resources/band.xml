@@ -13,6 +13,6 @@
         <grade>THREE</grade>
         <branch>INTERMOUNTAIN</branch>
         <dissolved>true</dissolved>
-        <type>Competitive</type>
+        <type>COMPETITIVE</type>
     </band>
 </CTAMS>

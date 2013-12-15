@@ -12,5 +12,5 @@ import javax.xml.bind.annotation.XmlEnum;
  */
 @XmlEnum
 public enum Instrument {
-    Piping, Snare, Tenor, Bass, DrumMajor
+    PIPING, SNARE, TENOR, BASS, DRUM_MAJOR
 }

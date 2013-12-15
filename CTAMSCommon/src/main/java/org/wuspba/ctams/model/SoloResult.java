@@ -128,7 +128,7 @@ public class SoloResult implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj != null && obj instanceof SoloResult) {
+        if(obj instanceof SoloResult) {
             return ((SoloResult)obj).getId().equals(getId());
         }
         return false;
