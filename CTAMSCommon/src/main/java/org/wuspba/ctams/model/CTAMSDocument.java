@@ -19,43 +19,43 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CTAMSDocument {
     @XmlElement(name = "band")
-    private final List<Band> bands = new ArrayList<Band>();
+    private final List<Band> bands = new ArrayList<>();
     
     @XmlElement(name = "person")
-    private final List<Person> people = new ArrayList<Person>();
+    private final List<Person> people = new ArrayList<>();
 
     @XmlElement(name = "judge")
-    private final List<Judge> judges = new ArrayList<Judge>();
+    private final List<Judge> judges = new ArrayList<>();
 
     @XmlElement(name = "venue")
-    private final List<Venue> venues = new ArrayList<Venue>();
+    private final List<Venue> venues = new ArrayList<>();
 
     @XmlElement(name = "bandContestResult")
-    private final List<BandResult> bandContestResults = new ArrayList<BandResult>();
+    private final List<BandResult> bandContestResults = new ArrayList<>();
 
     @XmlElement(name = "soloContestResult")
-    private final List<SoloResult> soloContestResults = new ArrayList<SoloResult>();
+    private final List<SoloResult> soloContestResults = new ArrayList<>();
 
     @XmlElement(name = "bandContest")
-    private final List<BandContest> bandContests = new ArrayList<BandContest>();
+    private final List<BandContest> bandContests = new ArrayList<>();
 
     @XmlElement(name = "soloContest")
-    private final List<SoloContest> soloContests = new ArrayList<SoloContest>();
+    private final List<SoloContest> soloContests = new ArrayList<>();
     
     @XmlElement(name = "bandMember")
-    private final List<BandMember> bandMembers = new ArrayList<BandMember>();
+    private final List<BandMember> bandMembers = new ArrayList<>();
     
     @XmlElement(name = "bandRegistration")
-    private final List<BandRegistration> bandRegistrations = new ArrayList<BandRegistration>();
+    private final List<BandRegistration> bandRegistrations = new ArrayList<>();
     
     @XmlElement(name = "roster")
-    private final List<Roster> rosters = new ArrayList<Roster>();
+    private final List<Roster> rosters = new ArrayList<>();
     
     @XmlElement(name = "soloRegistration")
-    private final List<SoloRegistration> soloRegistrations = new ArrayList<SoloRegistration>();
+    private final List<SoloRegistration> soloRegistrations = new ArrayList<>();
     
     @XmlElement(name = "instructor")
-    private final List<Instructor> instructors = new ArrayList<Instructor>();
+    private final List<Instructor> instructors = new ArrayList<>();
 
     /**
      * @return the bands
