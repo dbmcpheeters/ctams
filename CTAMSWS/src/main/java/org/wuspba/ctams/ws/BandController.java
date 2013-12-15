@@ -4,6 +4,7 @@
  */
 package org.wuspba.ctams.ws;
 
+import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,12 +77,12 @@ public class BandController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void removeBands(
-            @RequestParam(value = "xml", required = true) String xml) {
+    public @ResponseBody void deleteBand(
+            @RequestParam(value = "id", required = true) String id) {
 
-        CTAMSDocument bands = ControllerUtils.unmarshal(xml);
+        List<Band> bands = repository.findById(id);
 
-        for(Band b : bands.getBands()) {
+        for(Band b : bands) {
             repository.delete(b);
         }
     }
