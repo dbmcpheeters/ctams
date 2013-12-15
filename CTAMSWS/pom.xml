@@ -14,10 +14,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <properties>
-        <org.wuspba.test>Andy</org.wuspba.test>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.wuspba</groupId>
@@ -171,24 +167,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>           
-                        <id>test-jar</id>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                        <configuration>
-                            <includes>
-                                <include>**</include>
-                            </includes>
-                        </configuration>
-                    </execution>       
-                </executions>    
             </plugin>
         </plugins>
     </build>
