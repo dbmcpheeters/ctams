@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.wuspba.ctams.model.BandResult;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 import org.wuspba.ctams.util.TestUtils;
 
 /**
@@ -46,10 +46,10 @@ public class BandResultRepositoryTest {
 
     @Test
     public void testFindById() {
-        List<BandResult> ret = repository.findById(TestData.INSTANCE.bandResult.getId());
+        List<BandResult> ret = repository.findById(TestFixture.INSTANCE.bandResult.getId());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
         ret = repository.findById("abcd");
         assertEquals(ret.size(), 0);
@@ -57,166 +57,166 @@ public class BandResultRepositoryTest {
     
     @Test
     public void testFindByContest() {
-        List<BandResult> ret = repository.findByContest(TestData.INSTANCE.bandContest);
+        List<BandResult> ret = repository.findByContest(TestFixture.INSTANCE.bandContest);
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
-        ret = repository.findByContest(TestData.INSTANCE.bandNonContest);
+        ret = repository.findByContest(TestFixture.INSTANCE.bandNonContest);
         assertEquals(ret.size(), 0);
     }
     
     @Test
     public void testFindByBand() {
-        List<BandResult> ret = repository.findByBand(TestData.INSTANCE.skye, TestData.INSTANCE.bandContest.getSeason());
+        List<BandResult> ret = repository.findByBand(TestFixture.INSTANCE.skye, TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
-        ret = repository.findByBand(TestData.INSTANCE.scots, TestData.INSTANCE.bandContest.getSeason());
+        ret = repository.findByBand(TestFixture.INSTANCE.scots, TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByBand(TestData.INSTANCE.skye, TestData.INSTANCE.bandContest.getSeason() + 1);
+        ret = repository.findByBand(TestFixture.INSTANCE.skye, TestFixture.INSTANCE.bandContest.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
     
     @Test
     public void testFindByPiping1Place() {
-        List<BandResult> ret = repository.findByPiping1Place(TestData.INSTANCE.bandResult.getPiping1Place(), TestData.INSTANCE.bandContest.getSeason());
+        List<BandResult> ret = repository.findByPiping1Place(TestFixture.INSTANCE.bandResult.getPiping1Place(), TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
-        ret = repository.findByPiping1Place(TestData.INSTANCE.bandResult.getPiping1Place() + 1, TestData.INSTANCE.bandContest.getSeason());
+        ret = repository.findByPiping1Place(TestFixture.INSTANCE.bandResult.getPiping1Place() + 1, TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByPiping1Place(TestData.INSTANCE.bandResult.getPiping1Place(), TestData.INSTANCE.bandContest.getSeason() + 1);
+        ret = repository.findByPiping1Place(TestFixture.INSTANCE.bandResult.getPiping1Place(), TestFixture.INSTANCE.bandContest.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
     
     @Test
     public void testFindByPiping1Eval() {
-        List<BandResult> ret = repository.findByPiping1Eval(TestData.INSTANCE.bandResult.getPiping1Eval(), TestData.INSTANCE.bandContest.getSeason());
+        List<BandResult> ret = repository.findByPiping1Eval(TestFixture.INSTANCE.bandResult.getPiping1Eval(), TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
-        ret = repository.findByPiping1Eval(TestData.INSTANCE.bandResult.getPiping1Eval() + "_", TestData.INSTANCE.bandContest.getSeason());
+        ret = repository.findByPiping1Eval(TestFixture.INSTANCE.bandResult.getPiping1Eval() + "_", TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByPiping1Eval(TestData.INSTANCE.bandResult.getPiping1Eval(), TestData.INSTANCE.bandContest.getSeason() + 1);
+        ret = repository.findByPiping1Eval(TestFixture.INSTANCE.bandResult.getPiping1Eval(), TestFixture.INSTANCE.bandContest.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
     
     @Test
     public void testFindByPiping2Place() {
-        List<BandResult> ret = repository.findByPiping2Place(TestData.INSTANCE.bandResult.getPiping2Place(), TestData.INSTANCE.bandContest.getSeason());
+        List<BandResult> ret = repository.findByPiping2Place(TestFixture.INSTANCE.bandResult.getPiping2Place(), TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
-        ret = repository.findByPiping2Place(TestData.INSTANCE.bandResult.getPiping2Place() + 1, TestData.INSTANCE.bandContest.getSeason());
+        ret = repository.findByPiping2Place(TestFixture.INSTANCE.bandResult.getPiping2Place() + 1, TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByPiping2Place(TestData.INSTANCE.bandResult.getPiping2Place(), TestData.INSTANCE.bandContest.getSeason() + 1);
+        ret = repository.findByPiping2Place(TestFixture.INSTANCE.bandResult.getPiping2Place(), TestFixture.INSTANCE.bandContest.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
     
     @Test
     public void testFindByPiping2Eval() {
-        List<BandResult> ret = repository.findByPiping2Eval(TestData.INSTANCE.bandResult.getPiping2Eval(), TestData.INSTANCE.bandContest.getSeason());
+        List<BandResult> ret = repository.findByPiping2Eval(TestFixture.INSTANCE.bandResult.getPiping2Eval(), TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
-        ret = repository.findByPiping2Eval(TestData.INSTANCE.bandResult.getPiping2Eval() + "_", TestData.INSTANCE.bandContest.getSeason());
+        ret = repository.findByPiping2Eval(TestFixture.INSTANCE.bandResult.getPiping2Eval() + "_", TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByPiping2Eval(TestData.INSTANCE.bandResult.getPiping2Eval(), TestData.INSTANCE.bandContest.getSeason() + 1);
+        ret = repository.findByPiping2Eval(TestFixture.INSTANCE.bandResult.getPiping2Eval(), TestFixture.INSTANCE.bandContest.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
     
     @Test
     public void testFindByEnsemblePlace() {
-        List<BandResult> ret = repository.findByEnsemblePlace(TestData.INSTANCE.bandResult.getEnsemblePlace(), TestData.INSTANCE.bandContest.getSeason());
+        List<BandResult> ret = repository.findByEnsemblePlace(TestFixture.INSTANCE.bandResult.getEnsemblePlace(), TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
-        ret = repository.findByEnsemblePlace(TestData.INSTANCE.bandResult.getEnsemblePlace() + 1, TestData.INSTANCE.bandContest.getSeason());
+        ret = repository.findByEnsemblePlace(TestFixture.INSTANCE.bandResult.getEnsemblePlace() + 1, TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByEnsemblePlace(TestData.INSTANCE.bandResult.getEnsemblePlace(), TestData.INSTANCE.bandContest.getSeason() + 1);
+        ret = repository.findByEnsemblePlace(TestFixture.INSTANCE.bandResult.getEnsemblePlace(), TestFixture.INSTANCE.bandContest.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
     
     @Test
     public void testFindByEnsembleEval() {
-        List<BandResult> ret = repository.findByEnsembleEval(TestData.INSTANCE.bandResult.getEnsembleEval(), TestData.INSTANCE.bandContest.getSeason());
+        List<BandResult> ret = repository.findByEnsembleEval(TestFixture.INSTANCE.bandResult.getEnsembleEval(), TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
-        ret = repository.findByEnsembleEval(TestData.INSTANCE.bandResult.getEnsembleEval() + "_", TestData.INSTANCE.bandContest.getSeason());
+        ret = repository.findByEnsembleEval(TestFixture.INSTANCE.bandResult.getEnsembleEval() + "_", TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByEnsembleEval(TestData.INSTANCE.bandResult.getEnsembleEval(), TestData.INSTANCE.bandContest.getSeason() + 1);
+        ret = repository.findByEnsembleEval(TestFixture.INSTANCE.bandResult.getEnsembleEval(), TestFixture.INSTANCE.bandContest.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
     
     @Test
     public void testFindByDrummingPlace() {
-        List<BandResult> ret = repository.findByDrummingPlace(TestData.INSTANCE.bandResult.getDrummingPlace(), TestData.INSTANCE.bandContest.getSeason());
+        List<BandResult> ret = repository.findByDrummingPlace(TestFixture.INSTANCE.bandResult.getDrummingPlace(), TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
-        ret = repository.findByDrummingPlace(TestData.INSTANCE.bandResult.getDrummingPlace() + 1, TestData.INSTANCE.bandContest.getSeason());
+        ret = repository.findByDrummingPlace(TestFixture.INSTANCE.bandResult.getDrummingPlace() + 1, TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByDrummingPlace(TestData.INSTANCE.bandResult.getDrummingPlace(), TestData.INSTANCE.bandContest.getSeason() + 1);
+        ret = repository.findByDrummingPlace(TestFixture.INSTANCE.bandResult.getDrummingPlace(), TestFixture.INSTANCE.bandContest.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
     
     @Test
     public void testFindByDrummingEval() {
-        List<BandResult> ret = repository.findByDrummingEval(TestData.INSTANCE.bandResult.getDrummingEval(), TestData.INSTANCE.bandContest.getSeason());
+        List<BandResult> ret = repository.findByDrummingEval(TestFixture.INSTANCE.bandResult.getDrummingEval(), TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
-        ret = repository.findByDrummingEval(TestData.INSTANCE.bandResult.getDrummingEval() + "_", TestData.INSTANCE.bandContest.getSeason());
+        ret = repository.findByDrummingEval(TestFixture.INSTANCE.bandResult.getDrummingEval() + "_", TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByDrummingEval(TestData.INSTANCE.bandResult.getDrummingEval(), TestData.INSTANCE.bandContest.getSeason() + 1);
+        ret = repository.findByDrummingEval(TestFixture.INSTANCE.bandResult.getDrummingEval(), TestFixture.INSTANCE.bandContest.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
     
     @Test
     public void testFindByPoints() {
-        List<BandResult> ret = repository.findByPoints(TestData.INSTANCE.bandResult.getPoints(), TestData.INSTANCE.bandContest.getSeason());
+        List<BandResult> ret = repository.findByPoints(TestFixture.INSTANCE.bandResult.getPoints(), TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
-        ret = repository.findByPoints(TestData.INSTANCE.bandResult.getPoints() + 1, TestData.INSTANCE.bandContest.getSeason());
+        ret = repository.findByPoints(TestFixture.INSTANCE.bandResult.getPoints() + 1, TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByPoints(TestData.INSTANCE.bandResult.getPoints(), TestData.INSTANCE.bandContest.getSeason() + 1);
+        ret = repository.findByPoints(TestFixture.INSTANCE.bandResult.getPoints(), TestFixture.INSTANCE.bandContest.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
     
     @Test
     public void testFindByPlace() {
-        List<BandResult> ret = repository.findByPlace(TestData.INSTANCE.bandResult.getPlace(), TestData.INSTANCE.bandContest.getSeason());
+        List<BandResult> ret = repository.findByPlace(TestFixture.INSTANCE.bandResult.getPlace(), TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandResult);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
-        ret = repository.findByPlace(TestData.INSTANCE.bandResult.getPlace() + 1, TestData.INSTANCE.bandContest.getSeason());
+        ret = repository.findByPlace(TestFixture.INSTANCE.bandResult.getPlace() + 1, TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByPlace(TestData.INSTANCE.bandResult.getPlace(), TestData.INSTANCE.bandContest.getSeason() + 1);
+        ret = repository.findByPlace(TestFixture.INSTANCE.bandResult.getPlace(), TestFixture.INSTANCE.bandContest.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
 

@@ -10,7 +10,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
@@ -37,12 +37,34 @@ public class BandContestTest extends AbstractUnitTest {
             assertEquals(ctams.getBandContests().size(), 1);
             BandContest contest = ctams.getBandContests().get(0);
 
-            testEquality(contest, TestData.INSTANCE.bandContest);
+            testEquality(contest, TestFixture.INSTANCE.bandContest);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
+    }
+
+    @Test
+    public void testSetters() {
+        BandContest c1 = TestFixture.INSTANCE.bandContest;
+        BandContest c2 = TestFixture.INSTANCE.bandContest;
+
+        c1.setDate(c1.getDate());
+        c1.setDrumming(c2.getDrumming());
+        c1.setEnsemble(c2.getEnsemble());
+        c1.setEventType(c2.getEventType());
+        c1.setGrade(c2.getGrade());
+        c1.setId(c2.getId());
+        c1.setPiping1(c2.getPiping1());
+        c1.setPiping2(c2.getPiping2());
+        c1.setSeason(c2.getSeason());
+        c1.setVenue(c2.getVenue());
+
+        testEquality(c1, c2);
+        
+        assertFalse(TestFixture.INSTANCE.bandContest.equals(TestFixture.INSTANCE.soloContest));
+        assertTrue(TestFixture.INSTANCE.bandContest.equals(TestFixture.INSTANCE.bandContest));
     }
     
     private void testEquality(BandContest c1, BandContest c2) {

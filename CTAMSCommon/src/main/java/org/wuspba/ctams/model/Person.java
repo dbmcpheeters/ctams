@@ -70,7 +70,7 @@ public class Person implements Serializable {
     @XmlElement(name = "address", required = true)
     private String address;
 
-    @Column(name = "CIty")
+    @Column(name = "City")
     @XmlElement(name = "city", required = true)
     private String city;
 

@@ -18,7 +18,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.wuspba.ctams.model.BandRegistration;
 import org.wuspba.ctams.model.Grade;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 import org.wuspba.ctams.util.TestUtils;
 
 /**
@@ -48,10 +48,10 @@ public class BandRegistrationRepositoryTest {
 
     @Test
     public void testFindById() {
-        List<BandRegistration> ret = repository.findById(TestData.INSTANCE.bandRegistration.getId());
+        List<BandRegistration> ret = repository.findById(TestFixture.INSTANCE.bandRegistration.getId());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandRegistration);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandRegistration);
         
         ret = repository.findById("abcd");
         assertEquals(ret.size(), 0);
@@ -59,12 +59,12 @@ public class BandRegistrationRepositoryTest {
 
     @Test
     public void testFindByBand() {
-        List<BandRegistration> ret = repository.findByBand(TestData.INSTANCE.skye);
+        List<BandRegistration> ret = repository.findByBand(TestFixture.INSTANCE.skye);
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandRegistration);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandRegistration);
         
-        ret = repository.findByBand(TestData.INSTANCE.scots);
+        ret = repository.findByBand(TestFixture.INSTANCE.scots);
         assertEquals(ret.size(), 0);
     }
 
@@ -73,7 +73,7 @@ public class BandRegistrationRepositoryTest {
         List<BandRegistration> ret = repository.findByGrade(Grade.THREE);
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandRegistration);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandRegistration);
         
         ret = repository.findByGrade(Grade.ONE);
         assertEquals(ret.size(), 0);
@@ -84,7 +84,7 @@ public class BandRegistrationRepositoryTest {
         List<BandRegistration> ret = repository.findBySeason(2009);
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandRegistration);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandRegistration);
         
         ret = repository.findBySeason(2013);
         assertEquals(ret.size(), 0); 
@@ -95,7 +95,7 @@ public class BandRegistrationRepositoryTest {
         List<BandRegistration> ret = repository.findByDate(new GregorianCalendar(2013, 6, 4, 22, 59).getTime());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.bandRegistration);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandRegistration);
         
         ret = repository.findByDate(new GregorianCalendar(2012, 6, 4, 22, 59).getTime());
         assertEquals(ret.size(), 0); 

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package org.wuspba.ctams.ws;
+package org.wuspba.ctams.util;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -28,7 +28,7 @@ public class ControllerUtils {
     
     private static final Logger LOG = LoggerFactory.getLogger(ControllerUtils.class);
     
-    protected static final String marshal(CTAMSDocument doc) {
+    public static final String marshal(CTAMSDocument doc) {
         String packageName = CTAMSDocument.class.getPackage().getName();
 
         try {
@@ -47,7 +47,7 @@ public class ControllerUtils {
         }
     }
 
-    protected static final CTAMSDocument unmarshal(String xml) {
+    public static final CTAMSDocument unmarshal(String xml) {
         String packageName = CTAMSDocument.class.getPackage().getName();
 
         try {

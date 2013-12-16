@@ -10,7 +10,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
@@ -37,12 +37,28 @@ public class BandMemberTest extends AbstractUnitTest {
             assertEquals(ctams.getBandMembers().size(), 1);
             BandMember member = ctams.getBandMembers().get(0);
 
-            testEquality(member, TestData.INSTANCE.andyMember);
+            testEquality(member, TestFixture.INSTANCE.andyMember);
             
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
+    }
+
+    @Test
+    public void testSetters() {
+        BandMember m1 = TestFixture.INSTANCE.andyMember;
+        BandMember m2 = TestFixture.INSTANCE.andyMember;
+
+        m1.setId(m2.getId());
+        m1.setPerson(m2.getPerson());
+        m1.setType(m2.getType());
+
+        testEquality(m1, m2);
+
+        assertFalse(TestFixture.INSTANCE.andyMember.equals(TestFixture.INSTANCE.bobMember));
+        assertFalse(TestFixture.INSTANCE.andyMember.equals(TestFixture.INSTANCE.andy));
+        assertTrue(TestFixture.INSTANCE.andyMember.equals(TestFixture.INSTANCE.andyMember));
     }
 
     private void testEquality(BandMember m1, BandMember m2) {

@@ -47,7 +47,7 @@ public class Venue implements Serializable {
     private String sponsor = "";
 
     @Column(name = "Location")
-    @XmlElement(name = "lcoation")
+    @XmlElement(name = "location")
     private String location = "";
 
     @Column(name = "Address")

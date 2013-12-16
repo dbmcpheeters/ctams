@@ -10,7 +10,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
@@ -37,12 +37,36 @@ public class VenueTest extends AbstractUnitTest {
             assertEquals(ctams.getVenues().size(), 1);
             Venue v = ctams.getVenues().get(0);
 
-            testEquality(v, TestData.INSTANCE.venue);
+            testEquality(v, TestFixture.INSTANCE.venue);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
+    }
+
+    @Test
+    public void testSetters() {
+        Venue v1 = TestFixture.INSTANCE.venue;
+        Venue v2 = TestFixture.INSTANCE.venue;
+
+        v1.setAddress(v2.getAddress());
+        v1.setBranch(v2.getBranch());
+        v1.setCity(v2.getCity());
+        v1.setEmail(v2.getEmail());
+        v1.setId(v2.getId());
+        v1.setLocation(v2.getLocation());
+        v1.setName(v2.getName());
+        v1.setPhone(v2.getPhone());
+        v1.setSponsor(v2.getSponsor());
+        v1.setState(v2.getState());
+        v1.setUrl(v2.getUrl());
+        v1.setZip(v2.getZip());
+
+        testEquality(v1, v2);
+        
+        assertFalse(TestFixture.INSTANCE.venue.equals(TestFixture.INSTANCE.soloNonContest));
+        assertTrue(TestFixture.INSTANCE.venue.equals(TestFixture.INSTANCE.venue));
     }
 
     private void testEquality(Venue v1, Venue v2) {

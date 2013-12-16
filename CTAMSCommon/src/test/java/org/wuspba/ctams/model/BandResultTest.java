@@ -10,7 +10,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
@@ -36,12 +36,36 @@ public class BandResultTest extends AbstractUnitTest {
             assertEquals(ctams.getBandContestResults().size(), 1);
             BandResult result = ctams.getBandContestResults().get(0);
 
-            testEquality(result, TestData.INSTANCE.bandResult);
+            testEquality(result, TestFixture.INSTANCE.bandResult);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
+    }
+
+    @Test
+    public void testSetters() {
+        BandResult r1 = TestFixture.INSTANCE.bandResult;
+        BandResult r2 = TestFixture.INSTANCE.bandResult;
+
+        r1.setBand(r2.getBand());
+        r1.setContest(r2.getContest());
+        r1.setDrummingEval(r2.getDrummingEval());
+        r1.setDrummingPlace(r2.getDrummingPlace());
+        r1.setEnsembleEval(r2.getEnsembleEval());
+        r1.setId(r2.getId());
+        r1.setPiping1Eval(r2.getPiping1Eval());
+        r1.setPiping1Place(r2.getPiping1Place());
+        r1.setPiping2Eval(r2.getPiping2Eval());
+        r1.setPiping2Place(r2.getPiping2Place());
+        r1.setPlace(r2.getPlace());
+        r1.setPoints(r2.getPoints());
+
+        testEquality(r1, r2);
+        
+        assertFalse(TestFixture.INSTANCE.bandResult.equals(TestFixture.INSTANCE.bobMember));
+        assertTrue(TestFixture.INSTANCE.bandResult.equals(TestFixture.INSTANCE.bandResult));
     }
 
     private void testEquality(BandResult r1, BandResult r2) {

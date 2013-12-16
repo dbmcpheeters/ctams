@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import org.wuspba.ctams.model.Judge;
+import org.wuspba.ctams.model.Roster;
 import org.wuspba.ctams.util.TestFixture;
 import org.wuspba.ctams.util.TestUtils;
 
@@ -27,12 +27,12 @@ import org.wuspba.ctams.util.TestUtils;
 @ContextConfiguration(classes = {JPATestConfig.class})
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
-public class JudgeRepositoryTest {
+public class RosterRepositoryTest {
 
     @Autowired 
-    private JudgeRepository repository;
+    private RosterRepository repository;
     
-    public JudgeRepositoryTest() {
+    public RosterRepositoryTest() {
     }
     
     @Before
@@ -46,39 +46,24 @@ public class JudgeRepositoryTest {
 
     @Test
     public void testFindById() {
-        List<Judge> ret = repository.findById(TestFixture.INSTANCE.judgeAndy.getId());
+        List<Roster> ret = repository.findById(TestFixture.INSTANCE.roster.getId());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestFixture.INSTANCE.judgeAndy);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.roster);
         
         ret = repository.findById("abcd");
         assertEquals(ret.size(), 0);
     }
 
     @Test
-    public void testFindByPerson() {
-        List<Judge> ret = repository.findByPerson(TestFixture.INSTANCE.andy);
+    public void testFindByMember() {
+        List<Roster> ret = repository.findByMembers(TestFixture.INSTANCE.andyMember);
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestFixture.INSTANCE.judgeAndy);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.roster);
         
-        ret = repository.findByPerson(TestFixture.INSTANCE.elaine);
+        ret = repository.findByMembers(TestFixture.INSTANCE.bobMember);
         assertEquals(ret.size(), 0);
-    }
-
-    @Test
-    public void testFindByQualification() {
-        List<Judge> ret = repository.findByQualifications(TestFixture.INSTANCE.pipingQual);
-        assertEquals(ret.size(), 2);
-
-        assertTrue(ret.contains(TestFixture.INSTANCE.judgeBob));
-        assertTrue(ret.contains(TestFixture.INSTANCE.judgeJamie));
-        assertFalse(ret.contains(TestFixture.INSTANCE.judgeAndy));
-        
-        ret = repository.findByQualifications(TestFixture.INSTANCE.drummingQual);
-        assertEquals(ret.size(), 1);
-        
-        assertEquals(ret.get(0), TestFixture.INSTANCE.judgeEoin);
     }
 
 }

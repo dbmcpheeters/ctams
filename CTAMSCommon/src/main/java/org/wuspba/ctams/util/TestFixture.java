@@ -34,7 +34,7 @@ import org.wuspba.ctams.model.Venue;
  *
  * @author atrimble
  */
-public enum TestData {
+public enum TestFixture {
     INSTANCE;
 
     private final Date date = new GregorianCalendar(2013, 5, 4, 21, 56).getTime();
@@ -47,10 +47,12 @@ public enum TestData {
     public Roster roster; // NOSONAR
     public BandMember andyMember; // NOSONAR
     public BandMember jamieMember; // NOSONAR
+    public BandMember bobMember; // NOSONAR
     public BandContest bandContest; // NOSONAR
     public BandContest bandNonContest; // NOSONAR
     public BandResult bandResult; // NOSONAR
     public SoloContest soloContest; // NOSONAR
+    public SoloContest soloNonContest; // NOSONAR
     public SoloResult soloResult; // NOSONAR
     public JudgeQualification drummingQual; // NOSONAR
     public JudgeQualification pipingQual; // NOSONAR
@@ -68,7 +70,7 @@ public enum TestData {
     public SoloRegistration soloRegistration; // NOSONAR
     public Instructor andyInstructor; // NOSONAR
 
-    TestData() {
+    TestFixture() {
         createBand();
         birthEoin();
         birthAndy();
@@ -344,6 +346,19 @@ public enum TestData {
         soloContest.setPrimaryJudge(judgeAndy);
         soloContest.setSeason(2013);
         soloContest.setVenue(venue);
+        
+        soloNonContest = new SoloContest();
+        soloNonContest.setContestants(1);
+        soloNonContest.setDate(date);
+        soloNonContest.setEventType(SoloEventType.MSR);
+        soloNonContest.setGrade(Grade.TWO);
+        soloNonContest.setId("soloNonContest");
+        soloNonContest.setJudge2(judgeBob);
+        soloNonContest.setJudge3(judgeJamie);
+        soloNonContest.setLeet(0);
+        soloNonContest.setPrimaryJudge(judgeAndy);
+        soloNonContest.setSeason(2013);
+        soloNonContest.setVenue(venue);
     }
 
     private  void createSoloResult() {
@@ -377,6 +392,11 @@ public enum TestData {
         jamieMember.setId("jameiMember");
         jamieMember.setPerson(jamie);
         jamieMember.setType(BandMemberType.PIPER);
+        
+        bobMember = new BandMember();
+        bobMember.setId("bobMember");
+        bobMember.setPerson(bob);
+        bobMember.setType(BandMemberType.PIPER);
     }
 
     private  void createRoster() {

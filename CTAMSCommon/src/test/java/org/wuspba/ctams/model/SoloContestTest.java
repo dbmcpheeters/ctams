@@ -10,7 +10,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
@@ -37,12 +37,36 @@ public class SoloContestTest extends AbstractUnitTest {
             assertEquals(ctams.getSoloContests().size(), 1);
             SoloContest contest = ctams.getSoloContests().get(0);
 
-            testEquality(contest, TestData.INSTANCE.soloContest);
+            testEquality(contest, TestFixture.INSTANCE.soloContest);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
+    }
+
+    @Test
+    public void testSetters() {
+        SoloContest c1 = TestFixture.INSTANCE.soloContest;
+        SoloContest c2 = TestFixture.INSTANCE.soloContest;
+
+        c1.setContestants(c2.getContestants());
+        c1.setDate(c2.getDate());
+        c1.setEventType(c2.getEventType());
+        c1.setGrade(c2.getGrade());
+        c1.setId(c2.getId());
+        c1.setJudge2(c2.getJudge2());
+        c1.setJudge3(c2.getJudge3());
+        c1.setLeet(c2.getLeet());
+        c1.setPrimaryJudge(c2.getPrimaryJudge());
+        c1.setSeason(c2.getSeason());
+        c1.setVenue(c2.getVenue());
+
+        testEquality(c1, c2);
+        
+        assertFalse(TestFixture.INSTANCE.soloContest.equals(TestFixture.INSTANCE.soloNonContest));
+        assertFalse(TestFixture.INSTANCE.soloContest.equals(TestFixture.INSTANCE.judgeAndy));
+        assertTrue(TestFixture.INSTANCE.soloContest.equals(TestFixture.INSTANCE.soloContest));
     }
 
     private void testEquality(SoloContest c1, SoloContest c2) {

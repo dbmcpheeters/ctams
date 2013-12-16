@@ -15,7 +15,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import org.wuspba.ctams.model.Judge;
+import org.wuspba.ctams.model.JudgePanelType;
+import org.wuspba.ctams.model.JudgeQualification;
+import org.wuspba.ctams.model.JudgeType;
 import org.wuspba.ctams.util.TestFixture;
 import org.wuspba.ctams.util.TestUtils;
 
@@ -27,12 +29,12 @@ import org.wuspba.ctams.util.TestUtils;
 @ContextConfiguration(classes = {JPATestConfig.class})
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
-public class JudgeRepositoryTest {
+public class JudgeQualificationRepositoryTest {
 
     @Autowired 
-    private JudgeRepository repository;
+    private JudgeQualificationRepository repository;
     
-    public JudgeRepositoryTest() {
+    public JudgeQualificationRepositoryTest() {
     }
     
     @Before
@@ -46,39 +48,35 @@ public class JudgeRepositoryTest {
 
     @Test
     public void testFindById() {
-        List<Judge> ret = repository.findById(TestFixture.INSTANCE.judgeAndy.getId());
+        List<JudgeQualification> ret = repository.findById(TestFixture.INSTANCE.pipingQual.getId());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestFixture.INSTANCE.judgeAndy);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.pipingQual);
         
         ret = repository.findById("abcd");
         assertEquals(ret.size(), 0);
     }
 
     @Test
-    public void testFindByPerson() {
-        List<Judge> ret = repository.findByPerson(TestFixture.INSTANCE.andy);
+    public void testFindByPanel() {
+        List<JudgeQualification> ret = repository.findByPanel(TestFixture.INSTANCE.pipingQual.getPanel());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestFixture.INSTANCE.judgeAndy);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.pipingQual);
         
-        ret = repository.findByPerson(TestFixture.INSTANCE.elaine);
+        ret = repository.findByPanel(JudgePanelType.DRUM_MAJOR);
         assertEquals(ret.size(), 0);
     }
 
     @Test
-    public void testFindByQualification() {
-        List<Judge> ret = repository.findByQualifications(TestFixture.INSTANCE.pipingQual);
-        assertEquals(ret.size(), 2);
-
-        assertTrue(ret.contains(TestFixture.INSTANCE.judgeBob));
-        assertTrue(ret.contains(TestFixture.INSTANCE.judgeJamie));
-        assertFalse(ret.contains(TestFixture.INSTANCE.judgeAndy));
-        
-        ret = repository.findByQualifications(TestFixture.INSTANCE.drummingQual);
+    public void testFindByType() {
+        List<JudgeQualification> ret = repository.findByType(TestFixture.INSTANCE.pipingQual.getType());
         assertEquals(ret.size(), 1);
+
+        assertEquals(ret.get(0), TestFixture.INSTANCE.pipingQual);
         
-        assertEquals(ret.get(0), TestFixture.INSTANCE.judgeEoin);
+        ret = repository.findByType(JudgeType.DRUM_MAJOR);
+        assertEquals(ret.size(), 0);
     }
 
 }

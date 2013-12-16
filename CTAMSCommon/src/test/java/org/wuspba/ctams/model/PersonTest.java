@@ -10,7 +10,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
@@ -36,12 +36,41 @@ public class PersonTest extends AbstractUnitTest {
             assertEquals(ctams.getPeople().size(), 1);
             Person person = ctams.getPeople().get(0);
 
-            testEquality(person, TestData.INSTANCE.andy);
+            testEquality(person, TestFixture.INSTANCE.andy);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
+    }
+
+    @Test
+    public void testSetters() {
+        Person p1 = TestFixture.INSTANCE.andy;
+        Person p2 = TestFixture.INSTANCE.andy;
+
+        p1.setAddress(p2.getAddress());
+        p1.setBranch(p2.getBranch());
+        p1.setCity(p2.getCity());
+        p1.setEmail(p2.getEmail());
+        p1.setFirstName(p2.getFirstName());
+        p1.setId(p2.getId());
+        p1.setLastName(p2.getLastName());
+        p1.setMiddleName(p2.getMiddleName());
+        p1.setNickName(p2.getNickName());
+        p1.setNotes(p2.getNotes());
+        p1.setPhone(p2.getPhone());
+        p1.setState(p2.getState());
+        p1.setSuffix(p2.getSuffix());
+        p1.setTitle(p2.getTitle());
+        p1.setZip(p2.getZip());
+        p1.setLifeMember(p2.isLifeMember());
+
+        testEquality(p1, p2);
+        
+        assertFalse(TestFixture.INSTANCE.andy.equals(TestFixture.INSTANCE.bob));
+        assertFalse(TestFixture.INSTANCE.andy.equals(TestFixture.INSTANCE.judgeAndy));
+        assertTrue(TestFixture.INSTANCE.andy.equals(TestFixture.INSTANCE.andy));
     }
 
     private void testEquality(Person p1, Person p2) {

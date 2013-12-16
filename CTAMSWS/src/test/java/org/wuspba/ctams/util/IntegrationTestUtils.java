@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.wuspba.ctams.ws;
+package org.wuspba.ctams.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import org.wuspba.ctams.model.CTAMSDocument;
  */
 public class IntegrationTestUtils {
 
-    protected static final String OK_STRING = "HTTP/1.1 200 OK";
+    public static final String OK_STRING = "HTTP/1.1 200 OK";
 
     public static final CTAMSDocument convertEntity(HttpEntity entity) throws IOException {
         String str;

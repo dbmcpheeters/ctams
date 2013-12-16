@@ -4,6 +4,7 @@
  */
 package org.wuspba.ctams.ws;
 
+import org.wuspba.ctams.util.ControllerUtils;
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;

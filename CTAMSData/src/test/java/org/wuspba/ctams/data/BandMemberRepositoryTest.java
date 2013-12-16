@@ -17,7 +17,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.wuspba.ctams.model.BandMember;
 import org.wuspba.ctams.model.BandMemberType;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 import org.wuspba.ctams.util.TestUtils;
 
 /**
@@ -50,10 +50,10 @@ public class BandMemberRepositoryTest {
      */
     @Test
     public void testFindById() {
-        List<BandMember> ret = repository.findById(TestData.INSTANCE.andyMember.getId());
+        List<BandMember> ret = repository.findById(TestFixture.INSTANCE.andyMember.getId());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.andyMember);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.andyMember);
         
         ret = repository.findById("abcd");
         assertEquals(ret.size(), 0);
@@ -64,12 +64,12 @@ public class BandMemberRepositoryTest {
      */
     @Test
     public void testFindByPerson() {
-        List<BandMember> ret = repository.findByPerson(TestData.INSTANCE.andy);
+        List<BandMember> ret = repository.findByPerson(TestFixture.INSTANCE.andy);
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.andyMember);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.andyMember);
         
-        ret = repository.findByPerson(TestData.INSTANCE.eoin);
+        ret = repository.findByPerson(TestFixture.INSTANCE.eoin);
         assertEquals(ret.size(), 0);
     }
 
@@ -81,7 +81,7 @@ public class BandMemberRepositoryTest {
         List<BandMember> ret = repository.findByType(BandMemberType.PIPE_MAJOR);
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.andyMember);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.andyMember);
         
         ret = repository.findByType(BandMemberType.TENOR);
         assertEquals(ret.size(), 0);

@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.wuspba.ctams.model.Band;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.Grade;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 import org.wuspba.ctams.util.TestUtils;
 
 /**
@@ -51,10 +51,10 @@ public class BandRepositoryTest {
      */
     @Test
     public void testFindByName() {
-        List<Band> ret = repository.findByName(TestData.INSTANCE.skye.getName());
+        List<Band> ret = repository.findByName(TestFixture.INSTANCE.skye.getName());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.skye);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.skye);
         
         ret = repository.findByName("Skye");
         assertEquals(ret.size(), 0);
@@ -65,10 +65,10 @@ public class BandRepositoryTest {
      */
     @Test
     public void testFindById() {
-        List<Band> ret = repository.findById(TestData.INSTANCE.skye.getId());
+        List<Band> ret = repository.findById(TestFixture.INSTANCE.skye.getId());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.skye);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.skye);
         
         ret = repository.findById("abcd");
         assertEquals(ret.size(), 0);
@@ -79,10 +79,10 @@ public class BandRepositoryTest {
      */
     @Test
     public void testFindByBranch() {
-        List<Band> ret = repository.findByBranch(TestData.INSTANCE.skye.getBranch());
+        List<Band> ret = repository.findByBranch(TestFixture.INSTANCE.skye.getBranch());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.skye);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.skye);
         
         ret = repository.findByBranch(Branch.GREATBASIN);
         assertEquals(ret.size(), 0);
@@ -93,10 +93,10 @@ public class BandRepositoryTest {
      */
     @Test
     public void testFindByGrade() {
-        List<Band> ret = repository.findByGrade(TestData.INSTANCE.skye.getGrade());
+        List<Band> ret = repository.findByGrade(TestFixture.INSTANCE.skye.getGrade());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.skye);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.skye);
         
         ret = repository.findByGrade(Grade.TWO);
         assertEquals(ret.size(), 0);
@@ -107,10 +107,10 @@ public class BandRepositoryTest {
      */
     @Test
     public void testFindByState() {
-        List<Band> ret = repository.findByState(TestData.INSTANCE.skye.getState());
+        List<Band> ret = repository.findByState(TestFixture.INSTANCE.skye.getState());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.skye);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.skye);
         
         ret = repository.findByState("CA");
         assertEquals(ret.size(), 0);
@@ -121,10 +121,10 @@ public class BandRepositoryTest {
      */
     @Test
     public void testFindByDissolved() {
-        List<Band> ret = repository.findByDissolved(TestData.INSTANCE.skye.isDissolved());
+        List<Band> ret = repository.findByDissolved(TestFixture.INSTANCE.skye.isDissolved());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.skye);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.skye);
         
         ret = repository.findByDissolved(false);
         assertEquals(ret.size(), 0);

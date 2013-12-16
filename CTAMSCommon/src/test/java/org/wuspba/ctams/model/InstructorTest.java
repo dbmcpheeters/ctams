@@ -10,7 +10,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
@@ -37,12 +37,27 @@ public class InstructorTest extends AbstractUnitTest {
             assertEquals(ctams.getInstructors().size(), 1);
             Instructor instructor = ctams.getInstructors().get(0);
 
-            testEquality(instructor, TestData.INSTANCE.andyInstructor);
+            testEquality(instructor, TestFixture.INSTANCE.andyInstructor);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
+    }
+
+    @Test
+    public void testSetters() {
+        Instructor i1 = TestFixture.INSTANCE.andyInstructor;
+        Instructor i2 = TestFixture.INSTANCE.andyInstructor;
+
+        i1.setId(i2.getId());
+        i1.setPerson(i2.getPerson());
+        i1.setType(i2.getType());
+
+        testEquality(i1, i2);
+        
+        assertFalse(TestFixture.INSTANCE.andyInstructor.equals(TestFixture.INSTANCE.bobMember));
+        assertTrue(TestFixture.INSTANCE.andyInstructor.equals(TestFixture.INSTANCE.andyInstructor));
     }
 
     private void testEquality(Instructor i1, Instructor i2) {

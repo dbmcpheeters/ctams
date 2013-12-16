@@ -17,7 +17,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.wuspba.ctams.model.Instructor;
 import org.wuspba.ctams.model.Instrument;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 import org.wuspba.ctams.util.TestUtils;
 
 /**
@@ -47,10 +47,10 @@ public class InstructorRepositoryTest {
 
     @Test
     public void testFindById() {
-        List<Instructor> ret = repository.findById(TestData.INSTANCE.andyInstructor.getId());
+        List<Instructor> ret = repository.findById(TestFixture.INSTANCE.andyInstructor.getId());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.andyInstructor);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.andyInstructor);
         
         ret = repository.findById("abcd");
         assertEquals(ret.size(), 0);
@@ -58,12 +58,12 @@ public class InstructorRepositoryTest {
 
     @Test
     public void testFindByPerson() {
-        List<Instructor> ret = repository.findByPerson(TestData.INSTANCE.andy);
+        List<Instructor> ret = repository.findByPerson(TestFixture.INSTANCE.andy);
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.andyInstructor);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.andyInstructor);
         
-        ret = repository.findByPerson(TestData.INSTANCE.eoin);
+        ret = repository.findByPerson(TestFixture.INSTANCE.eoin);
         assertEquals(ret.size(), 0);
     }
 
@@ -72,7 +72,7 @@ public class InstructorRepositoryTest {
         List<Instructor> ret = repository.findByType(Instrument.PIPING);
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestData.INSTANCE.andyInstructor);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.andyInstructor);
         
         ret = repository.findByType(Instrument.DRUM_MAJOR);
         assertEquals(ret.size(), 0);

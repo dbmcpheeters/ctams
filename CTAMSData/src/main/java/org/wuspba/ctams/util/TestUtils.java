@@ -19,29 +19,29 @@ public class TestUtils {
     }
 
     public static void populateData(CrudRepository repo) {
-        repo.save(TestData.INSTANCE.skye);
-        repo.save(TestData.INSTANCE.eoin);
-        repo.save(TestData.INSTANCE.andy);
-        repo.save(TestData.INSTANCE.jamie);
-        repo.save(TestData.INSTANCE.bob);
-        repo.save(TestData.INSTANCE.elaine);
-        repo.save(TestData.INSTANCE.drummingQual);
-        repo.save(TestData.INSTANCE.ensembleQual);
-        repo.save(TestData.INSTANCE.pipingQual);
-        repo.save(TestData.INSTANCE.judgeEoin);
-        repo.save(TestData.INSTANCE.judgeAndy);
-        repo.save(TestData.INSTANCE.judgeJamie);
-        repo.save(TestData.INSTANCE.judgeBob);
-        repo.save(TestData.INSTANCE.venue);
-        repo.save(TestData.INSTANCE.bandContest);
-        repo.save(TestData.INSTANCE.bandResult);
-        repo.save(TestData.INSTANCE.soloContest);
-        repo.save(TestData.INSTANCE.soloResult);
-        repo.save(TestData.INSTANCE.soloRegistration);
-        repo.save(TestData.INSTANCE.andyMember);
-        repo.save(TestData.INSTANCE.jamieMember);
-        repo.save(TestData.INSTANCE.roster);
-        repo.save(TestData.INSTANCE.bandRegistration);
-        repo.save(TestData.INSTANCE.andyInstructor);
+        repo.save(TestFixture.INSTANCE.skye);
+        repo.save(TestFixture.INSTANCE.eoin);
+        repo.save(TestFixture.INSTANCE.andy);
+        repo.save(TestFixture.INSTANCE.jamie);
+        repo.save(TestFixture.INSTANCE.bob);
+        repo.save(TestFixture.INSTANCE.elaine);
+        repo.save(TestFixture.INSTANCE.drummingQual);
+        repo.save(TestFixture.INSTANCE.ensembleQual);
+        repo.save(TestFixture.INSTANCE.pipingQual);
+        repo.save(TestFixture.INSTANCE.judgeEoin);
+        repo.save(TestFixture.INSTANCE.judgeAndy);
+        repo.save(TestFixture.INSTANCE.judgeJamie);
+        repo.save(TestFixture.INSTANCE.judgeBob);
+        repo.save(TestFixture.INSTANCE.venue);
+        repo.save(TestFixture.INSTANCE.bandContest);
+        repo.save(TestFixture.INSTANCE.bandResult);
+        repo.save(TestFixture.INSTANCE.soloContest);
+        repo.save(TestFixture.INSTANCE.soloResult);
+        repo.save(TestFixture.INSTANCE.soloRegistration);
+        repo.save(TestFixture.INSTANCE.andyMember);
+        repo.save(TestFixture.INSTANCE.jamieMember);
+        repo.save(TestFixture.INSTANCE.roster);
+        repo.save(TestFixture.INSTANCE.bandRegistration);
+        repo.save(TestFixture.INSTANCE.andyInstructor);
     }
 }

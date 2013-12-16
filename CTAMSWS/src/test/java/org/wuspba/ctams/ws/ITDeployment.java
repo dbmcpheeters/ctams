@@ -5,6 +5,7 @@
  */
 package org.wuspba.ctams.ws;
 
+import org.wuspba.ctams.util.IntegrationTestUtils;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;

@@ -10,7 +10,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
@@ -37,12 +37,31 @@ public class SoloRegistrationTest extends AbstractUnitTest {
             assertEquals(ctams.getSoloRegistrations().size(), 1);
             SoloRegistration reg = ctams.getSoloRegistrations().get(0);
 
-            testEquality(reg, TestData.INSTANCE.soloRegistration);
+            testEquality(reg, TestFixture.INSTANCE.soloRegistration);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
             fail();
         }
+    }
+
+    @Test
+    public void testSetters() {
+        SoloRegistration r1 = TestFixture.INSTANCE.soloRegistration;
+        SoloRegistration r2 = TestFixture.INSTANCE.soloRegistration;
+
+        r1.setEnd(r2.getEnd());
+        r1.setGrade(r2.getGrade());
+        r1.setId(r2.getId());
+        r1.setPerson(r2.getPerson());
+        r1.setSeason(r2.getSeason());
+        r1.setStart(r2.getStart());
+        r1.setType(r2.getType());
+
+        testEquality(r1, r2);
+        
+        assertFalse(TestFixture.INSTANCE.soloRegistration.equals(TestFixture.INSTANCE.soloNonContest));
+        assertTrue(TestFixture.INSTANCE.soloRegistration.equals(TestFixture.INSTANCE.soloRegistration));
     }
 
     private void testEquality(SoloRegistration r1, SoloRegistration r2) {

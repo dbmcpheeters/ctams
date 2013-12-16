@@ -10,7 +10,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
@@ -37,7 +37,7 @@ public class RosterTest extends AbstractUnitTest {
             assertEquals(ctams.getRosters().size(), 1);
             Roster r = ctams.getRosters().get(0);
 
-            testEquality(r, TestData.INSTANCE.roster);
+            testEquality(r, TestFixture.INSTANCE.roster);
             
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);

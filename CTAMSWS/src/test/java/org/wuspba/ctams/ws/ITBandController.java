@@ -5,6 +5,8 @@
  */
 package org.wuspba.ctams.ws;
 
+import org.wuspba.ctams.util.IntegrationTestUtils;
+import org.wuspba.ctams.util.ControllerUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -31,7 +33,7 @@ import org.wuspba.ctams.model.Band;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Grade;
-import org.wuspba.ctams.util.TestData;
+import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
@@ -46,7 +48,7 @@ public class ITBandController {
     protected static int PORT = 8081;
     protected static String PATH = "/bands";
 
-    private static final Band SKYE = TestData.INSTANCE.skye;
+    private static final Band SKYE = TestFixture.INSTANCE.skye;
 
     static {
         if(System.getProperties().containsKey("ctams.protocol")) {
