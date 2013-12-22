@@ -46,7 +46,7 @@ public class ITBandController {
     protected static String PROTOCOL = "http";
     protected static String HOST = "localhost";
     protected static int PORT = 8081;
-    protected static String PATH = "/bands";
+    protected static String PATH = "/band";
 
     private static final Band SKYE = TestFixture.INSTANCE.skye;
 

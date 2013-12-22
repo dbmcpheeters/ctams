@@ -4,6 +4,7 @@
  */
 package org.wuspba.ctams.ws;
 
+import java.util.Collections;
 import org.wuspba.ctams.util.ControllerUtils;
 import java.util.List;
 import java.util.UUID;
@@ -17,11 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wuspba.ctams.data.BandRepository;
-import org.wuspba.ctams.model.Band;
+import org.wuspba.ctams.data.BandContestRepository;
+import org.wuspba.ctams.data.JudgeRepository;
+import org.wuspba.ctams.data.VenueRepository;
+import org.wuspba.ctams.model.BandContest;
+import org.wuspba.ctams.model.BandEventType;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Grade;
+import org.wuspba.ctams.model.Judge;
+import org.wuspba.ctams.model.Venue;
 
 /**
  *
@@ -29,62 +35,115 @@ import org.wuspba.ctams.model.Grade;
  */
 @ComponentScan
 @Controller
-@RequestMapping("/bands")
-public class BandController {
+@RequestMapping("/bandcontest")
+public class BandContestController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BandController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BandContestController.class);
 
     @Autowired
-    private BandRepository repository;
+    private BandContestRepository repository;
 
-    public BandController() {
+    @Autowired
+    private VenueRepository venueRepo;
+    
+    @Autowired
+    private JudgeRepository judgeRepo;
+
+    public BandContestController() {
         
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody CTAMSDocument listBands(
+    public @ResponseBody CTAMSDocument listBandContests(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
-            @RequestParam(value = "name", required = false, defaultValue = "") String name,
-            @RequestParam(value = "state", required = false, defaultValue = "") String state,
-            @RequestParam(value = "branch", required = false, defaultValue = "") String branch,
+            @RequestParam(value = "venue", required = false, defaultValue = "") String venue,
+            @RequestParam(value = "eventtype", required = false, defaultValue = "") String type,
             @RequestParam(value = "grade", required = false, defaultValue = "") String grade,
-            @RequestParam(value = "dissolved", required = false, defaultValue = "") String dissolved) {
+            @RequestParam(value = "season", required = false, defaultValue = "") String season,
+            @RequestParam(value = "piping", required = false, defaultValue = "") String piping,
+            @RequestParam(value = "drumming", required = false, defaultValue = "") String drumming,
+            @RequestParam(value = "ensemble", required = false, defaultValue = "") String ensemble) {
 
         CTAMSDocument ret = new CTAMSDocument();
 
-        Iterable<Band> bands;
+        Iterable<BandContest> contests = Collections.EMPTY_LIST;
 
-        if(!"".equals(id)) {
-            bands = repository.findById(id);
-        } else if(!"".equals(name)) {
-            bands = repository.findByName(name);
-        } else if(!"".equals(state)) {
-            bands = repository.findByState(state);
-        } else if(!"".equals(branch)) {
-            bands = repository.findByBranch(Branch.valueOf(branch));
-        } else if(!"".equals(grade)) {
-            bands = repository.findByGrade(Grade.valueOf(grade));
-        } else if(!"".equals(dissolved)) {
-            bands = repository.findByDissolved(Boolean.valueOf(dissolved));
-        } else {
-            bands = repository.findAll();
+        int seasonInt = -1;
+        if(!"".equals(season)) {
+            seasonInt = Integer.parseInt(season);
         }
 
-        for (Band band : bands) {
-            ret.getBands().add(band);
+        if(!"".equals(id)) {
+            contests = repository.findById(id);
+        } else if(!"".equals(venue)) {
+            List<Venue> venues = venueRepo.findById(venue);
+            if(!venues.isEmpty()) {
+                contests = repository.findByVenue(venues.get(0), seasonInt);
+            }
+        } else if(!"".equals(type)) {
+            contests = repository.findByEventType(BandEventType.valueOf(type), seasonInt);
+        } else if(!"".equals(grade)) {
+            contests = repository.findByGrade(Grade.valueOf(grade), seasonInt);
+        } else if(!"".equals(piping)) {
+            List<Judge> judges = judgeRepo.findById(piping);
+            Judge judge = null;
+
+            if(!judges.isEmpty()) {
+                judge = judges.get(0);
+            }
+            
+            if(seasonInt == -1) {
+                contests = repository.findByPipingJudge(judge);
+            } else {
+                contests = repository.findByPipingJudgeAndSeason(judge, seasonInt);
+            }
+        } else if(!"".equals(drumming)) {
+            List<Judge> judges = judgeRepo.findById(drumming);
+            Judge judge = null;
+
+            if(!judges.isEmpty()) {
+                judge = judges.get(0);
+            }
+            
+            if(seasonInt == -1) {
+                contests = repository.findByDrummingJudge(judge);
+            } else {
+                contests = repository.findByDrummingJudgeAndSeason(judge, seasonInt);
+            }
+        } else if(!"".equals(ensemble)) {
+            List<Judge> judges = judgeRepo.findById(drumming);
+            Judge judge = null;
+
+            if(!judges.isEmpty()) {
+                judge = judges.get(0);
+            }
+            
+            if(seasonInt == -1) {
+                contests = repository.findByEnsembleJudge(judge);
+            } else {
+                contests = repository.findByEnsembleJudgeAndSeason(judge, seasonInt);
+            }
+        } else if(!"".equals(season)) {
+            contests = repository.findBySeason(seasonInt);
+        } else {
+            contests = repository.findAll();
+        }
+
+        for (BandContest contest : contests) {
+            ret.getBandContests().add(contest);
         }
 
         return ret;
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void deleteBand(
+    public @ResponseBody void deleteBandContest(
             @RequestParam(value = "id", required = true) String id) {
 
-        List<Band> bands = repository.findById(id);
+        List<BandContest> contests = repository.findById(id);
 
-        for(Band b : bands) {
-            repository.delete(b);
+        for(BandContest c : contests) {
+            repository.delete(c);
         }
     }
 
@@ -92,17 +151,17 @@ public class BandController {
             headers = {"content-type=application/xml"})
     public @ResponseBody void modifyAddBands(@RequestBody String xml) {
 
-        CTAMSDocument bands = ControllerUtils.unmarshal(xml);
+        CTAMSDocument doc = ControllerUtils.unmarshal(xml);
 
-        for(Band b : bands.getBands()) {
-            if(b.getId() == null || "".equals(b.getId()) || repository.findById(b.getId()).isEmpty()) {
-                b.setId(UUID.randomUUID().toString());
-                LOG.info("Creating band " + b.getId() + " : " + b.getName());
+        for(BandContest c : doc.getBandContests()) {
+            if(c.getId() == null || "".equals(c.getId()) || repository.findById(c.getId()).isEmpty()) {
+                c.setId(UUID.randomUUID().toString());
+                LOG.info("Creating band contest " + c.getId() + " : " + c.getVenue().getName() + " @ " + c.getSeason());
             } else {
-                LOG.info("Updating band " + b.getId() + " : " + b.getName());
+                LOG.info("Updating band contest " + c.getId() + " : " + c.getVenue().getName() + " @ " + c.getSeason());
             }
 
-            repository.save(b);
+            repository.save(c);
         }
     }
 }

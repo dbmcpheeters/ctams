@@ -29,7 +29,7 @@ import org.wuspba.ctams.model.Grade;
  */
 @ComponentScan
 @Controller
-@RequestMapping("/bands")
+@RequestMapping("/band")
 public class BandController {
 
     private static final Logger LOG = LoggerFactory.getLogger(BandController.class);
