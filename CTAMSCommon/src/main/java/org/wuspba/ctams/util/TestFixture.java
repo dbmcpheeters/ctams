@@ -16,7 +16,6 @@ import org.wuspba.ctams.model.BandResult;
 import org.wuspba.ctams.model.BandType;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.Grade;
-import org.wuspba.ctams.model.Instructor;
 import org.wuspba.ctams.model.Instrument;
 import org.wuspba.ctams.model.Judge;
 import org.wuspba.ctams.model.JudgePanelType;
@@ -68,7 +67,6 @@ public enum TestFixture {
     public Person elaine; // NOSONAR
     public Venue venue; // NOSONAR
     public SoloRegistration soloRegistration; // NOSONAR
-    public Instructor andyInstructor; // NOSONAR
 
     TestFixture() {
         createBand();
@@ -91,7 +89,6 @@ public enum TestFixture {
         createBandMembers();
         createRoster();
         createBandRegistration();
-        createInstructor();
     }
 
     private void createJudgeQualifications() {
@@ -417,10 +414,4 @@ public enum TestFixture {
         bandRegistration.setStart(start);
     }
 
-    private  void createInstructor() {
-        andyInstructor = new Instructor();
-        andyInstructor.setId("andyInstructor");
-        andyInstructor.setPerson(andy);
-        andyInstructor.setType(Instrument.PIPING);
-    }
 }

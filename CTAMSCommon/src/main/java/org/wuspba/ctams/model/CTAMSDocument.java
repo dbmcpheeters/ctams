@@ -57,9 +57,6 @@ public class CTAMSDocument {
     @XmlElement(name = "soloRegistration")
     private final List<SoloRegistration> soloRegistrations = new ArrayList<>();
     
-    @XmlElement(name = "instructor")
-    private final List<Instructor> instructors = new ArrayList<>();
-
     /**
      * @return the bands
      */
@@ -149,12 +146,5 @@ public class CTAMSDocument {
      */
     public List<SoloRegistration> getSoloRegistrations() {
         return soloRegistrations;
-    }
-
-    /**
-     * @return the instructors
-     */
-    public List<Instructor> getInstructors() {
-        return instructors;
     }
 }

@@ -30,22 +30,23 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wuspba.ctams.model.BandMember;
+import org.wuspba.ctams.model.BandMemberType;
 import org.wuspba.ctams.model.CTAMSDocument;
-import org.wuspba.ctams.model.Judge;
 import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
  * @author atrimble
  */
-public class ITJudgeController {
+public class ITBandMemberController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ITJudgeController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ITBandMemberController.class);
 
     protected static String PROTOCOL = "http";
     protected static String HOST = "localhost";
     protected static int PORT = 8081;
-    protected static String PATH = "/judge";
+    protected static String PATH = "/bandmember";
 
     static {
         if(System.getProperties().containsKey("ctams.protocol")) {
@@ -83,8 +84,6 @@ public class ITJudgeController {
                 .setPath(PATH)
                 .build();
 
-        LOG.info("Connecting to " + uri.toString());
-        
         HttpGet httpGet = new HttpGet(uri);
 
         try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
@@ -94,16 +93,14 @@ public class ITJudgeController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getJudges().size(), 4);
-            for(Judge j : doc.getJudges()) {
-                if(j.getId().equals(TestFixture.INSTANCE.judgeAndy.getId())) {
-                    testEquality(j, TestFixture.INSTANCE.judgeAndy);
-                } else if(j.getId().equals(TestFixture.INSTANCE.judgeBob.getId())) {
-                    testEquality(j, TestFixture.INSTANCE.judgeBob);
-                } else if(j.getId().equals(TestFixture.INSTANCE.judgeEoin.getId())) {
-                    testEquality(j, TestFixture.INSTANCE.judgeEoin);
-                } else if(j.getId().equals(TestFixture.INSTANCE.judgeJamie.getId())) {
-                    testEquality(j, TestFixture.INSTANCE.judgeJamie);
+            assertEquals(doc.getBandMembers().size(), 3);
+            for(BandMember m : doc.getBandMembers()) {
+                if(m.getId().equals(TestFixture.INSTANCE.andyMember.getId())) {
+                    testEquality(m, TestFixture.INSTANCE.andyMember);
+                } else if(m.getId().equals(TestFixture.INSTANCE.bobMember.getId())) {
+                    testEquality(m, TestFixture.INSTANCE.bobMember);
+                } else if(m.getId().equals(TestFixture.INSTANCE.jamieMember.getId())) {
+                    testEquality(m, TestFixture.INSTANCE.jamieMember);
                 } else {
                     fail();
                 }
@@ -117,15 +114,12 @@ public class ITJudgeController {
     public void testListPerson() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
-        String personId;
-
         URI uri = new URIBuilder()
-                .setScheme(ITPersonController.PROTOCOL)
-                .setHost(ITPersonController.HOST)
-                .setPort(ITPersonController.PORT)
-                .setPath(ITPersonController.PATH)
-                .setParameter("firstname", TestFixture.INSTANCE.andy.getFirstName())
-                .setParameter("lastname", TestFixture.INSTANCE.andy.getLastName())
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("person", TestFixture.INSTANCE.andy.getId())
                 .build();
         
         HttpGet httpGet = new HttpGet(uri);
@@ -137,8 +131,8 @@ public class ITJudgeController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getPeople().size(), 1);
-            personId = doc.getPeople().get(0).getId();
+            assertEquals(doc.getBandMembers().size(), 1);
+            testEquality(doc.getBandMembers().get(0), TestFixture.INSTANCE.andyMember);
 
             EntityUtils.consume(entity);
         }
@@ -148,7 +142,7 @@ public class ITJudgeController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("person", personId)
+                .setParameter("person", "garbage")
                 .build();
         
         httpGet = new HttpGet(uri);
@@ -160,48 +154,22 @@ public class ITJudgeController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getPeople().size(), 1);
-            assertEquals(doc.getJudges().size(), 1);
-            testEquality(doc.getJudges().get(0), TestFixture.INSTANCE.judgeAndy);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("person", "badId")
-                .build();
-        
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getJudges().size(), 0);
+            assertEquals(doc.getBandMembers().size(), 0);
 
             EntityUtils.consume(entity);
         }
     }
 
     @Test
-    public void testListQualifications() throws Exception {
+    public void testListType() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
-        String qualId;
-        
         URI uri = new URIBuilder()
-                .setScheme(ITJudgeQualificationController.PROTOCOL)
-                .setHost(ITJudgeQualificationController.HOST)
-                .setPort(ITJudgeQualificationController.PORT)
-                .setPath(ITJudgeQualificationController.PATH)
-                .setParameter("panel", TestFixture.INSTANCE.pipingQual.getPanel().toString())
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("type", TestFixture.INSTANCE.andyMember.getType().toString())
                 .build();
         
         HttpGet httpGet = new HttpGet(uri);
@@ -213,42 +181,8 @@ public class ITJudgeController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getJudgeQualifications().size(), 1);
-            qualId = doc.getJudgeQualifications().get(0).getId();
-
-            EntityUtils.consume(entity);
-        }
-
-        LOG.info(qualId);
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("qualification", qualId)
-                .build();
-        
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getJudges().size(), 2);
-            for(Judge j : doc.getJudges()) {
-
-                if(j.getPerson().getLastName().equals(TestFixture.INSTANCE.jamie.getLastName())) {
-                    testEquality(j, TestFixture.INSTANCE.judgeJamie);
-                } else if(j.getPerson().getLastName().equals(TestFixture.INSTANCE.bob.getLastName())) {
-                    testEquality(j, TestFixture.INSTANCE.judgeBob);
-                } else {
-                    fail();
-                }
-            }
+            assertEquals(doc.getBandMembers().size(), 1);
+            testEquality(doc.getBandMembers().get(0), TestFixture.INSTANCE.andyMember);
 
             EntityUtils.consume(entity);
         }
@@ -288,8 +222,8 @@ public class ITJudgeController {
     @Test
     public void testModify() throws Exception {
 
-        TestFixture.INSTANCE.judgeAndy.setPerson(TestFixture.INSTANCE.elaine);
-        add(TestFixture.INSTANCE.judgeAndy);
+        TestFixture.INSTANCE.andyMember.setType(BandMemberType.TENOR);
+        add(TestFixture.INSTANCE.andyMember);
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
@@ -298,11 +232,9 @@ public class ITJudgeController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("id", TestFixture.INSTANCE.judgeAndy.getId())
+                .setParameter("id", TestFixture.INSTANCE.andyMember.getId())
                 .build();
 
-        LOG.info(TestFixture.INSTANCE.judgeAndy.getId());
-        
         HttpGet httpGet = new HttpGet(uri);
 
         try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
@@ -312,25 +244,23 @@ public class ITJudgeController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getJudges().size(), 1);
-            testEquality(TestFixture.INSTANCE.judgeAndy, doc.getJudges().get(0));
-            assertTrue(doc.getJudges().get(0).getPerson().getFirstName().equals(TestFixture.INSTANCE.elaine.getFirstName()));
+            assertEquals(doc.getBandMembers().size(), 1);
+            testEquality(TestFixture.INSTANCE.andyMember, doc.getBandMembers().get(0));
+            assertTrue(doc.getBandMembers().get(0).getType().equals(TestFixture.INSTANCE.andyMember.getType()));
 
             EntityUtils.consume(entity);
         }
 
-        TestFixture.INSTANCE.judgeAndy.setPerson(TestFixture.INSTANCE.andy);
-        add(TestFixture.INSTANCE.judgeAndy);
+        TestFixture.INSTANCE.andyMember.setType(BandMemberType.PIPE_MAJOR);
+        add(TestFixture.INSTANCE.andyMember);
     }
 
     protected static void add() throws Exception {
         ITPersonController.add();
-        ITJudgeQualificationController.add();
 
-        add(TestFixture.INSTANCE.judgeAndy);
-        add(TestFixture.INSTANCE.judgeBob);
-        add(TestFixture.INSTANCE.judgeEoin);
-        add(TestFixture.INSTANCE.judgeJamie);
+        add(TestFixture.INSTANCE.andyMember);
+        add(TestFixture.INSTANCE.bobMember);
+        add(TestFixture.INSTANCE.jamieMember);
     }
 
     protected static void delete() throws Exception {
@@ -354,8 +284,8 @@ public class ITJudgeController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            for(Judge j : doc.getJudges()) {
-                ids.add(j.getId());
+            for(BandMember m : doc.getBandMembers()) {
+                ids.add(m.getId());
             }
 
             EntityUtils.consume(entity);
@@ -393,21 +323,19 @@ public class ITJudgeController {
                     try {
                         response.close();
                     } catch (IOException ex) {
-                        java.util.logging.Logger.getLogger(ITJudgeController.class.getName()).log(Level.SEVERE, null, ex);
+                        java.util.logging.Logger.getLogger(ITBandMemberController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
         }
 
         ITPersonController.delete();
-        ITJudgeQualificationController.delete();
     }
 
-    private static void add(Judge j) throws Exception {
+    private static void add(BandMember m) throws Exception {
         CTAMSDocument doc = new CTAMSDocument();
-        doc.getPeople().add(j.getPerson());
-        doc.getJudgeQualifications().addAll(j.getQualifications());
-        doc.getJudges().add(j);
+        doc.getPeople().add(m.getPerson());
+        doc.getBandMembers().add(m);
         String xml = ControllerUtils.marshal(doc);
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -435,7 +363,7 @@ public class ITJudgeController {
 
             doc = IntegrationTestUtils.convertEntity(responseEntity);
 
-            j.setId(doc.getJudges().get(0).getId());
+            m.setId(doc.getBandMembers().get(0).getId());
             
             EntityUtils.consume(responseEntity);
         } catch(UnsupportedEncodingException ex) {
@@ -447,17 +375,15 @@ public class ITJudgeController {
                 try {
                     response.close();
                 } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITJudgeController.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(ITBandMemberController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
 
-    private void testEquality(Judge j1, Judge j2) {
-        assertEquals(j1.getId(), j2.getId());
-        assertEquals(j1.getPerson(), j2.getPerson());
-        assertEquals(j1.getQualifications().size(), j2.getQualifications().size());
-        assertEquals(j1.getQualifications().get(0).getPanel(), j2.getQualifications().get(0).getPanel());
-        assertEquals(j1.getQualifications().get(0).getType(), j2.getQualifications().get(0).getType());
+    private void testEquality(BandMember m1, BandMember m2) {
+        assertEquals(m1.getId(), m2.getId());
+        assertEquals(m1.getPerson(), m2.getPerson());
+        assertEquals(m1.getType(), m2.getType());
     }
 }
