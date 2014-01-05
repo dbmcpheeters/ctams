@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.wuspba.ctams.model.Band;
-import org.wuspba.ctams.model.BandMember;
 import org.wuspba.ctams.model.Person;
 import org.wuspba.ctams.model.Roster;
 

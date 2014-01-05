@@ -10,8 +10,6 @@ import org.wuspba.ctams.util.ControllerUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -30,23 +28,22 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wuspba.ctams.model.Branch;
+import org.wuspba.ctams.model.BandContestEntry;
 import org.wuspba.ctams.model.CTAMSDocument;
-import org.wuspba.ctams.model.Venue;
 import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
  * @author atrimble
  */
-public class ITVenueController {
+public class ITBandContestEntryController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ITVenueController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ITBandContestEntryController.class);
 
     protected static String PROTOCOL = "http";
     protected static String HOST = "localhost";
     protected static int PORT = 8081;
-    protected static String PATH = "/venue";
+    protected static String PATH = "/bandcontestentry";
 
     static {
         if(System.getProperties().containsKey("ctams.protocol")) {
@@ -74,7 +71,7 @@ public class ITVenueController {
     }
 
     @Test
-    public void testList() throws Exception {
+    public void testListAll() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         URI uri = new URIBuilder()
@@ -84,8 +81,6 @@ public class ITVenueController {
                 .setPath(PATH)
                 .build();
 
-        LOG.info("Connecting to " + uri.toString());
-        
         HttpGet httpGet = new HttpGet(uri);
 
         try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
@@ -95,24 +90,25 @@ public class ITVenueController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getVenues().size(), 1);
-            testEquality(doc.getVenues().get(0), TestFixture.INSTANCE.venue);
+            assertEquals(doc.getBandContestEntry().size(), 1);
+            testEquality(doc.getBandContestEntry().get(0), TestFixture.INSTANCE.bandContestEntry);
 
             EntityUtils.consume(entity);
         }
     }
 
     @Test
-    public void testListName() throws Exception {
+    public void testListBand() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
+
         URI uri = new URIBuilder()
                 .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("name", TestFixture.INSTANCE.venue.getName())
+                .setParameter("band", TestFixture.INSTANCE.skye.getId())
                 .build();
-        
+
         HttpGet httpGet = new HttpGet(uri);
 
         try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
@@ -122,8 +118,8 @@ public class ITVenueController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getVenues().size(), 1);
-            testEquality(doc.getVenues().get(0), TestFixture.INSTANCE.venue);
+            assertEquals(doc.getBandContestEntry().size(), 1);
+            testEquality(doc.getBandContestEntry().get(0), TestFixture.INSTANCE.bandContestEntry);
 
             EntityUtils.consume(entity);
         }
@@ -133,9 +129,9 @@ public class ITVenueController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("name", "badName")
+                .setParameter("band", "garbage")
                 .build();
-        
+
         httpGet = new HttpGet(uri);
 
         try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
@@ -145,23 +141,24 @@ public class ITVenueController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getVenues().size(), 0);
+            assertEquals(doc.getBandContestEntry().size(), 0);
 
             EntityUtils.consume(entity);
         }
     }
 
     @Test
-    public void testListState() throws Exception {
+    public void testListContest() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
+
         URI uri = new URIBuilder()
                 .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("state", TestFixture.INSTANCE.venue.getState())
+                .setParameter("contest", TestFixture.INSTANCE.bandContest.getId())
                 .build();
-        
+
         HttpGet httpGet = new HttpGet(uri);
 
         try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
@@ -171,8 +168,8 @@ public class ITVenueController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getVenues().size(), 1);
-            testEquality(doc.getVenues().get(0), TestFixture.INSTANCE.venue);
+            assertEquals(doc.getBandContestEntry().size(), 1);
+            testEquality(doc.getBandContestEntry().get(0), TestFixture.INSTANCE.bandContestEntry);
 
             EntityUtils.consume(entity);
         }
@@ -182,9 +179,9 @@ public class ITVenueController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("state", "CA")
+                .setParameter("contest", TestFixture.INSTANCE.bandNonContest.getId())
                 .build();
-        
+
         httpGet = new HttpGet(uri);
 
         try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
@@ -194,56 +191,7 @@ public class ITVenueController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getVenues().size(), 0);
-
-            EntityUtils.consume(entity);
-        }
-    }
-
-    @Test
-    public void testListBranch() throws Exception {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        URI uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("branch", Branch.INTERMOUNTAIN.toString())
-                .build();
-        
-        HttpGet httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getVenues().size(), 1);
-            testEquality(doc.getVenues().get(0), TestFixture.INSTANCE.venue);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("branch", Branch.OTHER.toString())
-                .build();
-        
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getVenues().size(), 0);
+            assertEquals(doc.getBandContestEntry().size(), 0);
 
             EntityUtils.consume(entity);
         }
@@ -272,7 +220,7 @@ public class ITVenueController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getVenues().size(), 0);
+            assertEquals(doc.getBandContestEntry().size(), 0);
 
             EntityUtils.consume(entity);
         }
@@ -280,9 +228,22 @@ public class ITVenueController {
         add();
     }
 
-    protected static void add() throws Exception {
+    private static void add() throws Exception {
+        ITVenueController.add();
+        ITJudgeController.add();
+        ITBandController.add();
+        ITBandContestController.add();
+        
         CTAMSDocument doc = new CTAMSDocument();
         doc.getVenues().add(TestFixture.INSTANCE.venue);
+        doc.getJudges().add(TestFixture.INSTANCE.judgeAndy);
+        doc.getJudges().add(TestFixture.INSTANCE.judgeJamie);
+        doc.getJudges().add(TestFixture.INSTANCE.judgeBob);
+        doc.getJudges().add(TestFixture.INSTANCE.judgeEoin);
+        doc.getBandContests().add(TestFixture.INSTANCE.bandContest);
+        doc.getBands().add(TestFixture.INSTANCE.skye);
+        doc.getBandContestEntry().add(TestFixture.INSTANCE.bandContestEntry);
+        
         String xml = ControllerUtils.marshal(doc);
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -310,7 +271,7 @@ public class ITVenueController {
 
             doc = IntegrationTestUtils.convertEntity(responseEntity);
 
-            TestFixture.INSTANCE.venue.setId(doc.getVenues().get(0).getId());
+            TestFixture.INSTANCE.bandContestEntry.setId(doc.getBandContestEntry().get(0).getId());
             
             EntityUtils.consume(responseEntity);
         } catch(UnsupportedEncodingException ex) {
@@ -322,15 +283,13 @@ public class ITVenueController {
                 try {
                     response.close();
                 } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITVenueController.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(ITBandContestEntryController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
 
     protected static void delete() throws Exception {
-        List<String> ids = new ArrayList<>();
-
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         URI uri = new URIBuilder()
@@ -338,75 +297,44 @@ public class ITVenueController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
+                .setParameter("id", TestFixture.INSTANCE.bandContestEntry.getId())
                 .build();
         
-        HttpGet httpGet = new HttpGet(uri);
+        HttpDelete httpDelete = new HttpDelete(uri);
 
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
+        CloseableHttpResponse response = null;
 
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            for(Venue v : doc.getVenues()) {
-                ids.add(v.getId());
-            }
-
-            EntityUtils.consume(entity);
-        }
+        try {
+            response = httpclient.execute(httpDelete);
         
-        for(String id : ids) {
-            httpclient = HttpClients.createDefault();
-
-            uri = new URIBuilder()
-                    .setScheme(PROTOCOL)
-                    .setHost(HOST)
-                    .setPort(PORT)
-                    .setPath(PATH)
-                    .setParameter("id", id)
-                    .build();
-
-            HttpDelete httpDelete = new HttpDelete(uri);
-
-            CloseableHttpResponse response = null;
-
-            try {
-                response = httpclient.execute(httpDelete);
-
-                assertEquals(IntegrationTestUtils.OK_STRING, response.getStatusLine().toString());
-
-                HttpEntity responseEntity = response.getEntity();
-
-                EntityUtils.consume(responseEntity);
-            } catch(UnsupportedEncodingException ex) {
-                LOG.error("Unsupported coding", ex);
-            } catch(IOException ioex) {
-                LOG.error("IOException", ioex);
-            } finally {
-                if(response != null) {
-                    try {
-                        response.close();
-                    } catch (IOException ex) {
-                        java.util.logging.Logger.getLogger(ITVenueController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+            assertEquals(IntegrationTestUtils.OK_STRING, response.getStatusLine().toString());
+            
+            HttpEntity responseEntity = response.getEntity();
+            
+            EntityUtils.consume(responseEntity);
+        } catch(UnsupportedEncodingException ex) {
+            LOG.error("Unsupported coding", ex);
+        } catch(IOException ioex) {
+            LOG.error("IOException", ioex);
+        } finally {
+            if(response != null) {
+                try {
+                    response.close();
+                } catch (IOException ex) {
+                    java.util.logging.Logger.getLogger(ITBandContestEntryController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+
+        ITBandContestController.delete();
+        ITBandController.delete();
+        ITVenueController.delete();
+        ITJudgeController.delete();
     }
 
-    private void testEquality(Venue v1, Venue v2) {
-        assertEquals(v1.getId(), v2.getId());
-        assertEquals(v1.getAddress(), v2.getAddress());
-        assertEquals(v1.getBranch(), v2.getBranch());
-        assertEquals(v1.getCity(), v2.getCity());
-        assertEquals(v1.getEmail(), v2.getEmail());
-        assertEquals(v1.getLocation(), v2.getLocation());
-        assertEquals(v1.getName(), v2.getName());
-        assertEquals(v1.getPhone(), v2.getPhone());
-        assertEquals(v1.getSponsor(), v2.getSponsor());
-        assertEquals(v1.getState(), v2.getState());
-        assertEquals(v1.getUrl(), v2.getUrl());
-        assertEquals(v1.getZip(), v2.getZip());
+    private void testEquality(BandContestEntry c1, BandContestEntry c2) {
+        assertEquals(c1.getId(), c2.getId());
+        assertEquals(c1.getBand(), c2.getBand());
+        assertEquals(c1.getContest(), c2.getContest());
     }
 }

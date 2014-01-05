@@ -8,6 +8,9 @@ package org.wuspba.ctams.util;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -21,12 +24,15 @@ import org.wuspba.ctams.model.CTAMSDocument;
  * @author atrimble
  */
 public class ControllerUtils {
+    
+    private static final Logger LOG = LoggerFactory.getLogger(ControllerUtils.class);
+    
+    private static final SimpleDateFormat dateParser = 
+            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
 
     private ControllerUtils() {
 
     }
-    
-    private static final Logger LOG = LoggerFactory.getLogger(ControllerUtils.class);
     
     public static final String marshal(CTAMSDocument doc) {
         String packageName = CTAMSDocument.class.getPackage().getName();
@@ -63,5 +69,13 @@ public class ControllerUtils {
             LOG.error("Cannot unmarshal", ex);
             return null;
         }
+    }
+
+    public static final Date parseDate(String date) throws ParseException {
+        return dateParser.parse(date);
+    }
+
+    public static final String toString(Date date) {
+        return dateParser.format(date);
     }
 }

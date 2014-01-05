@@ -627,7 +627,7 @@ public class ITBandContestController {
         add();
     }
 
-    private static void add() throws Exception {
+    protected static void add() throws Exception {
         ITVenueController.add();
         ITJudgeController.add();
         
@@ -760,7 +760,7 @@ public class ITBandContestController {
         }
     }
 
-    private static void delete() throws Exception {
+    protected static void delete() throws Exception {
         String id;
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
