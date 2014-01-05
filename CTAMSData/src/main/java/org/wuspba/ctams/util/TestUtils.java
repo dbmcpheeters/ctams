@@ -34,8 +34,10 @@ public class TestUtils {
         repo.save(TestFixture.INSTANCE.judgeBob);
         repo.save(TestFixture.INSTANCE.venue);
         repo.save(TestFixture.INSTANCE.bandContest);
+        repo.save(TestFixture.INSTANCE.bandContestEntry);
         repo.save(TestFixture.INSTANCE.bandResult);
         repo.save(TestFixture.INSTANCE.soloContest);
+        repo.save(TestFixture.INSTANCE.soloContestEntry);
         repo.save(TestFixture.INSTANCE.soloResult);
         repo.save(TestFixture.INSTANCE.soloRegistration);
         repo.save(TestFixture.INSTANCE.andyMember);

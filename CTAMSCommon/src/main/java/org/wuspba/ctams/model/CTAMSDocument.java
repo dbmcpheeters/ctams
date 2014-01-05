@@ -41,9 +41,15 @@ public class CTAMSDocument {
 
     @XmlElement(name = "bandContest")
     private final List<BandContest> bandContests = new ArrayList<>();
+    
+    @XmlElement(name = "bandContestEntry")
+    private final List<BandContestEntry> bandContestEntry = new ArrayList<>();
 
     @XmlElement(name = "soloContest")
     private final List<SoloContest> soloContests = new ArrayList<>();
+    
+    @XmlElement(name = "soloContestEntry")
+    private final List<SoloContestEntry> soloContestEntry = new ArrayList<>();
     
     @XmlElement(name = "bandMember")
     private final List<BandMember> bandMembers = new ArrayList<>();
@@ -146,5 +152,19 @@ public class CTAMSDocument {
      */
     public List<SoloRegistration> getSoloRegistrations() {
         return soloRegistrations;
+    }
+
+    /**
+     * @return the bandContestEntry
+     */
+    public List<BandContestEntry> getBandContestEntry() {
+        return bandContestEntry;
+    }
+
+    /**
+     * @return the soloContestEntry
+     */
+    public List<SoloContestEntry> getSoloContestEntry() {
+        return soloContestEntry;
     }
 }

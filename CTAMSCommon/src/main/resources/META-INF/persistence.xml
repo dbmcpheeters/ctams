@@ -11,11 +11,12 @@
     <class>org.wuspba.ctams.model.BandRegistration</class>
     <class>org.wuspba.ctams.model.BandContest</class>
     <class>org.wuspba.ctams.model.JudgeQualification</class>
-    <class>org.wuspba.ctams.model.Instructor</class>
     <class>org.wuspba.ctams.model.Venue</class>
     <class>org.wuspba.ctams.model.BandMember</class>
     <class>org.wuspba.ctams.model.BandResult</class>
     <class>org.wuspba.ctams.model.SoloResult</class>
+    <class>org.wuspba.ctams.model.BandContestEntry</class>
+    <class>org.wuspba.ctams.model.SoloContestEntry</class>
     <properties>
       <property name="hibernate.connection.username" value="root"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

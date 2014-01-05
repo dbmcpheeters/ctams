@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import org.wuspba.ctams.model.Band;
 import org.wuspba.ctams.model.BandContest;
+import org.wuspba.ctams.model.BandContestEntry;
 import org.wuspba.ctams.model.BandEventType;
 import org.wuspba.ctams.model.BandMember;
 import org.wuspba.ctams.model.BandMemberType;
@@ -24,6 +25,7 @@ import org.wuspba.ctams.model.JudgeType;
 import org.wuspba.ctams.model.Person;
 import org.wuspba.ctams.model.Roster;
 import org.wuspba.ctams.model.SoloContest;
+import org.wuspba.ctams.model.SoloContestEntry;
 import org.wuspba.ctams.model.SoloEventType;
 import org.wuspba.ctams.model.SoloRegistration;
 import org.wuspba.ctams.model.SoloResult;
@@ -49,9 +51,11 @@ public enum TestFixture {
     public BandMember bobMember; // NOSONAR
     public BandContest bandContest; // NOSONAR
     public BandContest bandNonContest; // NOSONAR
+    public BandContestEntry bandContestEntry; // NOSONAR
     public BandResult bandResult; // NOSONAR
     public SoloContest soloContest; // NOSONAR
     public SoloContest soloNonContest; // NOSONAR
+    public SoloContestEntry soloContestEntry; // NOSONAR
     public SoloResult soloResult; // NOSONAR
     public JudgeQualification drummingQual; // NOSONAR
     public JudgeQualification pipingQual; // NOSONAR
@@ -82,8 +86,10 @@ public enum TestFixture {
         createJudgeBob();
         createVenue();
         createBandContest();
+        createBandContestEntry();
         createBandResult();
         createSoloContest();
+        createSoloContestEntry();
         createSoloResult();
         createSoloRegistration();
         createBandMembers();
@@ -278,6 +284,20 @@ public enum TestFixture {
         bandNonContest.setPiping2(judgeBob);
         bandNonContest.setSeason(2013);
         bandNonContest.setVenue(venue);
+    }
+
+    private void createBandContestEntry() {
+        bandContestEntry = new BandContestEntry();
+        bandContestEntry.setBand(skye);
+        bandContestEntry.setContest(bandContest);
+        bandContestEntry.setId("bandContestEntry");
+    }
+
+    private void createSoloContestEntry() {
+        soloContestEntry = new SoloContestEntry();
+        soloContestEntry.setPerson(elaine);
+        soloContestEntry.setContest(soloContest);
+        soloContestEntry.setId("soloContestEntry");
     }
 
     private  void createBand() {

@@ -20,6 +20,7 @@ public class ObjectFactory {
     private static final QName CTAMS_QNAME = new QName(NAMESPACE, "CTAMS");
     private static final QName BAND_QNAME = new QName(NAMESPACE, "Band");
     private static final QName BAND_CONTEST_QNAME = new QName(NAMESPACE, "BandContest");
+    private static final QName BAND_CONTEST_ENTRY_QNAME = new QName(NAMESPACE, "BandContestEntry");
     private static final QName BAND_RESULT_QNAME = new QName(NAMESPACE, "BandResult");
     private static final QName BAND_REGISTRATION_QNAME = new QName(NAMESPACE, "BandRegistration");
     private static final QName BAND_MEMBER_QNAME = new QName(NAMESPACE, "BandMember");
@@ -28,6 +29,7 @@ public class ObjectFactory {
     private static final QName PERSON_QNAME = new QName(NAMESPACE, "Person");
     private static final QName ROSTER_QNAME = new QName(NAMESPACE, "Roster");
     private static final QName SOLO_CONTEST_QNAME = new QName(NAMESPACE, "SoloContest");
+    private static final QName SOLO_CONTEST_ENTRY_QNAME = new QName(NAMESPACE, "SoloContestEntry");
     private static final QName SOLO_RESULT_QNAME = new QName(NAMESPACE, "SoloResult");
     private static final QName SOLO_REGISTRATION_QNAME = new QName(NAMESPACE, "SoloRegistration");
     private static final QName VENUE_QNAME = new QName(NAMESPACE, "Venue");
@@ -45,6 +47,11 @@ public class ObjectFactory {
     @XmlElementDecl(scope = BandContest.class, namespace = NAMESPACE, name = "BandContest")
     JAXBElement<BandContest> createBandContest(BandContest value) {
         return new JAXBElement<>(BAND_CONTEST_QNAME, BandContest.class, value);
+    }
+    
+    @XmlElementDecl(scope = BandContestEntry.class, namespace = NAMESPACE, name = "BandContestEntry")
+    JAXBElement<BandContestEntry> createBandContestEntry(BandContestEntry value) {
+        return new JAXBElement<>(BAND_CONTEST_ENTRY_QNAME, BandContestEntry.class, value);
     }
     
     @XmlElementDecl(scope = BandResult.class, namespace = NAMESPACE, name = "BandResult")
@@ -85,6 +92,11 @@ public class ObjectFactory {
     @XmlElementDecl(scope = SoloContest.class, namespace = NAMESPACE, name = "SoloContest")
     JAXBElement<SoloContest> createSoloContest(SoloContest value) {
         return new JAXBElement<>(SOLO_CONTEST_QNAME, SoloContest.class, value);
+    }
+    
+    @XmlElementDecl(scope = SoloContestEntry.class, namespace = NAMESPACE, name = "SoloContestEntry")
+    JAXBElement<SoloContestEntry> createSoloContestEntry(SoloContestEntry value) {
+        return new JAXBElement<>(SOLO_CONTEST_ENTRY_QNAME, SoloContestEntry.class, value);
     }
     
     @XmlElementDecl(scope = SoloResult.class, namespace = NAMESPACE, name = "SoloResult")
