@@ -101,9 +101,21 @@
         <grade>TWO</grade>
         <season>2013</season>
         <date>2013-06-04T21:56:00-06:00</date>
-        <primaryJudge>andyJudge</primaryJudge>
-        <judge2>bobJudge</judge2>
-        <judge3>jamieJudge</judge3>
+        <judges>
+            <id>andyHiredJudge</id>
+            <judge>andyJudge</judge>
+            <type>BAND_ENSEMBLE</type>
+        </judges>
+        <judges>
+            <id>jamieHiredJudge</id>
+            <judge>jamieJudge</judge>
+            <type>BAND_PIPING</type>
+        </judges>
+        <judges>
+            <id>bobHiredJudge</id>
+            <judge>bobJudge</judge>
+            <type>BAND_PIPING</type>
+        </judges>
         <leet>0</leet>
         <contestants>1</contestants>
     </soloContest>

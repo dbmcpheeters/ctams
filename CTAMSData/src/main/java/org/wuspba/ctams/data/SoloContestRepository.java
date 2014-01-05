@@ -34,10 +34,10 @@ public interface SoloContestRepository extends CrudRepository<SoloContest, Long>
     
     List<SoloContest> findBySeason(int season);
     
-    @Query(value = "SELECT c FROM SoloContest c WHERE c.primaryJudge = :judge OR c.judge2 = :judge OR c.judge3 = :judge")
+    @Query(value = "SELECT c FROM SoloContest c, IN (c.judges) AS j WHERE j.judge = :judge")
     List<SoloContest> findByJudge(@Param("judge") Judge judge);
     
-    @Query(value = "SELECT c FROM SoloContest c WHERE (c.primaryJudge = :judge OR c.judge2 = :judge OR c.judge3 = :judge) AND c.season = :season")
+    @Query(value = "SELECT c FROM SoloContest c, IN (c.judges) AS j WHERE j.judge = :judge AND c.season = :season")
     List<SoloContest> findByJudgeAndSeason(@Param("judge") Judge judge, @Param("season") int season);
     
 }

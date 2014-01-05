@@ -51,13 +51,11 @@ public class BandContestTest extends AbstractUnitTest {
         BandContest c2 = TestFixture.INSTANCE.bandContest;
 
         c1.setDate(c1.getDate());
-        c1.setDrumming(c2.getDrumming());
-        c1.setEnsemble(c2.getEnsemble());
         c1.setEventType(c2.getEventType());
         c1.setGrade(c2.getGrade());
         c1.setId(c2.getId());
-        c1.setPiping1(c2.getPiping1());
-        c1.setPiping2(c2.getPiping2());
+        c1.getJudges().clear();
+        c2.getJudges().addAll(c2.getJudges());
         c1.setSeason(c2.getSeason());
         c1.setVenue(c2.getVenue());
 
@@ -69,13 +67,10 @@ public class BandContestTest extends AbstractUnitTest {
     
     private void testEquality(BandContest c1, BandContest c2) {
         testDates(c1.getDate(), c2.getDate());
-        assertEquals(c1.getDrumming(), c2.getDrumming());
-        assertEquals(c1.getEnsemble(), c2.getEnsemble());
+        assertTrue(c1.getJudges().containsAll(c2.getJudges()));
         assertEquals(c1.getEventType(), c2.getEventType());
         assertEquals(c1.getGrade(), c2.getGrade());
         assertEquals(c1.getId(), c2.getId());
-        assertEquals(c1.getPiping1(), c2.getPiping1());
-        assertEquals(c1.getPiping2(), c2.getPiping2());
         assertEquals(c1.getSeason(), c2.getSeason());
         assertEquals(c1.getVenue(), c2.getVenue());
     }

@@ -22,25 +22,21 @@ public class CreateXML {
     
     public static void main(String[] args) {
         CTAMSDocument doc = new CTAMSDocument();
-        doc.getPeople().add(TestFixture.INSTANCE.elaine);
         doc.getPeople().add(TestFixture.INSTANCE.bob);
+        doc.getPeople().add(TestFixture.INSTANCE.eoin);
         doc.getPeople().add(TestFixture.INSTANCE.andy);
         doc.getPeople().add(TestFixture.INSTANCE.jamie);
-//        doc.getBandMembers().add(TestData.INSTANCE.andyMember);
-//        doc.getBandMembers().add(TestData.INSTANCE.jamieMember);
-//        doc.getInstructors().add(TestData.INSTANCE.andyInstructor);
-//        doc.getPeople().add(TestData.INSTANCE.eoin);
         doc.getJudges().add(TestFixture.INSTANCE.judgeBob);
         doc.getJudges().add(TestFixture.INSTANCE.judgeAndy);
         doc.getJudges().add(TestFixture.INSTANCE.judgeJamie);
         doc.getJudges().add(TestFixture.INSTANCE.judgeEoin);
-//        doc.getVenues().add(TestData.INSTANCE.venue);
+        doc.getVenues().add(TestFixture.INSTANCE.venue);
 //        doc.getBands().add(TestData.INSTANCE.skye);
-//        doc.getBandContests().add(TestData.INSTANCE.bandContest);
+        doc.getBandContests().add(TestFixture.INSTANCE.bandContest);
 //        doc.getRosters().add(TestData.INSTANCE.roster);
 //        doc.getBandRegistrations().add(TestData.INSTANCE.bandRegistration);
 //        doc.getBandContestResults().add(TestData.INSTANCE.bandResult);
-        doc.getSoloContests().add(TestFixture.INSTANCE.soloContest);
+//        doc.getSoloContests().add(TestFixture.INSTANCE.soloContest);
 //        doc.getSoloRegistrations().add(TestData.INSTANCE.soloRegistration);
         doc.getSoloContestResults().add(TestFixture.INSTANCE.soloResult);
             

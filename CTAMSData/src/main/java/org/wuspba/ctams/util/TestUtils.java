@@ -28,10 +28,17 @@ public class TestUtils {
         repo.save(TestFixture.INSTANCE.drummingQual);
         repo.save(TestFixture.INSTANCE.ensembleQual);
         repo.save(TestFixture.INSTANCE.pipingQual);
+        repo.save(TestFixture.INSTANCE.localQual);
         repo.save(TestFixture.INSTANCE.judgeEoin);
         repo.save(TestFixture.INSTANCE.judgeAndy);
         repo.save(TestFixture.INSTANCE.judgeJamie);
         repo.save(TestFixture.INSTANCE.judgeBob);
+        repo.save(TestFixture.INSTANCE.judgeElaine);
+        repo.save(TestFixture.INSTANCE.hiredJudgeEoin);
+        repo.save(TestFixture.INSTANCE.hiredJudgeAndy);
+        repo.save(TestFixture.INSTANCE.hiredJudgeJamie);
+        repo.save(TestFixture.INSTANCE.hiredJudgeBob);
+        repo.save(TestFixture.INSTANCE.hiredJudgeElaine);
         repo.save(TestFixture.INSTANCE.venue);
         repo.save(TestFixture.INSTANCE.bandContest);
         repo.save(TestFixture.INSTANCE.bandContestEntry);

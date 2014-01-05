@@ -314,7 +314,7 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("judge", TestFixture.INSTANCE.soloContest.getPrimaryJudge().getId())
+                .setParameter("judge", TestFixture.INSTANCE.soloContest.getJudges().get(0).getJudge().getId())
                 .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloContest.getSeason()))
                 .build();
 
@@ -338,7 +338,7 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("judge", TestFixture.INSTANCE.soloContest.getPrimaryJudge().getId())
+                .setParameter("judge", TestFixture.INSTANCE.soloContest.getJudges().get(0).getJudge().getId())
                 .build();
 
         httpGet = new HttpGet(uri);
@@ -361,7 +361,7 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("judge", TestFixture.INSTANCE.soloContest.getJudge2().getId())
+                .setParameter("judge", TestFixture.INSTANCE.soloContest.getJudges().get(1).getJudge().getId())
                 .build();
 
         httpGet = new HttpGet(uri);
@@ -384,7 +384,7 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("judge", TestFixture.INSTANCE.soloContest.getJudge3().getId())
+                .setParameter("judge", TestFixture.INSTANCE.soloContest.getJudges().get(2).getJudge().getId())
                 .build();
 
         httpGet = new HttpGet(uri);
@@ -481,14 +481,23 @@ public class ITSoloContestController {
 
     private static void add() throws Exception {
         ITVenueController.add();
+        ITHiredJudgeController.add();
         ITJudgeController.add();
         
         CTAMSDocument doc = new CTAMSDocument();
         doc.getVenues().add(TestFixture.INSTANCE.venue);
+        doc.getPeople().add(TestFixture.INSTANCE.andy);
+        doc.getPeople().add(TestFixture.INSTANCE.jamie);
+        doc.getPeople().add(TestFixture.INSTANCE.bob);
+        doc.getPeople().add(TestFixture.INSTANCE.eoin);
         doc.getJudges().add(TestFixture.INSTANCE.judgeAndy);
         doc.getJudges().add(TestFixture.INSTANCE.judgeJamie);
         doc.getJudges().add(TestFixture.INSTANCE.judgeBob);
         doc.getJudges().add(TestFixture.INSTANCE.judgeEoin);
+        doc.getHiredJudges().add(TestFixture.INSTANCE.hiredJudgeAndy);
+        doc.getHiredJudges().add(TestFixture.INSTANCE.hiredJudgeJamie);
+        doc.getHiredJudges().add(TestFixture.INSTANCE.hiredJudgeBob);
+        doc.getHiredJudges().add(TestFixture.INSTANCE.hiredJudgeEoin);
         doc.getSoloContests().add(TestFixture.INSTANCE.soloContest);
         
         String xml = ControllerUtils.marshal(doc);
@@ -675,6 +684,7 @@ public class ITSoloContestController {
         }
 
         ITVenueController.delete();
+        ITHiredJudgeController.delete();
         ITJudgeController.delete();
     }
 
@@ -683,10 +693,8 @@ public class ITSoloContestController {
         assertEquals(c1.getEventType(), c2.getEventType());
         assertEquals(c1.getGrade(), c2.getGrade());
         assertEquals(c1.getId(), c2.getId());
-        assertEquals(c1.getJudge2(), c2.getJudge2());
-        assertEquals(c1.getJudge3(), c2.getJudge3());
+        assertTrue(c1.getJudges().containsAll(c2.getJudges()));
         assertEquals(c1.getLeet(), c2.getLeet());
-        assertEquals(c1.getPrimaryJudge(), c2.getPrimaryJudge());
         assertEquals(c1.getSeason(), c2.getSeason());
         assertEquals(c1.getVenue(), c2.getVenue());
     }

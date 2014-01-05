@@ -26,6 +26,7 @@ import org.wuspba.ctams.model.Band;
 import org.wuspba.ctams.model.BandContest;
 import org.wuspba.ctams.model.BandContestEntry;
 import org.wuspba.ctams.model.CTAMSDocument;
+import org.wuspba.ctams.model.HiredJudge;
 
 /**
  *
@@ -80,18 +81,12 @@ public class BandContestEntryController {
 
         for (BandContestEntry entry : entries) {
             ret.getBands().add(entry.getBand());
-            ret.getJudges().add(entry.getContest().getPiping1());
-            ret.getPeople().add(entry.getContest().getPiping1().getPerson());
-            ret.getJudgeQualifications().addAll(entry.getContest().getPiping1().getQualifications());
-            ret.getJudges().add(entry.getContest().getPiping2());
-            ret.getPeople().add(entry.getContest().getPiping2().getPerson());
-            ret.getJudgeQualifications().addAll(entry.getContest().getPiping2().getQualifications());
-            ret.getJudges().add(entry.getContest().getEnsemble());
-            ret.getPeople().add(entry.getContest().getEnsemble().getPerson());
-            ret.getJudgeQualifications().addAll(entry.getContest().getEnsemble().getQualifications());
-            ret.getJudges().add(entry.getContest().getDrumming());
-            ret.getPeople().add(entry.getContest().getDrumming().getPerson());
-            ret.getJudgeQualifications().addAll(entry.getContest().getDrumming().getQualifications());
+            for(HiredJudge j : entry.getContest().getJudges()) {
+                ret.getJudges().add(j.getJudge());
+                ret.getJudgeQualifications().addAll(j.getJudge().getQualifications());
+                ret.getPeople().add(j.getJudge().getPerson());
+                ret.getHiredJudges().add(j);
+            }
             ret.getVenues().add(entry.getContest().getVenue());
             ret.getBandContests().add(entry.getContest());
             ret.getBandContestEntry().add(entry);

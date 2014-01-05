@@ -5,13 +5,16 @@
 package org.wuspba.ctams.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Table(name = "Solo_Contest")
 @XmlType(propOrder = {"id", "venue", "eventType", "grade", "season", "date",
-                      "primaryJudge", "judge2", "judge3", "leet", "contestants"
+                      "judges", "leet", "contestants"
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "SoloContest")
@@ -67,23 +70,9 @@ public class SoloContest implements Serializable {
     @XmlElement(name = "date", required = true)
     private Date date;
 
-    @ManyToOne
-    @JoinColumn(name = "PrimaryJudge")
-    @XmlIDREF
-    @XmlElement(name = "primaryJudge", required = true)
-    private Judge primaryJudge;
-
-    @ManyToOne
-    @JoinColumn(name = "Judge2")
-    @XmlIDREF
-    @XmlElement(name = "judge2")
-    private Judge judge2 = null;
-
-    @ManyToOne
-    @JoinColumn(name = "Judge3")
-    @XmlIDREF
-    @XmlElement(name = "judge3")
-    private Judge judge3 = null;
+    @ManyToMany
+    @XmlElement(name = "judges", required = true)
+    private final List<HiredJudge> judges = new ArrayList<>();
 
     @Column(name = "LeetNumber")
     @XmlElement(name = "leet")
@@ -178,45 +167,10 @@ public class SoloContest implements Serializable {
     }
 
     /**
-     * @return the primaryJudge
+     * @return the judges
      */
-    public Judge getPrimaryJudge() {
-        return primaryJudge;
-    }
-
-    /**
-     * @param primaryJudge the primaryJudge to set
-     */
-    public void setPrimaryJudge(Judge primaryJudge) {
-        this.primaryJudge = primaryJudge;
-    }
-
-    /**
-     * @return the judge2
-     */
-    public Judge getJudge2() {
-        return judge2;
-    }
-
-    /**
-     * @param judge2 the judge2 to set
-     */
-    public void setJudge2(Judge judge2) {
-        this.judge2 = judge2;
-    }
-
-    /**
-     * @return the judge3
-     */
-    public Judge getJudge3() {
-        return judge3;
-    }
-
-    /**
-     * @param judge3 the judge3 to set
-     */
-    public void setJudge3(Judge judge3) {
-        this.judge3 = judge3;
+    public List<HiredJudge> getJudges() {
+        return judges;
     }
 
     /**

@@ -23,6 +23,9 @@ public interface BandResultRepository extends CrudRepository<BandResult, Long> {
     
     List<BandResult> findByContest(BandContest contest);
     
+    @Query(value = "SELECT r FROM BandResult r WHERE r.contest.season = :season")
+    List<BandResult> findBySeason(@Param("season") int season);
+    
     @Query(value = "SELECT r FROM BandResult r WHERE r.band = :band AND r.contest.season = :season")
     List<BandResult> findByBand(@Param("band") Band band, @Param("season") int season);
     
@@ -50,10 +53,10 @@ public interface BandResultRepository extends CrudRepository<BandResult, Long> {
     @Query(value = "SELECT r FROM BandResult r WHERE r.drummingEval = :eval AND r.contest.season = :season")
     List<BandResult> findByDrummingEval(@Param("eval") String eval, @Param("season") int season);
     
-    @Query(value = "SELECT r FROM BandResult r WHERE r.points = :points AND r.contest.season = :season")
-    List<BandResult> findByPoints(@Param("points") int points, @Param("season") int season);
-    
     @Query(value = "SELECT r FROM BandResult r WHERE r.place = :place AND r.contest.season = :season")
     List<BandResult> findByPlace(@Param("place") int place, @Param("season") int season);
+    
+    @Query(value = "SELECT r FROM BandResult r WHERE (r.piping1Eval = :eval OR r.piping2Eval = :eval OR r.ensembleEval = :eval OR r.drummingEval = :eval ) AND r.contest.season = :season")
+    List<BandResult> findByEval(@Param("eval") String eval, @Param("season") int season);
 
 }

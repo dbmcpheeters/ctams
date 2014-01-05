@@ -26,6 +26,7 @@ import org.wuspba.ctams.model.BandContest;
 import org.wuspba.ctams.model.BandEventType;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Grade;
+import org.wuspba.ctams.model.HiredJudge;
 import org.wuspba.ctams.model.Judge;
 import org.wuspba.ctams.model.Venue;
 
@@ -61,9 +62,7 @@ public class BandContestController {
             @RequestParam(value = "eventtype", required = false, defaultValue = "") String type,
             @RequestParam(value = "grade", required = false, defaultValue = "") String grade,
             @RequestParam(value = "season", required = false, defaultValue = "") String season,
-            @RequestParam(value = "piping", required = false, defaultValue = "") String piping,
-            @RequestParam(value = "drumming", required = false, defaultValue = "") String drumming,
-            @RequestParam(value = "ensemble", required = false, defaultValue = "") String ensemble) {
+            @RequestParam(value = "judge", required = false, defaultValue = "") String judge) {
 
         CTAMSDocument ret = new CTAMSDocument();
 
@@ -85,44 +84,20 @@ public class BandContestController {
             contests = repository.findByEventType(BandEventType.valueOf(type), seasonInt);
         } else if(!"".equals(grade)) {
             contests = repository.findByGrade(Grade.valueOf(grade), seasonInt);
-        } else if(!"".equals(piping)) {
-            List<Judge> judges = judgeRepo.findById(piping);
-            Judge judge = null;
+        } else if(!"".equals(judge)) {
+            List<Judge> judges = judgeRepo.findById(judge);
+            Judge j = null;
 
             if(!judges.isEmpty()) {
-                judge = judges.get(0);
-            }
-            
-            if(seasonInt == -1) {
-                contests = repository.findByPipingJudge(judge);
+                j = judges.get(0);
             } else {
-                contests = repository.findByPipingJudgeAndSeason(judge, seasonInt);
+                LOG.warn("Could not find judge " + judge);
             }
-        } else if(!"".equals(drumming)) {
-            List<Judge> judges = judgeRepo.findById(drumming);
-            Judge judge = null;
 
-            if(!judges.isEmpty()) {
-                judge = judges.get(0);
-            }
-            
             if(seasonInt == -1) {
-                contests = repository.findByDrummingJudge(judge);
+                contests = repository.findByJudge(j);
             } else {
-                contests = repository.findByDrummingJudgeAndSeason(judge, seasonInt);
-            }
-        } else if(!"".equals(ensemble)) {
-            List<Judge> judges = judgeRepo.findById(ensemble);
-            Judge judge = null;
-
-            if(!judges.isEmpty()) {
-                judge = judges.get(0);
-            }
-            
-            if(seasonInt == -1) {
-                contests = repository.findByEnsembleJudge(judge);
-            } else {
-                contests = repository.findByEnsembleJudgeAndSeason(judge, seasonInt);
+                contests = repository.findByJudgeAndSeason(j, seasonInt);
             }
         } else if(!"".equals(season)) {
             contests = repository.findBySeason(seasonInt);
@@ -131,21 +106,12 @@ public class BandContestController {
         }
 
         for (BandContest contest : contests) {
-            ret.getJudges().add(contest.getPiping1());
-            ret.getPeople().add(contest.getPiping1().getPerson());
-            ret.getJudgeQualifications().addAll(contest.getPiping1().getQualifications());
-
-            ret.getJudges().add(contest.getPiping2());
-            ret.getPeople().add(contest.getPiping2().getPerson());
-            ret.getJudgeQualifications().addAll(contest.getPiping2().getQualifications());
-            
-            ret.getJudges().add(contest.getDrumming());
-            ret.getPeople().add(contest.getDrumming().getPerson());
-            ret.getJudgeQualifications().addAll(contest.getDrumming().getQualifications());
-            
-            ret.getJudges().add(contest.getEnsemble());
-            ret.getPeople().add(contest.getEnsemble().getPerson());
-            ret.getJudgeQualifications().addAll(contest.getEnsemble().getQualifications());
+            for(HiredJudge j : contest.getJudges()) {
+                ret.getJudges().add(j.getJudge());
+                ret.getJudgeQualifications().addAll(j.getJudge().getQualifications());
+                ret.getPeople().add(j.getJudge().getPerson());
+                ret.getHiredJudges().add(j);
+            }
 
             ret.getVenues().add(contest.getVenue());
 

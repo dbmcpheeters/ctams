@@ -306,7 +306,7 @@ public class ITBandContestController {
     }
 
     @Test
-    public void testListPiping() throws Exception {
+    public void testListJudge() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         URI uri = new URIBuilder()
@@ -314,7 +314,7 @@ public class ITBandContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("piping", TestFixture.INSTANCE.bandContest.getPiping1().getId())
+                .setParameter("judge", TestFixture.INSTANCE.judgeAndy.getId())
                 .setParameter("season", Integer.toString(TestFixture.INSTANCE.bandContest.getSeason()))
                 .build();
 
@@ -338,7 +338,7 @@ public class ITBandContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("piping", TestFixture.INSTANCE.bandContest.getPiping2().getId())
+                .setParameter("judge", TestFixture.INSTANCE.judgeAndy.getId())
                 .build();
 
         httpGet = new HttpGet(uri);
@@ -361,7 +361,7 @@ public class ITBandContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("piping", TestFixture.INSTANCE.bandContest.getDrumming().getId())
+                .setParameter("judge", TestFixture.INSTANCE.judgeElaine.getId())
                 .setParameter("season", Integer.toString(TestFixture.INSTANCE.bandContest.getSeason()))
                 .build();
 
@@ -384,201 +384,7 @@ public class ITBandContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("piping", TestFixture.INSTANCE.bandContest.getDrumming().getId())
-                .build();
-
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBandContests().size(), 0);
-
-            EntityUtils.consume(entity);
-        }
-    }
-
-    @Test
-    public void testListDrumming() throws Exception {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-
-        URI uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("drumming", TestFixture.INSTANCE.bandContest.getDrumming().getId())
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.bandContest.getSeason()))
-                .build();
-
-        HttpGet httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBandContests().size(), 1);
-            testEquality(doc.getBandContests().get(0), TestFixture.INSTANCE.bandContest);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("drumming", TestFixture.INSTANCE.bandContest.getDrumming().getId())
-                .build();
-
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBandContests().size(), 1);
-            testEquality(doc.getBandContests().get(0), TestFixture.INSTANCE.bandContest);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("drumming", TestFixture.INSTANCE.bandContest.getEnsemble().getId())
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.bandContest.getSeason()))
-                .build();
-
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBandContests().size(), 0);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("drumming", TestFixture.INSTANCE.bandContest.getEnsemble().getId())
-                .build();
-
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBandContests().size(), 0);
-
-            EntityUtils.consume(entity);
-        }
-    }
-
-    @Test
-    public void testListEnsemble() throws Exception {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-
-        URI uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("ensemble", TestFixture.INSTANCE.bandContest.getEnsemble().getId())
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.bandContest.getSeason()))
-                .build();
-
-        HttpGet httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBandContests().size(), 1);
-            testEquality(doc.getBandContests().get(0), TestFixture.INSTANCE.bandContest);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("ensemble", TestFixture.INSTANCE.bandContest.getEnsemble().getId())
-                .build();
-
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBandContests().size(), 1);
-            testEquality(doc.getBandContests().get(0), TestFixture.INSTANCE.bandContest);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("ensemble", TestFixture.INSTANCE.bandContest.getDrumming().getId())
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.bandContest.getSeason()))
-                .build();
-
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBandContests().size(), 0);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("ensemble", TestFixture.INSTANCE.bandContest.getDrumming().getId())
+                .setParameter("judge", TestFixture.INSTANCE.judgeElaine.getId())
                 .build();
 
         httpGet = new HttpGet(uri);
@@ -630,6 +436,7 @@ public class ITBandContestController {
     protected static void add() throws Exception {
         ITVenueController.add();
         ITJudgeController.add();
+        ITHiredJudgeController.add();
         
         CTAMSDocument doc = new CTAMSDocument();
         doc.getVenues().add(TestFixture.INSTANCE.venue);
@@ -823,18 +630,16 @@ public class ITBandContestController {
         }
 
         ITVenueController.delete();
+        ITHiredJudgeController.delete();
         ITJudgeController.delete();
     }
 
     private void testEquality(BandContest c1, BandContest c2) {
-        assertEquals(c1.getDrumming().getId(), c2.getDrumming().getId());
-        assertEquals(c1.getEnsemble().getId(), c2.getEnsemble().getId());
+        assertTrue(c1.getJudges().containsAll(c2.getJudges()));
         assertEquals(c1.getEventType(), c2.getEventType());
         assertEquals(c1.getGrade(), c2.getGrade());
         assertEquals(c1.getId(), c2.getId());
-        assertEquals(c1.getPiping1().getId(), c2.getPiping1().getId());
-        assertEquals(c1.getPiping2().getId(), c2.getPiping2().getId());
         assertEquals(c1.getSeason(), c2.getSeason());
-        assertEquals(c1.getVenue().getId(), c2.getVenue().getId());
+        assertEquals(c1.getVenue(), c2.getVenue());
     }
 }

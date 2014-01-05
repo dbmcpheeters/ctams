@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <CTAMS xmlns:ns2="ctams">
     <person>
+        <id>bobPerson</id>
+        <title>Mr.</title>
+        <firstName>Robert</firstName>
+        <middleName></middleName>
+        <nickName>The Old Man</nickName>
+        <lastName>Mason</lastName>
+        <suffix></suffix>
+        <email>dont.have@one.com</email>
+        <address>111 Bob Ave.</address>
+        <city>Denver</city>
+        <state>CO</state>
+        <zip>80891</zip>
+        <phone>720-555-5555</phone>
+        <notes></notes>
+        <lifeMember>false</lifeMember>
+        <branch>SOUTHERN</branch>
+    </person>
+    <person>
+        <id>eoinPerson</id>
+        <title>Mr.</title>
+        <firstName>Eoin</firstName>
+        <middleName></middleName>
+        <nickName>The Mac</nickName>
+        <lastName>McMahon</lastName>
+        <suffix></suffix>
+        <email>eoin@comcast.net</email>
+        <address>1555 Northrop Grumman Pt.</address>
+        <city>Colorado Springs</city>
+        <state>CO</state>
+        <zip>80902</zip>
+        <phone>555-555-5555</phone>
+        <notes></notes>
+        <lifeMember>false</lifeMember>
+        <branch>GREATBASIN</branch>
+    </person>
+    <person>
         <id>andyPerson</id>
         <title>Mr.</title>
         <firstName>Andy</firstName>
@@ -36,61 +72,47 @@
         <lifeMember>false</lifeMember>
         <branch>NORTHERN</branch>
     </person>
-    <person>
-        <id>eoinPerson</id>
-        <title>Mr.</title>
-        <firstName>Eoin</firstName>
-        <middleName></middleName>
-        <nickName>The Mac</nickName>
-        <lastName>McMahon</lastName>
-        <suffix></suffix>
-        <email>eoin@comcast.net</email>
-        <address>1555 Northrop Grumman Pt.</address>
-        <city>Colorado Springs</city>
-        <state>CO</state>
-        <zip>80902</zip>
-        <phone>555-555-5555</phone>
-        <notes></notes>
-        <lifeMember>false</lifeMember>
-        <branch>GREATBASIN</branch>
-    </person>
     <judge>
         <id>bobJudge</id>
         <person>bobPerson</person>
         <qualification>
+            <id>pipingQual</id>
             <panel>A</panel>
-            <type>BandPiping</type>
+            <type>BAND_PIPING</type>
         </qualification>
     </judge>
     <judge>
         <id>andyJudge</id>
         <person>andyPerson</person>
         <qualification>
+            <id>ensembleQual</id>
             <panel>B</panel>
-            <type>BandEnsemble</type>
+            <type>BAND_ENSEMBLE</type>
         </qualification>
     </judge>
     <judge>
         <id>jamieJudge</id>
         <person>jamiePerson</person>
         <qualification>
+            <id>pipingQual</id>
             <panel>A</panel>
-            <type>BandPiping</type>
+            <type>BAND_PIPING</type>
         </qualification>
     </judge>
     <judge>
         <id>eoinJudge</id>
         <person>eoinPerson</person>
         <qualification>
-            <panel>Local</panel>
-            <type>BandDrumming</type>
+            <id>drummingQual</id>
+            <panel>LOCAL</panel>
+            <type>BAND_DRUMMING</type>
         </qualification>
     </judge>
     <venue>
         <id>venue</id>
         <name>Pikes Peak Celtic Festival</name>
         <sponsor>Innovative Moments</sponsor>
-        <lcoation>Memorial Park</lcoation>
+        <location>Memorial Park</location>
         <address>333 Pikes Peak Ave.</address>
         <city>Colorado Springs</city>
         <state>CO</state>
@@ -102,6 +124,13 @@
         <soloContest>true</soloContest>
         <branch>INTERMOUNTAIN</branch>
     </venue>
+    <soloContestResult>
+        <id>soloResult</id>
+        <contest>soloContest</contest>
+        <soloist>elainePerson</soloist>
+        <place>1</place>
+        <cpl>4</cpl>
+    </soloContestResult>
     <bandContest>
         <id>bandContest</id>
         <venue>venue</venue>
@@ -109,9 +138,25 @@
         <grade>FOUR</grade>
         <season>2013</season>
         <date>2013-06-04T21:56:00-06:00</date>
-        <piping1>jamieJudge</piping1>
-        <piping2>bobJudge</piping2>
-        <ensemble>andyJudge</ensemble>
-        <drumming>eoinJudge</drumming>
+        <judges>
+            <id>eoinHiredJudge</id>
+            <judge>eoinJudge</judge>
+            <type>BAND_DRUMMING</type>
+        </judges>
+        <judges>
+            <id>andyHiredJudge</id>
+            <judge>andyJudge</judge>
+            <type>BAND_ENSEMBLE</type>
+        </judges>
+        <judges>
+            <id>jamieHiredJudge</id>
+            <judge>jamieJudge</judge>
+            <type>BAND_PIPING</type>
+        </judges>
+        <judges>
+            <id>bobHiredJudge</id>
+            <judge>bobJudge</judge>
+            <type>BAND_PIPING</type>
+        </judges>
     </bandContest>
 </CTAMS>

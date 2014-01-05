@@ -17,6 +17,7 @@ import org.wuspba.ctams.model.BandResult;
 import org.wuspba.ctams.model.BandType;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.Grade;
+import org.wuspba.ctams.model.HiredJudge;
 import org.wuspba.ctams.model.Instrument;
 import org.wuspba.ctams.model.Judge;
 import org.wuspba.ctams.model.JudgePanelType;
@@ -61,15 +62,23 @@ public enum TestFixture {
     public JudgeQualification drummingQual; // NOSONAR
     public JudgeQualification pipingQual; // NOSONAR
     public JudgeQualification ensembleQual; // NOSONAR
+    public JudgeQualification localQual; // NOSONAR
     public Judge judgeEoin; // NOSONAR
     public Judge judgeAndy; // NOSONAR
     public Judge judgeJamie; // NOSONAR
     public Judge judgeBob; // NOSONAR
+    public Judge judgeElaine; // NOSONAR
+    public HiredJudge hiredJudgeEoin; // NOSONAR
+    public HiredJudge hiredJudgeAndy; // NOSONAR
+    public HiredJudge hiredJudgeJamie; // NOSONAR
+    public HiredJudge hiredJudgeBob; // NOSONAR
+    public HiredJudge hiredJudgeElaine; // NOSONAR
     public Person eoin; // NOSONAR
     public Person andy; // NOSONAR
     public Person jamie; // NOSONAR
     public Person bob; // NOSONAR
     public Person elaine; // NOSONAR
+    public Person mason; // NOSONAR
     public Venue venue; // NOSONAR
     public SoloRegistration soloRegistration; // NOSONAR
 
@@ -80,11 +89,18 @@ public enum TestFixture {
         birthJamie();
         birthBob();
         birthElaine();
+        birthMason();
         createJudgeQualifications();
         createJudgeEoin();
         createJudgeAndy();
         createJudgeJamie();
         createJudgeBob();
+        createJudgeElaine();
+        createHiredJudgeEoin();
+        createHiredJudgeAndy();
+        createHiredJudgeJamie();
+        createHiredJudgeBob();
+        createHiredJudgeElaine();
         createVenue();
         createBandContest();
         createBandContestEntry();
@@ -113,6 +129,11 @@ public enum TestFixture {
         drummingQual.setId("drummingQual");
         drummingQual.setPanel(JudgePanelType.LOCAL);
         drummingQual.setType(JudgeType.BAND_DRUMMING);
+        
+        localQual = new JudgeQualification();
+        localQual.setId("localQual");
+        localQual.setPanel(JudgePanelType.LOCAL);
+        localQual.setType(JudgeType.SOLO_SNARE);
     }
 
     private void createJudgeEoin() {
@@ -122,25 +143,67 @@ public enum TestFixture {
         judgeEoin.getQualifications().add(drummingQual);
     }
 
-    private  void createJudgeAndy() {
+    private void createJudgeAndy() {
         judgeAndy = new Judge();
         judgeAndy.setId("andyJudge");
         judgeAndy.setPerson(andy);
         judgeAndy.getQualifications().add(ensembleQual);
     }
 
-    private  void createJudgeJamie() {
+    private void createJudgeJamie() {
         judgeJamie = new Judge();
         judgeJamie.setId("jamieJudge");
         judgeJamie.setPerson(jamie);
         judgeJamie.getQualifications().add(pipingQual);
     }
 
-    private  void createJudgeBob() {
+    private void createJudgeBob() {
         judgeBob = new Judge();
         judgeBob.setId("bobJudge");
         judgeBob.setPerson(bob);
         judgeBob.getQualifications().add(pipingQual);
+    }
+
+    private void createJudgeElaine() {
+        judgeElaine = new Judge();
+        judgeElaine.setId("elaineJudge");
+        judgeElaine.setPerson(elaine);
+        judgeElaine.getQualifications().add(localQual);
+    }
+
+    private void createHiredJudgeEoin() {
+        hiredJudgeEoin = new HiredJudge();
+        hiredJudgeEoin.setId("eoinHiredJudge");
+        hiredJudgeEoin.setJudge(judgeEoin);
+        hiredJudgeEoin.setType(JudgeType.BAND_DRUMMING);
+    }
+
+    private  void createHiredJudgeAndy() {
+        hiredJudgeAndy = new HiredJudge();
+        hiredJudgeAndy.setId("andyHiredJudge");
+        hiredJudgeAndy.setJudge(judgeAndy);
+        hiredJudgeAndy.setType(JudgeType.BAND_ENSEMBLE);
+    }
+
+    private  void createHiredJudgeJamie() {
+        hiredJudgeJamie = new HiredJudge();
+        hiredJudgeJamie.setId("jamieHiredJudge");
+        hiredJudgeJamie.setJudge(judgeJamie);
+        hiredJudgeJamie.setType(JudgeType.BAND_PIPING);
+    }
+
+    private  void createHiredJudgeBob() {
+        hiredJudgeBob = new HiredJudge();
+        hiredJudgeBob.setId("bobHiredJudge");
+        hiredJudgeBob.setJudge(judgeBob);
+        hiredJudgeBob.setType(JudgeType.BAND_PIPING);
+    }
+
+    private  void createHiredJudgeElaine() {
+        hiredJudgeElaine = new HiredJudge();
+        hiredJudgeElaine.setId("elaineHiredJudge");
+        hiredJudgeElaine.setJudge(judgeElaine);
+        hiredJudgeElaine.setType(JudgeType.SOLO_SNARE);
     }
 
     private  void createVenue() {
@@ -261,28 +324,48 @@ public enum TestFixture {
         elaine.setZip("80291");
     }
 
+    private  void birthMason() {
+        mason = new Person();
+        mason.setAddress("999 Mason St.");
+        mason.setBranch(Branch.INTERMOUNTAIN);
+        mason.setCity("Albuquerque");
+        mason.setEmail("head.butt@gmail.com");
+        mason.setFirstName("Mason");
+        mason.setId("masonPerson");
+        mason.setLastName("Parsons");
+        mason.setLifeMember(false);
+        mason.setMiddleName("");
+        mason.setNickName("Crazy Eyes");
+        mason.setNotes("");
+        mason.setPhone("505-555-5555");
+        mason.setState("NM");
+        mason.setSuffix("");
+        mason.setTitle("Mr.");
+        mason.setZip("90210");
+    }
+
     private  void createBandContest() {
         bandContest = new BandContest();
         bandContest.setDate(date);
-        bandContest.setDrumming(judgeEoin);
-        bandContest.setEnsemble(judgeAndy);
+        bandContest.getJudges().add(hiredJudgeEoin);
+        bandContest.getJudges().add(hiredJudgeAndy);
         bandContest.setEventType(BandEventType.MEDLEY);
         bandContest.setGrade(Grade.FOUR);
         bandContest.setId("bandContest");
-        bandContest.setPiping1(judgeJamie);
-        bandContest.setPiping2(judgeBob);
+        bandContest.getJudges().add(hiredJudgeJamie);
+        bandContest.getJudges().add(hiredJudgeBob);
         bandContest.setSeason(2013);
         bandContest.setVenue(venue);
         
         bandNonContest = new BandContest();
         bandNonContest.setDate(date);
-        bandNonContest.setDrumming(judgeEoin);
-        bandNonContest.setEnsemble(judgeAndy);
+        bandNonContest.getJudges().add(hiredJudgeEoin);
+        bandNonContest.getJudges().add(hiredJudgeAndy);
         bandNonContest.setEventType(BandEventType.MEDLEY);
         bandNonContest.setGrade(Grade.FOUR);
         bandNonContest.setId("bandNonContest");
-        bandNonContest.setPiping1(judgeJamie);
-        bandNonContest.setPiping2(judgeBob);
+        bandNonContest.getJudges().add(hiredJudgeJamie);
+        bandNonContest.getJudges().add(hiredJudgeBob);
         bandNonContest.setSeason(2013);
         bandNonContest.setVenue(venue);
     }
@@ -358,10 +441,10 @@ public enum TestFixture {
         soloContest.setEventType(SoloEventType.MSR);
         soloContest.setGrade(Grade.TWO);
         soloContest.setId("soloContest");
-        soloContest.setJudge2(judgeBob);
-        soloContest.setJudge3(judgeJamie);
+        soloContest.getJudges().add(hiredJudgeBob);
+        soloContest.getJudges().add(hiredJudgeJamie);
+        soloContest.getJudges().add(hiredJudgeAndy);
         soloContest.setLeet(0);
-        soloContest.setPrimaryJudge(judgeAndy);
         soloContest.setSeason(2013);
         soloContest.setVenue(venue);
         
@@ -371,10 +454,10 @@ public enum TestFixture {
         soloNonContest.setEventType(SoloEventType.MSR);
         soloNonContest.setGrade(Grade.TWO);
         soloNonContest.setId("soloNonContest");
-        soloNonContest.setJudge2(judgeBob);
-        soloNonContest.setJudge3(judgeJamie);
+        soloNonContest.getJudges().add(hiredJudgeBob);
+        soloNonContest.getJudges().add(hiredJudgeJamie);
+        soloNonContest.getJudges().add(hiredJudgeAndy);
         soloNonContest.setLeet(0);
-        soloNonContest.setPrimaryJudge(judgeAndy);
         soloNonContest.setSeason(2013);
         soloNonContest.setVenue(venue);
     }

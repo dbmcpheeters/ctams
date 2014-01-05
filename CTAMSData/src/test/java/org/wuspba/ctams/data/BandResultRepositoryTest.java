@@ -193,24 +193,46 @@ public class BandResultRepositoryTest {
     }
     
     @Test
-    public void testFindByPoints() {
-        List<BandResult> ret = repository.findByPoints(TestFixture.INSTANCE.bandResult.getPoints(), TestFixture.INSTANCE.bandContest.getSeason());
-        assertEquals(ret.size(), 1);
-
-        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
-        
-        ret = repository.findByPoints(TestFixture.INSTANCE.bandResult.getPoints() + 1, TestFixture.INSTANCE.bandContest.getSeason());
-        assertEquals(ret.size(), 0);
-        
-        ret = repository.findByPoints(TestFixture.INSTANCE.bandResult.getPoints(), TestFixture.INSTANCE.bandContest.getSeason() + 1);
-        assertEquals(ret.size(), 0);
-    }
-    
-    @Test
     public void testFindByPlace() {
         List<BandResult> ret = repository.findByPlace(TestFixture.INSTANCE.bandResult.getPlace(), TestFixture.INSTANCE.bandContest.getSeason());
         assertEquals(ret.size(), 1);
 
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
+        
+        ret = repository.findByPlace(TestFixture.INSTANCE.bandResult.getPlace() + 1, TestFixture.INSTANCE.bandContest.getSeason());
+        assertEquals(ret.size(), 0);
+        
+        ret = repository.findByPlace(TestFixture.INSTANCE.bandResult.getPlace(), TestFixture.INSTANCE.bandContest.getSeason() + 1);
+        assertEquals(ret.size(), 0);
+    }
+
+    @Test
+    public void testFindBySeason() {
+        List<BandResult> ret = repository.findBySeason(TestFixture.INSTANCE.bandContest.getSeason());
+        assertEquals(ret.size(), 1);
+
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
+        
+        ret = repository.findBySeason(TestFixture.INSTANCE.bandContest.getSeason() + 1);
+        assertEquals(ret.size(), 0);
+    }
+
+    @Test
+    public void testFindByEval() {
+        List<BandResult> ret = repository.findByEval(TestFixture.INSTANCE.bandResult.getPiping1Eval(), TestFixture.INSTANCE.bandContest.getSeason());
+        assertEquals(ret.size(), 1);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
+        
+        ret = repository.findByEval(TestFixture.INSTANCE.bandResult.getPiping2Eval(), TestFixture.INSTANCE.bandContest.getSeason());
+        assertEquals(ret.size(), 1);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
+        
+        ret = repository.findByEval(TestFixture.INSTANCE.bandResult.getEnsembleEval(), TestFixture.INSTANCE.bandContest.getSeason());
+        assertEquals(ret.size(), 1);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
+        
+        ret = repository.findByEval(TestFixture.INSTANCE.bandResult.getDrummingEval(), TestFixture.INSTANCE.bandContest.getSeason());
+        assertEquals(ret.size(), 1);
         assertEquals(ret.get(0), TestFixture.INSTANCE.bandResult);
         
         ret = repository.findByPlace(TestFixture.INSTANCE.bandResult.getPlace() + 1, TestFixture.INSTANCE.bandContest.getSeason());

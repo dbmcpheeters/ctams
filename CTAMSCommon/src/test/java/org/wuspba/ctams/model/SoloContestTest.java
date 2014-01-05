@@ -55,10 +55,9 @@ public class SoloContestTest extends AbstractUnitTest {
         c1.setEventType(c2.getEventType());
         c1.setGrade(c2.getGrade());
         c1.setId(c2.getId());
-        c1.setJudge2(c2.getJudge2());
-        c1.setJudge3(c2.getJudge3());
+        c2.getJudges().clear();
+        c1.getJudges().addAll(c2.getJudges());
         c1.setLeet(c2.getLeet());
-        c1.setPrimaryJudge(c2.getPrimaryJudge());
         c1.setSeason(c2.getSeason());
         c1.setVenue(c2.getVenue());
 
@@ -75,10 +74,8 @@ public class SoloContestTest extends AbstractUnitTest {
         assertEquals(c1.getEventType(), c2.getEventType());
         assertEquals(c1.getGrade(), c2.getGrade());
         assertEquals(c1.getId(), c2.getId());
-        assertEquals(c1.getJudge2(), c2.getJudge2());
-        assertEquals(c1.getJudge3(), c2.getJudge3());
+        assertTrue(c1.getJudges().containsAll(c2.getJudges()));
         assertEquals(c1.getLeet(), c2.getLeet());
-        assertEquals(c1.getPrimaryJudge(), c2.getPrimaryJudge());
         assertEquals(c1.getSeason(), c2.getSeason());
         assertEquals(c1.getVenue(), c2.getVenue());
     }

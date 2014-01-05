@@ -104,77 +104,33 @@ public class BandContestRepositoryTest {
     }
 
     @Test
-    public void testFindByPipingJudge() {
-        List<BandContest> ret = repository.findByPipingJudge(TestFixture.INSTANCE.judgeJamie);
+    public void testFindByJudge() {
+        List<BandContest> ret = repository.findByJudge(TestFixture.INSTANCE.judgeJamie);
+        assertEquals(ret.size(), 1);
+
+        assertEquals(ret.get(0), TestFixture.INSTANCE.bandContest);
+
+        ret = repository.findByJudge(TestFixture.INSTANCE.judgeAndy);
         assertEquals(ret.size(), 1);
 
         assertEquals(ret.get(0), TestFixture.INSTANCE.bandContest);
         
-        ret = repository.findByPipingJudge(TestFixture.INSTANCE.judgeEoin);
+        ret = repository.findByJudge(TestFixture.INSTANCE.judgeElaine);
         assertEquals(ret.size(), 0);
     }
     
     @Test
-    public void testFindByPipingJudgeAndSeason() {
-        List<BandContest> ret = repository.findByPipingJudgeAndSeason(TestFixture.INSTANCE.judgeJamie, 2013);
+    public void testFindByJudgeAndSeason() {
+        List<BandContest> ret = repository.findByJudgeAndSeason(TestFixture.INSTANCE.judgeJamie, 2013);
         assertEquals(ret.size(), 1);
 
         assertEquals(ret.get(0), TestFixture.INSTANCE.bandContest);
         
-        ret = repository.findByPipingJudgeAndSeason(TestFixture.INSTANCE.judgeEoin, 2013);
+        ret = repository.findByJudgeAndSeason(TestFixture.INSTANCE.judgeElaine, 2013);
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByPipingJudgeAndSeason(TestFixture.INSTANCE.judgeJamie, 2009);
+        ret = repository.findByJudgeAndSeason(TestFixture.INSTANCE.judgeJamie, 2009);
         assertEquals(ret.size(), 0);
     }
     
-    @Test
-    public void testFindByDrummingJudge() {
-        List<BandContest> ret = repository.findByDrummingJudge(TestFixture.INSTANCE.judgeEoin);
-        assertEquals(ret.size(), 1);
-
-        assertEquals(ret.get(0), TestFixture.INSTANCE.bandContest);
-        
-        ret = repository.findByDrummingJudge(TestFixture.INSTANCE.judgeAndy);
-        assertEquals(ret.size(), 0);
-    }
-    
-    @Test
-    public void testFindByDrummingJudgeAndSeason() {
-        List<BandContest> ret = repository.findByDrummingJudgeAndSeason(TestFixture.INSTANCE.judgeEoin, 2013);
-        assertEquals(ret.size(), 1);
-
-        assertEquals(ret.get(0), TestFixture.INSTANCE.bandContest);
-        
-        ret = repository.findByDrummingJudgeAndSeason(TestFixture.INSTANCE.judgeAndy, 2013);
-        assertEquals(ret.size(), 0);
-        
-        ret = repository.findByDrummingJudgeAndSeason(TestFixture.INSTANCE.judgeEoin, 2009);
-        assertEquals(ret.size(), 0);
-    }
-    
-    @Test
-    public void testFindByEnsembleJudge() {
-        List<BandContest> ret = repository.findByEnsembleJudge(TestFixture.INSTANCE.judgeAndy);
-        assertEquals(ret.size(), 1);
-
-        assertEquals(ret.get(0), TestFixture.INSTANCE.bandContest);
-        
-        ret = repository.findByEnsembleJudge(TestFixture.INSTANCE.judgeEoin);
-        assertEquals(ret.size(), 0);
-    }
-    
-    @Test
-    public void testFindByEnsembleJudgeAndSeason() {
-        List<BandContest> ret = repository.findByEnsembleJudgeAndSeason(TestFixture.INSTANCE.judgeAndy, 2013);
-        assertEquals(ret.size(), 1);
-
-        assertEquals(ret.get(0), TestFixture.INSTANCE.bandContest);
-        
-        ret = repository.findByEnsembleJudgeAndSeason(TestFixture.INSTANCE.judgeEoin, 2013);
-        assertEquals(ret.size(), 0);
-        
-        ret = repository.findByEnsembleJudgeAndSeason(TestFixture.INSTANCE.judgeAndy, 2009);
-        assertEquals(ret.size(), 0);
-    }
 }

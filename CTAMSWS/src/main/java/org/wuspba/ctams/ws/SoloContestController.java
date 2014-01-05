@@ -26,6 +26,7 @@ import org.wuspba.ctams.model.SoloContest;
 import org.wuspba.ctams.model.SoloEventType;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Grade;
+import org.wuspba.ctams.model.HiredJudge;
 import org.wuspba.ctams.model.Judge;
 import org.wuspba.ctams.model.Venue;
 
@@ -103,19 +104,11 @@ public class SoloContestController {
         }
 
         for (SoloContest contest : contests) {
-            ret.getJudges().add(contest.getPrimaryJudge());
-            ret.getPeople().add(contest.getPrimaryJudge().getPerson());
-            ret.getJudgeQualifications().addAll(contest.getPrimaryJudge().getQualifications());
-            
-            if(contest.getJudge2() != null) {
-                ret.getJudges().add(contest.getJudge2());
-                ret.getPeople().add(contest.getJudge2().getPerson());
-                ret.getJudgeQualifications().addAll(contest.getJudge2().getQualifications());
-            }
-            if(contest.getJudge3() != null) {
-                ret.getJudges().add(contest.getJudge3());
-                ret.getPeople().add(contest.getJudge3().getPerson());
-                ret.getJudgeQualifications().addAll(contest.getJudge3().getQualifications());
+            for(HiredJudge j : contest.getJudges()) {
+                ret.getJudges().add(j.getJudge());
+                ret.getJudgeQualifications().addAll(j.getJudge().getQualifications());
+                ret.getPeople().add(j.getJudge().getPerson());
+                ret.getHiredJudges().add(j);
             }
 
             ret.getVenues().add(contest.getVenue());

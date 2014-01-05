@@ -5,13 +5,16 @@
 package org.wuspba.ctams.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Table(name = "Band_Contest")
 @XmlType(propOrder = {"id", "venue", "eventType", "grade", "season", "date", 
-                      "piping1", "piping2", "ensemble", "drumming"
+                      "judges"
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "BandContest")
@@ -68,29 +71,9 @@ public class BandContest implements Serializable {
     @XmlElement(name = "date", required = true)
     private Date date;
 
-    @ManyToOne
-    @JoinColumn(name = "Piping1Judge")
-    @XmlIDREF
-    @XmlElement(name = "piping1", required = true)
-    private Judge piping1;
-
-    @ManyToOne
-    @JoinColumn(name = "Piping2Judge")
-    @XmlIDREF
-    @XmlElement(name = "piping2")
-    private Judge piping2;
-
-    @ManyToOne
-    @JoinColumn(name = "EnsembleJudge")
-    @XmlIDREF
-    @XmlElement(name = "ensemble", required = true)
-    private Judge ensemble;
-
-    @ManyToOne
-    @JoinColumn(name = "DrummingJudge")
-    @XmlIDREF
-    @XmlElement(name = "drumming", required = true)
-    private Judge drumming;
+    @ManyToMany
+    @XmlElement(name = "judges", required = true)
+    private final List<HiredJudge> judges = new ArrayList<>();
 
     /**
      * @return the id
@@ -177,59 +160,10 @@ public class BandContest implements Serializable {
     }
 
     /**
-     * @return the piping1
+     * @return the judges
      */
-    public Judge getPiping1() {
-        return piping1;
-    }
-
-    /**
-     * @param piping1 the piping1 to set
-     */
-    public void setPiping1(Judge piping1) {
-        this.piping1 = piping1;
-    }
-
-    /**
-     * @return the piping2
-     */
-    public Judge getPiping2() {
-        return piping2;
-    }
-
-    /**
-     * @param piping2 the piping2 to set
-     */
-    public void setPiping2(Judge piping2) {
-        this.piping2 = piping2;
-    }
-
-    /**
-     * @return the ensemble
-     */
-    public Judge getEnsemble() {
-        return ensemble;
-    }
-
-    /**
-     * @param ensemble the ensemble to set
-     */
-    public void setEnsemble(Judge ensemble) {
-        this.ensemble = ensemble;
-    }
-
-    /**
-     * @return the drumming
-     */
-    public Judge getDrumming() {
-        return drumming;
-    }
-
-    /**
-     * @param drumming the drumming to set
-     */
-    public void setDrumming(Judge drumming) {
-        this.drumming = drumming;
+    public List<HiredJudge> getJudges() {
+        return judges;
     }
 
     @Override

@@ -34,21 +34,10 @@ public interface BandContestRepository extends CrudRepository<BandContest, Long>
     
     List<BandContest> findBySeason(int season);
     
-    @Query(value = "SELECT c FROM BandContest c WHERE c.piping1 = :judge OR c.piping2 = :judge")
-    List<BandContest> findByPipingJudge(@Param("judge") Judge judge);
+    @Query(value = "SELECT c FROM BandContest c, IN (c.judges) AS j WHERE j.judge = :judge")
+    List<BandContest> findByJudge(@Param("judge") Judge judge);
     
-    @Query(value = "SELECT c FROM BandContest c WHERE (c.piping1 = :judge OR c.piping2 = :judge) AND c.season = :season")
-    List<BandContest> findByPipingJudgeAndSeason(@Param("judge") Judge judge, @Param("season") int season);
+    @Query(value = "SELECT c FROM BandContest c, IN (c.judges) AS j WHERE j.judge = :judge AND c.season = :season")
+    List<BandContest> findByJudgeAndSeason(@Param("judge") Judge judge, @Param("season") int season);
     
-    @Query(value = "SELECT c FROM BandContest c WHERE c.drumming = :judge")
-    List<BandContest> findByDrummingJudge(@Param("judge") Judge judge);
-    
-    @Query(value = "SELECT c FROM BandContest c WHERE c.drumming = :judge AND c.season = :season")
-    List<BandContest> findByDrummingJudgeAndSeason(@Param("judge") Judge judge, @Param("season") int season);
-    
-    @Query(value = "SELECT c FROM BandContest c WHERE c.ensemble = :judge")
-    List<BandContest> findByEnsembleJudge(@Param("judge") Judge judge);
-    
-    @Query(value = "SELECT c FROM BandContest c WHERE c.ensemble = :judge AND c.season = :season")
-    List<BandContest> findByEnsembleJudgeAndSeason(@Param("judge") Judge judge, @Param("season") int season);
 }
