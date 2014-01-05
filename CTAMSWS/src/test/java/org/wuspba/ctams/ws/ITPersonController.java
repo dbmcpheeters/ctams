@@ -10,6 +10,8 @@ import org.wuspba.ctams.util.ControllerUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -28,26 +30,23 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wuspba.ctams.model.Band;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
-import org.wuspba.ctams.model.Grade;
+import org.wuspba.ctams.model.Person;
 import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
  * @author atrimble
  */
-public class ITBandController {
+public class ITPersonController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ITBandController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ITPersonController.class);
 
     protected static String PROTOCOL = "http";
     protected static String HOST = "localhost";
     protected static int PORT = 8081;
-    protected static String PATH = "/band";
-
-    private static final Band SKYE = TestFixture.INSTANCE.skye;
+    protected static String PATH = "/person";
 
     static {
         if(System.getProperties().containsKey("ctams.protocol")) {
@@ -96,22 +95,36 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals(SKYE.getName()));
+            assertEquals(doc.getPeople().size(), 5);
+            for(Person p : doc.getPeople()) {
+                if(p.getLastName().equals(TestFixture.INSTANCE.andy.getLastName())) {
+                    testEquality(p, TestFixture.INSTANCE.andy);
+                } else if(p.getLastName().equals(TestFixture.INSTANCE.bob.getLastName())) {
+                    testEquality(p, TestFixture.INSTANCE.bob);
+                } else if(p.getLastName().equals(TestFixture.INSTANCE.elaine.getLastName())) {
+                    testEquality(p, TestFixture.INSTANCE.elaine);
+                } else if(p.getLastName().equals(TestFixture.INSTANCE.eoin.getLastName())) {
+                    testEquality(p, TestFixture.INSTANCE.eoin);
+                } else if(p.getLastName().equals(TestFixture.INSTANCE.jamie.getLastName())) {
+                    testEquality(p, TestFixture.INSTANCE.jamie);
+                } else {
+                    fail();
+                }
+            }
 
             EntityUtils.consume(entity);
         }
     }
 
     @Test
-    public void testListName() throws Exception {
+    public void testListFirstName() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         URI uri = new URIBuilder()
                 .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("name", SKYE.getName())
+                .setParameter("firstname", TestFixture.INSTANCE.andy.getFirstName())
                 .build();
         
         HttpGet httpGet = new HttpGet(uri);
@@ -123,8 +136,8 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals(TestFixture.INSTANCE.skye.getName()));
+            assertEquals(doc.getPeople().size(), 1);
+            testEquality(doc.getPeople().get(0), TestFixture.INSTANCE.andy);
 
             EntityUtils.consume(entity);
         }
@@ -134,7 +147,7 @@ public class ITBandController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("name", "badName")
+                .setParameter("firstname", "badName")
                 .build();
         
         httpGet = new HttpGet(uri);
@@ -146,7 +159,153 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 0);
+            assertEquals(doc.getPeople().size(), 0);
+
+            EntityUtils.consume(entity);
+        }
+    }
+
+    @Test
+    public void testListLastName() throws Exception {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        URI uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("lastname", TestFixture.INSTANCE.andy.getLastName())
+                .build();
+        
+        HttpGet httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            assertEquals(doc.getPeople().size(), 1);
+            testEquality(doc.getPeople().get(0), TestFixture.INSTANCE.andy);
+
+            EntityUtils.consume(entity);
+        }
+
+        uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("lastname", "badName")
+                .build();
+        
+        httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            assertEquals(doc.getPeople().size(), 0);
+
+            EntityUtils.consume(entity);
+        }
+    }
+
+    @Test
+    public void testListFirstAndLastName() throws Exception {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        URI uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("firstname", TestFixture.INSTANCE.andy.getFirstName())
+                .setParameter("lastname", TestFixture.INSTANCE.andy.getLastName())
+                .build();
+        
+        HttpGet httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            assertEquals(doc.getPeople().size(), 1);
+            testEquality(doc.getPeople().get(0), TestFixture.INSTANCE.andy);
+
+            EntityUtils.consume(entity);
+        }
+
+        uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("firstname", "badName")
+                .setParameter("lastname", "badName")
+                .build();
+        
+        httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            assertEquals(doc.getPeople().size(), 0);
+
+            EntityUtils.consume(entity);
+        }
+
+        uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("firstname", TestFixture.INSTANCE.andy.getFirstName())
+                .setParameter("lastname", TestFixture.INSTANCE.bob.getLastName())
+                .build();
+        
+        httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            assertEquals(doc.getPeople().size(), 0);
+
+            EntityUtils.consume(entity);
+        }
+
+        uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("firstname", TestFixture.INSTANCE.bob.getFirstName())
+                .setParameter("lastname", TestFixture.INSTANCE.andy.getLastName())
+                .build();
+        
+        httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            assertEquals(doc.getPeople().size(), 0);
 
             EntityUtils.consume(entity);
         }
@@ -160,7 +319,7 @@ public class ITBandController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("state", SKYE.getState())
+                .setParameter("state", TestFixture.INSTANCE.andy.getState())
                 .build();
         
         HttpGet httpGet = new HttpGet(uri);
@@ -172,8 +331,22 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals(TestFixture.INSTANCE.skye.getName()));
+            assertEquals(doc.getPeople().size(), 5);
+            for(Person p : doc.getPeople()) {
+                if(p.getLastName().equals(TestFixture.INSTANCE.andy.getLastName())) {
+                    testEquality(p, TestFixture.INSTANCE.andy);
+                } else if(p.getLastName().equals(TestFixture.INSTANCE.bob.getLastName())) {
+                    testEquality(p, TestFixture.INSTANCE.bob);
+                } else if(p.getLastName().equals(TestFixture.INSTANCE.elaine.getLastName())) {
+                    testEquality(p, TestFixture.INSTANCE.elaine);
+                } else if(p.getLastName().equals(TestFixture.INSTANCE.eoin.getLastName())) {
+                    testEquality(p, TestFixture.INSTANCE.eoin);
+                } else if(p.getLastName().equals(TestFixture.INSTANCE.jamie.getLastName())) {
+                    testEquality(p, TestFixture.INSTANCE.jamie);
+                } else {
+                    fail();
+                }
+            }
 
             EntityUtils.consume(entity);
         }
@@ -195,7 +368,7 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 0);
+            assertEquals(doc.getPeople().size(), 0);
 
             EntityUtils.consume(entity);
         }
@@ -209,7 +382,7 @@ public class ITBandController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("branch", SKYE.getBranch().toString())
+                .setParameter("branch", Branch.INTERMOUNTAIN.toString())
                 .build();
         
         HttpGet httpGet = new HttpGet(uri);
@@ -221,8 +394,16 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals(TestFixture.INSTANCE.skye.getName()));
+            assertEquals(doc.getPeople().size(), 2);
+            for(Person p : doc.getPeople()) {
+                if(p.getLastName().equals(TestFixture.INSTANCE.andy.getLastName())) {
+                    testEquality(p, TestFixture.INSTANCE.andy);
+                } else if(p.getLastName().equals(TestFixture.INSTANCE.elaine.getLastName())) {
+                    testEquality(p, TestFixture.INSTANCE.elaine);
+                } else {
+                    fail();
+                }
+            }
 
             EntityUtils.consume(entity);
         }
@@ -232,7 +413,7 @@ public class ITBandController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("branch", Branch.GREATBASIN.toString())
+                .setParameter("branch", Branch.OTHER.toString())
                 .build();
         
         httpGet = new HttpGet(uri);
@@ -244,105 +425,7 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 0);
-
-            EntityUtils.consume(entity);
-        }
-    }
-
-    @Test
-    public void testListGrade() throws Exception {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        URI uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("grade", SKYE.getGrade().toString())
-                .build();
-        
-        HttpGet httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals(TestFixture.INSTANCE.skye.getName()));
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("grade", Grade.ONE.toString())
-                .build();
-        
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBands().size(), 0);
-
-            EntityUtils.consume(entity);
-        }
-    }
-
-    @Test
-    public void testListDissolved() throws Exception {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        URI uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("dissolved", Boolean.toString(SKYE.isDissolved()))
-                .build();
-        
-        HttpGet httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals(TestFixture.INSTANCE.skye.getName()));
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("dissolved", Boolean.toString(!SKYE.isDissolved()))
-                .build();
-        
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBands().size(), 0);
+            assertEquals(doc.getPeople().size(), 0);
 
             EntityUtils.consume(entity);
         }
@@ -371,7 +454,7 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 0);
+            assertEquals(doc.getPeople().size(), 0);
 
             EntityUtils.consume(entity);
         }
@@ -381,10 +464,8 @@ public class ITBandController {
 
     @Test
     public void testModify() throws Exception {
-
-        TestFixture.INSTANCE.skye.setName("NotSkye");
-
-        add(TestFixture.INSTANCE.skye);
+        TestFixture.INSTANCE.andy.setLastName("Bristol");
+        add(TestFixture.INSTANCE.andy);
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
         URI uri = new URIBuilder()
@@ -392,7 +473,7 @@ public class ITBandController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("name", SKYE.getName())
+                .setParameter("id", TestFixture.INSTANCE.andy.getId())
                 .build();
         
         HttpGet httpGet = new HttpGet(uri);
@@ -404,23 +485,58 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals("NotSkye"));
+            assertEquals(doc.getPeople().size(), 1);
+            testEquality(doc.getPeople().get(0), TestFixture.INSTANCE.andy);
+            assertTrue(doc.getPeople().get(0).getLastName().equals("Bristol"));
+
+            EntityUtils.consume(entity);
+        }
+        
+        TestFixture.INSTANCE.andy.setLastName("Bristol");
+        add(TestFixture.INSTANCE.andy);
+    }
+
+    public static Person getPerson(String firstName, String lastName) throws Exception {
+        Person ret;
+        
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        URI uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("firstname", firstName)
+                .setParameter("lastname", lastName)
+                .build();
+        
+        HttpGet httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            assertEquals(doc.getPeople().size(), 1);
+            ret = doc.getPeople().get(0);
 
             EntityUtils.consume(entity);
         }
 
-        TestFixture.INSTANCE.skye.setName("Skye");
-
-        add(TestFixture.INSTANCE.skye);
+        return ret;
     }
 
     protected static void add() throws Exception {
-        add(TestFixture.INSTANCE.skye);
+        add(TestFixture.INSTANCE.andy);
+        add(TestFixture.INSTANCE.bob);
+        add(TestFixture.INSTANCE.elaine);
+        add(TestFixture.INSTANCE.eoin);
+        add(TestFixture.INSTANCE.jamie);
     }
 
     protected static void delete() throws Exception {
-        String id;
+        List<String> ids = new ArrayList<>();
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
@@ -440,54 +556,57 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            id = doc.getBands().get(0).getId();
+            for(Person p : doc.getPeople()) {
+                ids.add(p.getId());
+            }
 
             EntityUtils.consume(entity);
         }
         
-        httpclient = HttpClients.createDefault();
+        for(String id : ids) {
+            httpclient = HttpClients.createDefault();
 
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("id", id)
-                .build();
-        
-        HttpDelete httpDelete = new HttpDelete(uri);
+            uri = new URIBuilder()
+                    .setScheme(PROTOCOL)
+                    .setHost(HOST)
+                    .setPort(PORT)
+                    .setPath(PATH)
+                    .setParameter("id", id)
+                    .build();
 
-        CloseableHttpResponse response = null;
+            HttpDelete httpDelete = new HttpDelete(uri);
 
-        try {
-            response = httpclient.execute(httpDelete);
-        
-            assertEquals(IntegrationTestUtils.OK_STRING, response.getStatusLine().toString());
-            
-            HttpEntity responseEntity = response.getEntity();
-            
-            EntityUtils.consume(responseEntity);
-        } catch(UnsupportedEncodingException ex) {
-            LOG.error("Unsupported coding", ex);
-        } catch(IOException ioex) {
-            LOG.error("IOException", ioex);
-        } finally {
-            if(response != null) {
-                try {
-                    response.close();
-                } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITBandController.class.getName()).log(Level.SEVERE, null, ex);
+            CloseableHttpResponse response = null;
+
+            try {
+                response = httpclient.execute(httpDelete);
+
+                assertEquals(IntegrationTestUtils.OK_STRING, response.getStatusLine().toString());
+
+                HttpEntity responseEntity = response.getEntity();
+
+                EntityUtils.consume(responseEntity);
+            } catch(UnsupportedEncodingException ex) {
+                LOG.error("Unsupported coding", ex);
+            } catch(IOException ioex) {
+                LOG.error("IOException", ioex);
+            } finally {
+                if(response != null) {
+                    try {
+                        response.close();
+                    } catch (IOException ex) {
+                        java.util.logging.Logger.getLogger(ITPersonController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }
     }
 
-    private static void add(Band band) throws Exception {
+    private static void add(Person person) throws Exception {
         CTAMSDocument doc = new CTAMSDocument();
-        doc.getBands().add(band);
-        String xml = ControllerUtils.marshal(doc);
-
+        doc.getPeople().add(person);
         CloseableHttpClient httpclient = HttpClients.createDefault();
+        String xml = ControllerUtils.marshal(doc);
 
         URI uri = new URIBuilder()
                 .setScheme(PROTOCOL)
@@ -512,7 +631,19 @@ public class ITBandController {
 
             doc = IntegrationTestUtils.convertEntity(responseEntity);
 
-            TestFixture.INSTANCE.skye.setId(doc.getBands().get(0).getId());
+            for(Person p : doc.getPeople()) {
+                if(p.getFirstName().equals(TestFixture.INSTANCE.andy.getFirstName())) {
+                    TestFixture.INSTANCE.andy.setId(p.getId());
+                } else if(p.getFirstName().equals(TestFixture.INSTANCE.bob.getFirstName())) {
+                    TestFixture.INSTANCE.bob.setId(p.getId());
+                } else if(p.getFirstName().equals(TestFixture.INSTANCE.elaine.getFirstName())) {
+                    TestFixture.INSTANCE.elaine.setId(p.getId());
+                } else if(p.getFirstName().equals(TestFixture.INSTANCE.eoin.getFirstName())) {
+                    TestFixture.INSTANCE.eoin.setId(p.getId());
+                } else if(p.getFirstName().equals(TestFixture.INSTANCE.jamie.getFirstName())) {
+                    TestFixture.INSTANCE.jamie.setId(p.getId());
+                }
+            }
             
             EntityUtils.consume(responseEntity);
         } catch(UnsupportedEncodingException ex) {
@@ -524,9 +655,28 @@ public class ITBandController {
                 try {
                     response.close();
                 } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITBandController.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(ITPersonController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+    }
+
+    private void testEquality(Person p1, Person p2) {
+        assertEquals(p1.getId(), p2.getId());
+        assertEquals(p1.getAddress(), p2.getAddress());
+        assertEquals(p1.getBranch(), p2.getBranch());
+        assertEquals(p1.getCity(), p2.getCity());
+        assertEquals(p1.getEmail(), p2.getEmail());
+        assertEquals(p1.getFirstName(), p2.getFirstName());
+        assertEquals(p1.getLastName(), p2.getLastName());
+        assertEquals(p1.getMiddleName(), p2.getMiddleName());
+        assertEquals(p1.getNickName(), p2.getNickName());
+        assertEquals(p1.getNotes(), p2.getNotes());
+        assertEquals(p1.getPhone(), p2.getPhone());
+        assertEquals(p1.getState(), p2.getState());
+        assertEquals(p1.getSuffix(), p2.getSuffix());
+        assertEquals(p1.getTitle(), p2.getTitle());
+        assertEquals(p1.getZip(), p2.getZip());
+        assertEquals(p1.isLifeMember(), p2.isLifeMember());
     }
 }

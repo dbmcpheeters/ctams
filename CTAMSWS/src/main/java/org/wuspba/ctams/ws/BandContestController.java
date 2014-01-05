@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,6 @@ import org.wuspba.ctams.data.JudgeRepository;
 import org.wuspba.ctams.data.VenueRepository;
 import org.wuspba.ctams.model.BandContest;
 import org.wuspba.ctams.model.BandEventType;
-import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Grade;
 import org.wuspba.ctams.model.Judge;
@@ -35,6 +35,7 @@ import org.wuspba.ctams.model.Venue;
  */
 @ComponentScan
 @Controller
+@Transactional
 @RequestMapping("/bandcontest")
 public class BandContestController {
 
@@ -54,7 +55,7 @@ public class BandContestController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody CTAMSDocument listBandContests(
+    public @ResponseBody String listBandContests(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "venue", required = false, defaultValue = "") String venue,
             @RequestParam(value = "eventtype", required = false, defaultValue = "") String type,
@@ -111,7 +112,7 @@ public class BandContestController {
                 contests = repository.findByDrummingJudgeAndSeason(judge, seasonInt);
             }
         } else if(!"".equals(ensemble)) {
-            List<Judge> judges = judgeRepo.findById(drumming);
+            List<Judge> judges = judgeRepo.findById(ensemble);
             Judge judge = null;
 
             if(!judges.isEmpty()) {
@@ -130,10 +131,28 @@ public class BandContestController {
         }
 
         for (BandContest contest : contests) {
+            ret.getJudges().add(contest.getPiping1());
+            ret.getPeople().add(contest.getPiping1().getPerson());
+            ret.getJudgeQualifications().addAll(contest.getPiping1().getQualifications());
+
+            ret.getJudges().add(contest.getPiping2());
+            ret.getPeople().add(contest.getPiping2().getPerson());
+            ret.getJudgeQualifications().addAll(contest.getPiping2().getQualifications());
+            
+            ret.getJudges().add(contest.getDrumming());
+            ret.getPeople().add(contest.getDrumming().getPerson());
+            ret.getJudgeQualifications().addAll(contest.getDrumming().getQualifications());
+            
+            ret.getJudges().add(contest.getEnsemble());
+            ret.getPeople().add(contest.getEnsemble().getPerson());
+            ret.getJudgeQualifications().addAll(contest.getEnsemble().getQualifications());
+
+            ret.getVenues().add(contest.getVenue());
+
             ret.getBandContests().add(contest);
         }
 
-        return ret;
+        return ControllerUtils.marshal(ret);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
@@ -143,13 +162,14 @@ public class BandContestController {
         List<BandContest> contests = repository.findById(id);
 
         for(BandContest c : contests) {
+            LOG.info("Deleting band contest " + c.getId() + " : " + c.getVenue().getName() + " @ " + c.getSeason());
             repository.delete(c);
         }
     }
 
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
-    public @ResponseBody void modifyAddBands(@RequestBody String xml) {
+    public @ResponseBody String modifyAddBands(@RequestBody String xml) {
 
         CTAMSDocument doc = ControllerUtils.unmarshal(xml);
 
@@ -163,5 +183,7 @@ public class BandContestController {
 
             repository.save(c);
         }
+
+        return ControllerUtils.marshal(doc);
     }
 }

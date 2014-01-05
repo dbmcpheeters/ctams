@@ -58,8 +58,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

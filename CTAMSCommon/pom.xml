@@ -34,9 +34,14 @@
             <artifactId>jaxb-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!--dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
-        </dependency>
+        </dependency-->
     </dependencies>
     <build>
         <pluginManagement>

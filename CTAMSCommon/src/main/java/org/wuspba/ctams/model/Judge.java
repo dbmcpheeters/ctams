@@ -8,11 +8,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -48,7 +51,7 @@ public class Judge implements Serializable {
     @ManyToMany
     @XmlElement(name = "qualification", required = true)
     private final List<JudgeQualification> qualifications = 
-            new ArrayList<JudgeQualification>();
+            new ArrayList<>();
 
     /**
      * @return the id

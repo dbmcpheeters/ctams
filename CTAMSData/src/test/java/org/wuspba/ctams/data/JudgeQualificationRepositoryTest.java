@@ -79,4 +79,17 @@ public class JudgeQualificationRepositoryTest {
         assertEquals(ret.size(), 0);
     }
 
+    @Test
+    public void testFindByPanelAndType() {
+        List<JudgeQualification> ret = repository.findByPanelAndType(
+                TestFixture.INSTANCE.pipingQual.getPanel(), TestFixture.INSTANCE.pipingQual.getType());
+        assertEquals(ret.size(), 1);
+
+        assertEquals(ret.get(0), TestFixture.INSTANCE.pipingQual);
+        
+        ret = repository.findByPanelAndType(
+                TestFixture.INSTANCE.pipingQual.getPanel(), JudgeType.DRUM_MAJOR);
+        assertEquals(ret.size(), 0);
+    }
+
 }

@@ -10,6 +10,8 @@ import org.wuspba.ctams.util.ControllerUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -28,26 +30,24 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wuspba.ctams.model.Band;
-import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
-import org.wuspba.ctams.model.Grade;
+import org.wuspba.ctams.model.JudgePanelType;
+import org.wuspba.ctams.model.JudgeQualification;
+import org.wuspba.ctams.model.JudgeType;
 import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
  * @author atrimble
  */
-public class ITBandController {
+public class ITJudgeQualificationController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ITBandController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ITJudgeQualificationController.class);
 
     protected static String PROTOCOL = "http";
     protected static String HOST = "localhost";
     protected static int PORT = 8081;
-    protected static String PATH = "/band";
-
-    private static final Band SKYE = TestFixture.INSTANCE.skye;
+    protected static String PATH = "/judgequalification";
 
     static {
         if(System.getProperties().containsKey("ctams.protocol")) {
@@ -96,22 +96,33 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals(SKYE.getName()));
+            assertEquals(doc.getJudgeQualifications().size(), 3);
+            for(JudgeQualification q : doc.getJudgeQualifications()) {
+                if(q.getType().equals(JudgeType.BAND_PIPING)) {
+                    testEquality(q, TestFixture.INSTANCE.pipingQual);
+                } else if(q.getType().equals(JudgeType.BAND_DRUMMING)) {
+                    testEquality(q, TestFixture.INSTANCE.drummingQual);
+                } else if(q.getType().equals(JudgeType.BAND_ENSEMBLE)) {
+                    testEquality(q, TestFixture.INSTANCE.ensembleQual);
+                } else {
+                    fail();
+                }
+            }
 
             EntityUtils.consume(entity);
         }
     }
 
     @Test
-    public void testListName() throws Exception {
+    public void testListType() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
+
         URI uri = new URIBuilder()
                 .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("name", SKYE.getName())
+                .setParameter("type", JudgeType.BAND_PIPING.toString())
                 .build();
         
         HttpGet httpGet = new HttpGet(uri);
@@ -123,8 +134,8 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals(TestFixture.INSTANCE.skye.getName()));
+            assertEquals(doc.getJudgeQualifications().size(), 1);
+            testEquality(doc.getJudgeQualifications().get(0), TestFixture.INSTANCE.pipingQual);
 
             EntityUtils.consume(entity);
         }
@@ -134,7 +145,7 @@ public class ITBandController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("name", "badName")
+                .setParameter("type", JudgeType.PIOBAIREACHD.toString())
                 .build();
         
         httpGet = new HttpGet(uri);
@@ -146,21 +157,22 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 0);
+            assertEquals(doc.getJudgeQualifications().size(), 0);
 
             EntityUtils.consume(entity);
         }
     }
 
     @Test
-    public void testListState() throws Exception {
+    public void testListPanel() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
+
         URI uri = new URIBuilder()
                 .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("state", SKYE.getState())
+                .setParameter("panel", JudgePanelType.A.toString())
                 .build();
         
         HttpGet httpGet = new HttpGet(uri);
@@ -172,8 +184,8 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals(TestFixture.INSTANCE.skye.getName()));
+            assertEquals(doc.getJudgeQualifications().size(), 1);
+            testEquality(doc.getJudgeQualifications().get(0), TestFixture.INSTANCE.pipingQual);
 
             EntityUtils.consume(entity);
         }
@@ -183,7 +195,7 @@ public class ITBandController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("state", "CA")
+                .setParameter("panel", JudgePanelType.SHADOW.toString())
                 .build();
         
         httpGet = new HttpGet(uri);
@@ -195,21 +207,23 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 0);
+            assertEquals(doc.getJudgeQualifications().size(), 0);
 
             EntityUtils.consume(entity);
         }
     }
 
     @Test
-    public void testListBranch() throws Exception {
+    public void testListPanelAndType() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
+
         URI uri = new URIBuilder()
                 .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("branch", SKYE.getBranch().toString())
+                .setParameter("panel", JudgePanelType.A.toString())
+                .setParameter("type", JudgeType.BAND_PIPING.toString())
                 .build();
         
         HttpGet httpGet = new HttpGet(uri);
@@ -221,8 +235,8 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals(TestFixture.INSTANCE.skye.getName()));
+            assertEquals(doc.getJudgeQualifications().size(), 1);
+            testEquality(doc.getJudgeQualifications().get(0), TestFixture.INSTANCE.pipingQual);
 
             EntityUtils.consume(entity);
         }
@@ -232,7 +246,8 @@ public class ITBandController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("branch", Branch.GREATBASIN.toString())
+                .setParameter("panel", JudgePanelType.A.toString())
+                .setParameter("type", JudgeType.BAND_DRUMMING.toString())
                 .build();
         
         httpGet = new HttpGet(uri);
@@ -244,105 +259,7 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 0);
-
-            EntityUtils.consume(entity);
-        }
-    }
-
-    @Test
-    public void testListGrade() throws Exception {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        URI uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("grade", SKYE.getGrade().toString())
-                .build();
-        
-        HttpGet httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals(TestFixture.INSTANCE.skye.getName()));
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("grade", Grade.ONE.toString())
-                .build();
-        
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBands().size(), 0);
-
-            EntityUtils.consume(entity);
-        }
-    }
-
-    @Test
-    public void testListDissolved() throws Exception {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        URI uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("dissolved", Boolean.toString(SKYE.isDissolved()))
-                .build();
-        
-        HttpGet httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals(TestFixture.INSTANCE.skye.getName()));
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("dissolved", Boolean.toString(!SKYE.isDissolved()))
-                .build();
-        
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getBands().size(), 0);
+            assertEquals(doc.getJudgeQualifications().size(), 0);
 
             EntityUtils.consume(entity);
         }
@@ -371,7 +288,7 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 0);
+            assertEquals(doc.getPeople().size(), 0);
 
             EntityUtils.consume(entity);
         }
@@ -379,20 +296,18 @@ public class ITBandController {
         add();
     }
 
-    @Test
-    public void testModify() throws Exception {
-
-        TestFixture.INSTANCE.skye.setName("NotSkye");
-
-        add(TestFixture.INSTANCE.skye);
-        
+    public static JudgeQualification getQualification(JudgePanelType panel, JudgeType type) throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        JudgeQualification ret;
+
         URI uri = new URIBuilder()
                 .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("name", SKYE.getName())
+                .setParameter("panel", panel.toString())
+                .setParameter("type", type.toString())
                 .build();
         
         HttpGet httpGet = new HttpGet(uri);
@@ -404,87 +319,20 @@ public class ITBandController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getBands().size(), 1);
-            assertTrue(doc.getBands().get(0).getName().equals("NotSkye"));
+            assertEquals(doc.getJudgeQualifications().size(), 1);
+            ret = doc.getJudgeQualifications().get(0);
 
             EntityUtils.consume(entity);
         }
 
-        TestFixture.INSTANCE.skye.setName("Skye");
-
-        add(TestFixture.INSTANCE.skye);
+        return ret;
     }
 
     protected static void add() throws Exception {
-        add(TestFixture.INSTANCE.skye);
-    }
-
-    protected static void delete() throws Exception {
-        String id;
-
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-
-        URI uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .build();
-        
-        HttpGet httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            id = doc.getBands().get(0).getId();
-
-            EntityUtils.consume(entity);
-        }
-        
-        httpclient = HttpClients.createDefault();
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("id", id)
-                .build();
-        
-        HttpDelete httpDelete = new HttpDelete(uri);
-
-        CloseableHttpResponse response = null;
-
-        try {
-            response = httpclient.execute(httpDelete);
-        
-            assertEquals(IntegrationTestUtils.OK_STRING, response.getStatusLine().toString());
-            
-            HttpEntity responseEntity = response.getEntity();
-            
-            EntityUtils.consume(responseEntity);
-        } catch(UnsupportedEncodingException ex) {
-            LOG.error("Unsupported coding", ex);
-        } catch(IOException ioex) {
-            LOG.error("IOException", ioex);
-        } finally {
-            if(response != null) {
-                try {
-                    response.close();
-                } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITBandController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
-
-    private static void add(Band band) throws Exception {
         CTAMSDocument doc = new CTAMSDocument();
-        doc.getBands().add(band);
+        doc.getJudgeQualifications().add(TestFixture.INSTANCE.drummingQual);
+        doc.getJudgeQualifications().add(TestFixture.INSTANCE.ensembleQual);
+        doc.getJudgeQualifications().add(TestFixture.INSTANCE.pipingQual);
         String xml = ControllerUtils.marshal(doc);
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -512,7 +360,18 @@ public class ITBandController {
 
             doc = IntegrationTestUtils.convertEntity(responseEntity);
 
-            TestFixture.INSTANCE.skye.setId(doc.getBands().get(0).getId());
+            for(JudgeQualification q : doc.getJudgeQualifications()) {
+                if(q.getPanel() == TestFixture.INSTANCE.pipingQual.getPanel() && 
+                   q.getType() == TestFixture.INSTANCE.pipingQual.getType()) {
+                    TestFixture.INSTANCE.pipingQual.setId(q.getId());
+                } else if(q.getPanel() == TestFixture.INSTANCE.drummingQual.getPanel() && 
+                   q.getType() == TestFixture.INSTANCE.drummingQual.getType()) {
+                    TestFixture.INSTANCE.drummingQual.setId(q.getId());
+                } else if(q.getPanel() == TestFixture.INSTANCE.ensembleQual.getPanel() && 
+                   q.getType() == TestFixture.INSTANCE.ensembleQual.getType()) {
+                    TestFixture.INSTANCE.ensembleQual.setId(q.getId());
+                }
+            }
             
             EntityUtils.consume(responseEntity);
         } catch(UnsupportedEncodingException ex) {
@@ -524,9 +383,82 @@ public class ITBandController {
                 try {
                     response.close();
                 } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITBandController.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(ITJudgeQualificationController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+    }
+
+    protected static void delete() throws Exception {
+        List<String> ids = new ArrayList<>();
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        URI uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .build();
+        
+        HttpGet httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            for(JudgeQualification q : doc.getJudgeQualifications()) {
+                ids.add(q.getId());
+            }
+
+            EntityUtils.consume(entity);
+        }
+        
+        for(String id : ids) {
+            httpclient = HttpClients.createDefault();
+
+            uri = new URIBuilder()
+                    .setScheme(PROTOCOL)
+                    .setHost(HOST)
+                    .setPort(PORT)
+                    .setPath(PATH)
+                    .setParameter("id", id)
+                    .build();
+
+            HttpDelete httpDelete = new HttpDelete(uri);
+
+            CloseableHttpResponse response = null;
+
+            try {
+                response = httpclient.execute(httpDelete);
+
+                assertEquals(IntegrationTestUtils.OK_STRING, response.getStatusLine().toString());
+
+                HttpEntity responseEntity = response.getEntity();
+
+                EntityUtils.consume(responseEntity);
+            } catch(UnsupportedEncodingException ex) {
+                LOG.error("Unsupported coding", ex);
+            } catch(IOException ioex) {
+                LOG.error("IOException", ioex);
+            } finally {
+                if(response != null) {
+                    try {
+                        response.close();
+                    } catch (IOException ex) {
+                        java.util.logging.Logger.getLogger(ITJudgeQualificationController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    }
+
+    private void testEquality(JudgeQualification q1, JudgeQualification q2) {
+        assertEquals(q1.getId(), q2.getId());
+        assertEquals(q1.getPanel(), q2.getPanel());
+        assertEquals(q1.getType(), q2.getType());
     }
 }

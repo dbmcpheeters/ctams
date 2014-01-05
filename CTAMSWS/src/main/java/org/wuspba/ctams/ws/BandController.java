@@ -84,13 +84,14 @@ public class BandController {
         List<Band> bands = repository.findById(id);
 
         for(Band b : bands) {
+            LOG.info("Deleting band " + b.getId() + " : " + b.getName());
             repository.delete(b);
         }
     }
 
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
-    public @ResponseBody void modifyAddBands(@RequestBody String xml) {
+    public @ResponseBody CTAMSDocument modifyAddBands(@RequestBody String xml) {
 
         CTAMSDocument bands = ControllerUtils.unmarshal(xml);
 
@@ -104,5 +105,7 @@ public class BandController {
 
             repository.save(b);
         }
+
+        return bands;
     }
 }
