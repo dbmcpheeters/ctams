@@ -37,7 +37,7 @@ public class RosterTest extends AbstractUnitTest {
             assertEquals(ctams.getRosters().size(), 1);
             Roster r = ctams.getRosters().get(0);
 
-            testEquality(r, TestFixture.INSTANCE.roster);
+            testEquality(r, TestFixture.INSTANCE.roster1);
             
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);

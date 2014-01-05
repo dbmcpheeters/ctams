@@ -55,7 +55,6 @@ public class BandRegistrationTest extends AbstractUnitTest {
         r1.setEnd(r2.getEnd());
         r1.setGrade(r2.getGrade());
         r1.setId(r2.getId());
-        r1.setRoster(r2.getRoster());
         r1.setSeason(r2.getSeason());
         r1.setStart(r2.getStart());
 
@@ -70,7 +69,6 @@ public class BandRegistrationTest extends AbstractUnitTest {
         testDates(r1.getEnd(), r2.getEnd());
         assertEquals(r1.getGrade(), r2.getGrade());
         assertEquals(r1.getId(), r2.getId());
-        assertEquals(r1.getRoster(), r2.getRoster());
         assertEquals(r1.getSeason(), r2.getSeason());
         testDates(r1.getStart(), r2.getStart());
     }

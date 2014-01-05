@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Entity
 @Table(name = "Band_Registration")
-@XmlType(propOrder = {"id", "band", "grade", "roster", "season", "start", "end"})
+@XmlType(propOrder = {"id", "band", "grade", "season", "start", "end"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "BandRegistration")
 public class BandRegistration implements Serializable {
@@ -51,12 +51,6 @@ public class BandRegistration implements Serializable {
     @Enumerated(EnumType.STRING)
     @XmlElement(name = "grade", required = true)
     private Grade grade;
-
-    @ManyToOne
-    @JoinColumn(name = "RosterID")
-    @XmlIDREF
-    @XmlElement(name = "roster", required = true)
-    private Roster roster;
 
     @Column(name = "SeasonID")
     @XmlElement(name = "seaon", required = true)
@@ -112,20 +106,6 @@ public class BandRegistration implements Serializable {
      */
     public void setGrade(Grade grade) {
         this.grade = grade;
-    }
-
-    /**
-     * @return the roster
-     */
-    public Roster getRoster() {
-        return roster;
-    }
-
-    /**
-     * @param roster the roster to set
-     */
-    public void setRoster(Roster roster) {
-        this.roster = roster;
     }
 
     /**

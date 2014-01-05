@@ -42,7 +42,8 @@ public class TestUtils {
         repo.save(TestFixture.INSTANCE.soloRegistration);
         repo.save(TestFixture.INSTANCE.andyMember);
         repo.save(TestFixture.INSTANCE.jamieMember);
-        repo.save(TestFixture.INSTANCE.roster);
+        repo.save(TestFixture.INSTANCE.roster1);
+        repo.save(TestFixture.INSTANCE.roster2);
         repo.save(TestFixture.INSTANCE.bandRegistration);
     }
 }

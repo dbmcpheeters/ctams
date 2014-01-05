@@ -45,7 +45,8 @@ public enum TestFixture {
     public Band skye; // NOSONAR
     public Band scots; // NOSONAR
     public BandRegistration bandRegistration; // NOSONAR
-    public Roster roster; // NOSONAR
+    public Roster roster1; // NOSONAR
+    public Roster roster2; // NOSONAR
     public BandMember andyMember; // NOSONAR
     public BandMember jamieMember; // NOSONAR
     public BandMember bobMember; // NOSONAR
@@ -417,10 +418,19 @@ public enum TestFixture {
     }
 
     private  void createRoster() {
-        roster = new Roster();
-        roster.setId("roster");
-        roster.getMembers().add(andyMember);
-        roster.getMembers().add(jamieMember);
+        roster1 = new Roster();
+        roster1.setId("roster1");
+        roster1.setBand(skye);
+        roster1.setVersion(1);
+        roster1.getMembers().add(andyMember);
+        roster1.getMembers().add(jamieMember);
+        
+        roster2 = new Roster();
+        roster2.setId("roster2");
+        roster2.setBand(skye);
+        roster2.setVersion(2);
+        roster2.getMembers().add(andyMember);
+        roster2.getMembers().add(jamieMember);
     }
 
     private  void createBandRegistration() {
@@ -429,7 +439,6 @@ public enum TestFixture {
         bandRegistration.setEnd(end);
         bandRegistration.setGrade(Grade.THREE);
         bandRegistration.setId("bandRegistration");
-        bandRegistration.setRoster(roster);
         bandRegistration.setSeason(2009);
         bandRegistration.setStart(start);
     }

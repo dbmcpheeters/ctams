@@ -46,23 +46,62 @@ public class RosterRepositoryTest {
 
     @Test
     public void testFindById() {
-        List<Roster> ret = repository.findById(TestFixture.INSTANCE.roster.getId());
+        List<Roster> ret = repository.findById(TestFixture.INSTANCE.roster1.getId());
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestFixture.INSTANCE.roster);
+        assertEquals(ret.get(0), TestFixture.INSTANCE.roster1);
         
         ret = repository.findById("abcd");
         assertEquals(ret.size(), 0);
     }
 
     @Test
-    public void testFindByMember() {
-        List<Roster> ret = repository.findByMembers(TestFixture.INSTANCE.andyMember);
+    public void testFindByBand() {
+        List<Roster> ret = repository.findByBand(TestFixture.INSTANCE.skye);
+        assertEquals(ret.size(), 2);
+
+        assertTrue(ret.get(0).getId().equals(TestFixture.INSTANCE.roster1.getId())
+                || ret.get(0).getId().equals(TestFixture.INSTANCE.roster2.getId()));
+        assertTrue(ret.get(1).getId().equals(TestFixture.INSTANCE.roster1.getId())
+                || ret.get(1).getId().equals(TestFixture.INSTANCE.roster2.getId()));
+        
+        ret = repository.findByBand(TestFixture.INSTANCE.scots);
+        assertEquals(ret.size(), 0);
+    }
+
+    @Test
+    public void testFindLatest() {
+        List<Roster> ret = repository.findLatest(TestFixture.INSTANCE.skye);
         assertEquals(ret.size(), 1);
 
-        assertEquals(ret.get(0), TestFixture.INSTANCE.roster);
+        assertEquals(ret.get(0).getId(), TestFixture.INSTANCE.roster2.getId());
         
-        ret = repository.findByMembers(TestFixture.INSTANCE.bobMember);
+        ret = repository.findByBand(TestFixture.INSTANCE.scots);
+        assertEquals(ret.size(), 0);
+    }
+
+    @Test
+    public void testFindByMember() {
+        List<Roster> ret = repository.findByMembers(TestFixture.INSTANCE.andyMember.getPerson());
+        assertEquals(ret.size(), 2);
+
+        assertTrue(ret.get(0).getId().equals(TestFixture.INSTANCE.roster1.getId())
+                || ret.get(0).getId().equals(TestFixture.INSTANCE.roster2.getId()));
+        assertTrue(ret.get(1).getId().equals(TestFixture.INSTANCE.roster1.getId())
+                || ret.get(1).getId().equals(TestFixture.INSTANCE.roster2.getId()));
+        
+        ret = repository.findByMembers(TestFixture.INSTANCE.bobMember.getPerson());
+        assertEquals(ret.size(), 0);
+    }
+
+    @Test
+    public void testFindByMemberLatest() {
+        List<Roster> ret = repository.findByMemberLatest(TestFixture.INSTANCE.andyMember.getPerson());
+        assertEquals(ret.size(), 1);
+        
+        assertEquals(ret.get(0).getId(), TestFixture.INSTANCE.roster2.getId());
+
+        ret = repository.findByMembers(TestFixture.INSTANCE.bobMember.getPerson());
         assertEquals(ret.size(), 0);
     }
 
