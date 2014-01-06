@@ -9,9 +9,9 @@
     <name>CTAMS</name>
 
     <modules>
-        <module>CTAMSCommon</module>
-        <module>CTAMSWS</module>
-        <module>CTAMSData</module>
+        <module>common</module>
+        <module>ws</module>
+        <module>data</module>
     </modules>
 
     <properties>
