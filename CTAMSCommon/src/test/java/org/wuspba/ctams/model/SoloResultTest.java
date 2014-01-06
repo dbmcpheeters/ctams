@@ -51,9 +51,9 @@ public class SoloResultTest extends AbstractUnitTest {
         SoloResult r2 = TestFixture.INSTANCE.soloResult;
 
         r1.setContest(r2.getContest());
-        r1.setCpl(r2.getCpl());
+        r1.getResults().clear();
+        r1.getResults().addAll(r2.getResults());
         r1.setId(r2.getId());
-        r1.setPlace(r2.getPlace());
         r1.setSoloist(r2.getSoloist());
 
         testEquality(r1, r2);
@@ -64,7 +64,7 @@ public class SoloResultTest extends AbstractUnitTest {
 
     private void testEquality(SoloResult r1, SoloResult r2) {
         assertEquals(r1.getContest(), r2.getContest());
-        assertEquals(r1.getCpl(), r2.getCpl());
+        assertTrue(r1.getResults().containsAll(r2.getResults()));
         assertEquals(r1.getId(), r2.getId());
         assertEquals(r1.getPlace(), r2.getPlace());
         assertEquals(r1.getSoloist(), r2.getSoloist());

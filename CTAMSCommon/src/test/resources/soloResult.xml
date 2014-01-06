@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <CTAMS xmlns:ns2="ctams">
     <person>
-        <id>elainePerson</id>
-        <title>Mrs.</title>
-        <firstName>Elaine</firstName>
-        <middleName></middleName>
-        <nickName>The Lady</nickName>
-        <lastName>Hoffman</lastName>
-        <suffix></suffix>
-        <email>elaine.hoffman@aol.com</email>
-        <address>222 Elaine Ave.</address>
-        <city>Fort Collins</city>
-        <state>CO</state>
-        <zip>80291</zip>
-        <phone>858-555-5555</phone>
-        <notes></notes>
-        <lifeMember>true</lifeMember>
-        <branch>INTERMOUNTAIN</branch>
-    </person>
-    <person>
         <id>bobPerson</id>
         <title>Mr.</title>
         <firstName>Robert</firstName>
@@ -72,44 +54,73 @@
         <lifeMember>false</lifeMember>
         <branch>NORTHERN</branch>
     </person>
+    <person>
+        <id>elainePerson</id>
+        <title>Mrs.</title>
+        <firstName>Elaine</firstName>
+        <middleName></middleName>
+        <nickName>The Lady</nickName>
+        <lastName>Hoffman</lastName>
+        <suffix></suffix>
+        <email>elaine.hoffman@aol.com</email>
+        <address>222 Elaine Ave.</address>
+        <city>Fort Collins</city>
+        <state>CO</state>
+        <zip>80291</zip>
+        <phone>858-555-5555</phone>
+        <notes></notes>
+        <lifeMember>true</lifeMember>
+        <branch>INTERMOUNTAIN</branch>
+    </person>
     <judge>
         <id>bobJudge</id>
         <person>bobPerson</person>
         <qualification>
+            <id>pipingQual</id>
             <panel>A</panel>
-            <type>BandPiping</type>
+            <type>BAND_PIPING</type>
         </qualification>
     </judge>
     <judge>
         <id>andyJudge</id>
         <person>andyPerson</person>
         <qualification>
+            <id>ensembleQual</id>
             <panel>B</panel>
-            <type>BandEnsemble</type>
+            <type>BAND_ENSEMBLE</type>
         </qualification>
     </judge>
     <judge>
         <id>jamieJudge</id>
         <person>jamiePerson</person>
         <qualification>
+            <id>pipingQual</id>
             <panel>A</panel>
-            <type>BandPiping</type>
+            <type>BAND_PIPING</type>
         </qualification>
     </judge>
-    <judge>
-        <id>eoinJudge</id>
-        <person>eoinPerson</person>
-        <qualification>
-            <panel>Local</panel>
-            <type>BandDrumming</type>
-        </qualification>
-    </judge>
+    <venue>
+        <id>venue</id>
+        <name>Pikes Peak Celtic Festival</name>
+        <sponsor>Innovative Moments</sponsor>
+        <location>Memorial Park</location>
+        <address>333 Pikes Peak Ave.</address>
+        <city>Colorado Springs</city>
+        <state>CO</state>
+        <zip>80903</zip>
+        <phone>555-555-5555</phone>
+        <email>joseph.poch@innovativemoments.com</email>
+        <url>pikespeakcelticfestival.com</url>
+        <bandContest>true</bandContest>
+        <soloContest>true</soloContest>
+        <branch>INTERMOUNTAIN</branch>
+    </venue>
     <soloContestResult>
         <id>soloResult</id>
         <contest>soloContest</contest>
         <soloist>elainePerson</soloist>
+        <results>result5</results>
         <place>1</place>
-        <cpl>4</cpl>
     </soloContestResult>
     <soloContest>
         <id>soloContest</id>
@@ -118,10 +129,29 @@
         <grade>TWO</grade>
         <season>2013</season>
         <date>2013-06-04T21:56:00-06:00</date>
-        <primaryJudge>andyJudge</primaryJudge>
-        <judge2>bobJudge</judge2>
-        <judge3>jamieJudge</judge3>
+        <judges>
+            <id>bobHiredJudge</id>
+            <judge>bobJudge</judge>
+            <type>BAND_PIPING</type>
+        </judges>
+        <judges>
+            <id>jamieHiredJudge</id>
+            <judge>jamieJudge</judge>
+            <type>BAND_PIPING</type>
+        </judges>
+        <judges>
+            <id>andyHiredJudge</id>
+            <judge>andyJudge</judge>
+            <type>BAND_ENSEMBLE</type>
+        </judges>
         <leet>0</leet>
         <contestants>1</contestants>
     </soloContest>
+    <results>
+        <id>result5</id>
+        <place>1</place>
+        <evaluation>4</evaluation>
+        <points>95</points>
+        <type>SOLO_PIPING</type>
+    </results>
 </CTAMS>

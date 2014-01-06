@@ -23,22 +23,28 @@ public class CreateXML {
     public static void main(String[] args) {
         CTAMSDocument doc = new CTAMSDocument();
         doc.getPeople().add(TestFixture.INSTANCE.bob);
-        doc.getPeople().add(TestFixture.INSTANCE.eoin);
+//        doc.getPeople().add(TestFixture.INSTANCE.eoin);
         doc.getPeople().add(TestFixture.INSTANCE.andy);
         doc.getPeople().add(TestFixture.INSTANCE.jamie);
+        doc.getPeople().add(TestFixture.INSTANCE.elaine);
         doc.getJudges().add(TestFixture.INSTANCE.judgeBob);
         doc.getJudges().add(TestFixture.INSTANCE.judgeAndy);
         doc.getJudges().add(TestFixture.INSTANCE.judgeJamie);
-        doc.getJudges().add(TestFixture.INSTANCE.judgeEoin);
+//        doc.getJudges().add(TestFixture.INSTANCE.judgeEoin);
+//        doc.getResults().add(TestFixture.INSTANCE.result1);
+//        doc.getResults().add(TestFixture.INSTANCE.result2);
+//        doc.getResults().add(TestFixture.INSTANCE.result3);
+        doc.getResults().add(TestFixture.INSTANCE.result4);
         doc.getVenues().add(TestFixture.INSTANCE.venue);
-//        doc.getBands().add(TestData.INSTANCE.skye);
-        doc.getBandContests().add(TestFixture.INSTANCE.bandContest);
+//        doc.getBands().add(TestFixture.INSTANCE.skye);
+//        doc.getBandContests().add(TestFixture.INSTANCE.bandContest);
 //        doc.getRosters().add(TestData.INSTANCE.roster);
 //        doc.getBandRegistrations().add(TestData.INSTANCE.bandRegistration);
-//        doc.getBandContestResults().add(TestData.INSTANCE.bandResult);
-//        doc.getSoloContests().add(TestFixture.INSTANCE.soloContest);
+//        doc.getBandContestResults().add(TestFixture.INSTANCE.bandResult);
+        doc.getSoloContests().add(TestFixture.INSTANCE.soloContest);
 //        doc.getSoloRegistrations().add(TestData.INSTANCE.soloRegistration);
         doc.getSoloContestResults().add(TestFixture.INSTANCE.soloResult);
+//        doc.getResults().add(TestFixture.INSTANCE.result1);
             
         String packageName = CTAMSDocument.class.getPackage().getName();
 

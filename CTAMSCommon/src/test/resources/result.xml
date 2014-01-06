@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CTAMS xmlns:ns2="ctams">
+    <results>
+        <id>result1</id>
+        <place>4</place>
+        <evaluation>C</evaluation>
+        <points>99</points>
+        <type>BAND_PIPING</type>
+    </results>
+</CTAMS>

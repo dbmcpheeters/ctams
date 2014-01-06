@@ -29,34 +29,13 @@ public interface BandResultRepository extends CrudRepository<BandResult, Long> {
     @Query(value = "SELECT r FROM BandResult r WHERE r.band = :band AND r.contest.season = :season")
     List<BandResult> findByBand(@Param("band") Band band, @Param("season") int season);
     
-    @Query(value = "SELECT r FROM BandResult r WHERE r.piping1Place = :place AND r.contest.season = :season")
-    List<BandResult> findByPiping1Place(@Param("place") int place, @Param("season") int season);
-    
-    @Query(value = "SELECT r FROM BandResult r WHERE r.piping1Eval = :eval AND r.contest.season = :season")
-    List<BandResult> findByPiping1Eval(@Param("eval") String eval, @Param("season") int season);
-    
-    @Query(value = "SELECT r FROM BandResult r WHERE r.piping2Place = :place AND r.contest.season = :season")
-    List<BandResult> findByPiping2Place(@Param("place") int place, @Param("season") int season);
-    
-    @Query(value = "SELECT r FROM BandResult r WHERE r.piping2Eval = :eval AND r.contest.season = :season")
-    List<BandResult> findByPiping2Eval(@Param("eval") String eval, @Param("season") int season);
-    
-    @Query(value = "SELECT r FROM BandResult r WHERE r.ensemblePlace = :place AND r.contest.season = :season")
-    List<BandResult> findByEnsemblePlace(@Param("place") int place, @Param("season") int season);
-    
-    @Query(value = "SELECT r FROM BandResult r WHERE r.ensembleEval = :eval AND r.contest.season = :season")
-    List<BandResult> findByEnsembleEval(@Param("eval") String eval, @Param("season") int season);
-    
-    @Query(value = "SELECT r FROM BandResult r WHERE r.drummingPlace = :place AND r.contest.season = :season")
-    List<BandResult> findByDrummingPlace(@Param("place") int place, @Param("season") int season);
-    
-    @Query(value = "SELECT r FROM BandResult r WHERE r.drummingEval = :eval AND r.contest.season = :season")
-    List<BandResult> findByDrummingEval(@Param("eval") String eval, @Param("season") int season);
+    @Query(value = "SELECT DISTINCT r FROM BandResult r, IN (r.results) AS e WHERE e.place = :place AND r.contest.season = :season")
+    List<BandResult> findByIndividualPlace(@Param("place") int place, @Param("season") int season);
     
     @Query(value = "SELECT r FROM BandResult r WHERE r.place = :place AND r.contest.season = :season")
     List<BandResult> findByPlace(@Param("place") int place, @Param("season") int season);
     
-    @Query(value = "SELECT r FROM BandResult r WHERE (r.piping1Eval = :eval OR r.piping2Eval = :eval OR r.ensembleEval = :eval OR r.drummingEval = :eval ) AND r.contest.season = :season")
+    @Query(value = "SELECT DISTINCT r FROM BandResult r, IN (r.results) AS e WHERE e.evaluation = :eval AND r.contest.season = :season")
     List<BandResult> findByEval(@Param("eval") String eval, @Param("season") int season);
 
 }

@@ -16,27 +16,27 @@ import org.wuspba.ctams.util.TestFixture;
  *
  * @author atrimble
  */
-public class BandResultTest extends AbstractUnitTest {
-    private static final Logger LOG = Logger.getLogger(BandResultTest.class);
+public class ResultTest extends AbstractUnitTest {
+    private static final Logger LOG = Logger.getLogger(ResultTest.class);
 
     @Test
     public void testUnmarshal() {
-        
+            
         String packageName = CTAMSDocument.class.getPackage().getName();
 
         try {
             JAXBContext jc = JAXBContext.newInstance(packageName);
             Unmarshaller u = jc.createUnmarshaller();
-            Object obj = u.unmarshal(getClass().getResourceAsStream("/bandResult.xml"));
+            Object obj = u.unmarshal(getClass().getResourceAsStream("/result.xml"));
 
             assertTrue(obj instanceof CTAMSDocument);
 
             CTAMSDocument ctams = (CTAMSDocument)obj;
             
-            assertEquals(ctams.getBandContestResults().size(), 1);
-            BandResult result = ctams.getBandContestResults().get(0);
+            assertEquals(ctams.getResults().size(), 1);
+            Result result = ctams.getResults().get(0);
 
-            testEquality(result, TestFixture.INSTANCE.bandResult);
+            testEquality(result, TestFixture.INSTANCE.result1);
 
         } catch (JAXBException ex) {
             LOG.error("Cannot marshal", ex);
@@ -46,29 +46,26 @@ public class BandResultTest extends AbstractUnitTest {
 
     @Test
     public void testSetters() {
-        BandResult r1 = TestFixture.INSTANCE.bandResult;
-        BandResult r2 = TestFixture.INSTANCE.bandResult;
+        Result r1 = TestFixture.INSTANCE.result1;
+        Result r2 = TestFixture.INSTANCE.result1;
 
-        r1.setBand(r2.getBand());
-        r1.setContest(r2.getContest());
-        r1.getResults().clear();
-        r1.getResults().addAll(r2.getResults());
         r1.setId(r2.getId());
         r1.setPlace(r2.getPlace());
-        r1.setPoints(r2.getPoints());
+        r1.setEvaluation(r2.getEvaluation());
+        r1.setType(r2.getType());
 
         testEquality(r1, r2);
         
-        assertFalse(TestFixture.INSTANCE.bandResult.equals(TestFixture.INSTANCE.bobMember));
-        assertTrue(TestFixture.INSTANCE.bandResult.equals(TestFixture.INSTANCE.bandResult));
+        assertFalse(TestFixture.INSTANCE.result1.equals(TestFixture.INSTANCE.result2));
+        assertFalse(TestFixture.INSTANCE.result1.equals(TestFixture.INSTANCE.andy));
+        assertTrue(TestFixture.INSTANCE.result1.equals(TestFixture.INSTANCE.result1));
     }
 
-    private void testEquality(BandResult r1, BandResult r2) {
-        assertEquals(r1.getBand(), r2.getBand());
-        assertEquals(r1.getContest(), r2.getContest());
-        assertTrue(r1.getResults().containsAll(r2.getResults()));
+    private void testEquality(Result r1, Result r2) {
         assertEquals(r1.getId(), r2.getId());
         assertEquals(r1.getPlace(), r2.getPlace());
         assertEquals(r1.getPoints(), r2.getPoints());
+        assertEquals(r1.getEvaluation(), r2.getEvaluation());
+        assertEquals(r1.getType(), r2.getType());
     }
 }

@@ -24,6 +24,7 @@ import org.wuspba.ctams.model.JudgePanelType;
 import org.wuspba.ctams.model.JudgeQualification;
 import org.wuspba.ctams.model.JudgeType;
 import org.wuspba.ctams.model.Person;
+import org.wuspba.ctams.model.Result;
 import org.wuspba.ctams.model.Roster;
 import org.wuspba.ctams.model.SoloContest;
 import org.wuspba.ctams.model.SoloContestEntry;
@@ -55,6 +56,11 @@ public enum TestFixture {
     public BandContest bandNonContest; // NOSONAR
     public BandContestEntry bandContestEntry; // NOSONAR
     public BandResult bandResult; // NOSONAR
+    public Result result1; // NOSONAR
+    public Result result2; // NOSONAR
+    public Result result3; // NOSONAR
+    public Result result4; // NOSONAR
+    public Result result5; // NOSONAR
     public SoloContest soloContest; // NOSONAR
     public SoloContest soloNonContest; // NOSONAR
     public SoloContestEntry soloContestEntry; // NOSONAR
@@ -102,6 +108,7 @@ public enum TestFixture {
         createHiredJudgeBob();
         createHiredJudgeElaine();
         createVenue();
+        createResults();
         createBandContest();
         createBandContestEntry();
         createBandResult();
@@ -416,20 +423,53 @@ public enum TestFixture {
         scots.setZip("90210");
     }
 
+    private void createResults() {
+        result1 = new Result();
+        result1.setId("result1");
+        result1.setType(JudgeType.BAND_PIPING);
+        result1.setPlace(4);
+        result1.setPoints(99);
+        result1.setEvaluation("C");
+        
+        result2 = new Result();
+        result2.setId("result2");
+        result2.setType(JudgeType.BAND_PIPING);
+        result2.setPlace(4);
+        result2.setPoints(98);
+        result2.setEvaluation("D");
+        
+        result3 = new Result();
+        result3.setId("result3");
+        result3.setType(JudgeType.BAND_ENSEMBLE);
+        result3.setPlace(1);
+        result3.setPoints(97);
+        result3.setEvaluation("B");
+        
+        result4 = new Result();
+        result4.setId("result4");
+        result4.setType(JudgeType.BAND_DRUMMING);
+        result4.setPlace(1);
+        result4.setPoints(96);
+        result4.setEvaluation("A");
+        
+        result5 = new Result();
+        result5.setId("result5");
+        result5.setType(JudgeType.SOLO_PIPING);
+        result5.setPlace(1);
+        result5.setPoints(95);
+        result5.setEvaluation("4");
+    }
+
     private  void createBandResult() {
         bandResult = new BandResult();
         bandResult.setBand(skye);
         bandResult.setChallengeUp(false);
         bandResult.setContest(bandContest);
-        bandResult.setDrummingEval("A");
-        bandResult.setDrummingPlace(1);
-        bandResult.setEnsembleEval("B");
-        bandResult.setEnsemblePlace(1);
+        bandResult.getResults().add(result1);
+        bandResult.getResults().add(result2);
+        bandResult.getResults().add(result3);
+        bandResult.getResults().add(result4);
         bandResult.setId("bandResult");
-        bandResult.setPiping1Eval("C");
-        bandResult.setPiping1Place(4);
-        bandResult.setPiping2Eval("D");
-        bandResult.setPiping2Place(4);
         bandResult.setPlace(2);
         bandResult.setPoints(99);
     }
@@ -465,9 +505,9 @@ public enum TestFixture {
     private  void createSoloResult() {
         soloResult = new SoloResult();
         soloResult.setContest(soloContest);
-        soloResult.setCpl("4");
-        soloResult.setId("soloResult");
+        soloResult.getResults().add(result5);
         soloResult.setPlace(1);
+        soloResult.setId("soloResult");
         soloResult.setSoloist(elaine);
     }
 
@@ -480,7 +520,7 @@ public enum TestFixture {
         soloRegistration.setSeason(2013);
         soloRegistration.setStart(start);
         soloRegistration.setType(Instrument.PIPING);
-        soloRegistration.setNumber(129);
+        soloRegistration.setNumber("129");
     }
 
     private  void createBandMembers() {

@@ -76,7 +76,7 @@ public class SoloRegistrationRepositoryTest {
 
         assertEquals(ret.get(0), TestFixture.INSTANCE.soloRegistration);
         
-        ret = repository.findByNumber(666);
+        ret = repository.findByNumber("666");
         assertEquals(ret.size(), 0);
     }
 

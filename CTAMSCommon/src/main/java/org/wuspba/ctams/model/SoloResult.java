@@ -5,11 +5,14 @@
 package org.wuspba.ctams.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -25,13 +28,13 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Entity
 @Table(name = "Solo_Result")
-@XmlType(propOrder = {"id", "contest", "soloist", "place", "cpl"})
+@XmlType(propOrder = {"id", "contest", "soloist", "results", "place"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "SoloResult")
 public class SoloResult implements Serializable {
 
     @Id
-    @Column(name = "ResultID")
+    @Column(name = "SoloResultID")
     @XmlID
     @XmlElement(name = "id", required = true)
     private String id;
@@ -48,13 +51,15 @@ public class SoloResult implements Serializable {
     @XmlElement(name = "soloist", required = true)
     private Person soloist;
 
-    @Column(name = "PlaceGiven")
+    @OneToMany
+    @JoinColumn(name="SoloIndividualResultID")
+    @XmlIDREF
+    @XmlElement(name = "results", required = true)
+    private final List<Result> results = new ArrayList<>();
+
+    @Column(name = "ContestPlace")
     @XmlElement(name = "place", required = true)
     private int place;
-
-    @Column(name = "CPL")
-    @XmlElement(name = "cpl", required = true)
-    private String cpl;
 
     /**
      * @return the id
@@ -99,31 +104,10 @@ public class SoloResult implements Serializable {
     }
 
     /**
-     * @return the place
+     * @return the results
      */
-    public int getPlace() {
-        return place;
-    }
-
-    /**
-     * @param place the place to set
-     */
-    public void setPlace(int place) {
-        this.place = place;
-    }
-
-    /**
-     * @return the cpl
-     */
-    public String getCpl() {
-        return cpl;
-    }
-
-    /**
-     * @param cpl the cpl to set
-     */
-    public void setCpl(String cpl) {
-        this.cpl = cpl;
+    public List<Result> getResults() {
+        return results;
     }
 
     @Override
@@ -139,5 +123,19 @@ public class SoloResult implements Serializable {
         int hash = 5;
         hash = 79 * hash + (this.id != null ? this.id.hashCode() : 0);
         return hash;
+    }
+
+    /**
+     * @return the place
+     */
+    public int getPlace() {
+        return place;
+    }
+
+    /**
+     * @param place the place to set
+     */
+    public void setPlace(int place) {
+        this.place = place;
     }
 }

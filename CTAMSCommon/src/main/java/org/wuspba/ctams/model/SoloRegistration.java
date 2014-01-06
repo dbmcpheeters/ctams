@@ -49,7 +49,7 @@ public class SoloRegistration implements Serializable {
 
     @Column(name = "SoloNumber")
     @XmlElement(name = "number", required = true)
-    private int number;
+    private String number;
 
     @Column(name = "GradeID")
     @Enumerated(EnumType.STRING)
@@ -176,14 +176,14 @@ public class SoloRegistration implements Serializable {
     /**
      * @return the number
      */
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
     /**
      * @param number the number to set
      */
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 

@@ -28,24 +28,23 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wuspba.ctams.model.SoloContest;
-import org.wuspba.ctams.model.SoloEventType;
+import org.wuspba.ctams.model.SoloResult;
 import org.wuspba.ctams.model.CTAMSDocument;
-import org.wuspba.ctams.model.Grade;
+import org.wuspba.ctams.model.Result;
 import org.wuspba.ctams.util.TestFixture;
 
 /**
  *
  * @author atrimble
  */
-public class ITSoloContestController {
+public class ITSoloResultController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ITSoloContestController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ITSoloResultController.class);
 
     protected static String PROTOCOL = "http";
     protected static String HOST = "localhost";
     protected static int PORT = 8081;
-    protected static String PATH = "/solocontest";
+    protected static String PATH = "/soloresult";
 
     static {
         if(System.getProperties().containsKey("ctams.protocol")) {
@@ -92,15 +91,15 @@ public class ITSoloContestController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getSoloContests().size(), 1);
-            testEquality(doc.getSoloContests().get(0), TestFixture.INSTANCE.soloContest);
+            assertEquals(doc.getSoloContestResults().size(), 1);
+            testEquality(doc.getSoloContestResults().get(0), TestFixture.INSTANCE.soloResult);
 
             EntityUtils.consume(entity);
         }
     }
 
     @Test
-    public void testListVenue() throws Exception {
+    public void testListContest() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         URI uri = new URIBuilder()
@@ -108,8 +107,7 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("venue", TestFixture.INSTANCE.venue.getId())
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloContest.getSeason()))
+                .setParameter("contest", TestFixture.INSTANCE.soloContest.getId())
                 .build();
 
         HttpGet httpGet = new HttpGet(uri);
@@ -121,8 +119,8 @@ public class ITSoloContestController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getSoloContests().size(), 1);
-            testEquality(doc.getSoloContests().get(0), TestFixture.INSTANCE.soloContest);
+            assertEquals(doc.getSoloContestResults().size(), 1);
+            testEquality(doc.getSoloContestResults().get(0), TestFixture.INSTANCE.soloResult);
 
             EntityUtils.consume(entity);
         }
@@ -132,8 +130,7 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("venue", "garbage")
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloContest.getSeason()))
+                .setParameter("contest", TestFixture.INSTANCE.soloNonContest.getId())
                 .build();
 
         httpGet = new HttpGet(uri);
@@ -145,14 +142,14 @@ public class ITSoloContestController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getSoloContests().size(), 0);
+            assertEquals(doc.getSoloContestResults().size(), 0);
 
             EntityUtils.consume(entity);
         }
     }
 
     @Test
-    public void testListEventType() throws Exception {
+    public void testListPerson() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         URI uri = new URIBuilder()
@@ -160,8 +157,8 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("eventtype", TestFixture.INSTANCE.soloContest.getEventType().toString())
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloContest.getSeason()))
+                .setParameter("person", TestFixture.INSTANCE.elaine.getId())
+                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloResult.getContest().getSeason()))
                 .build();
 
         HttpGet httpGet = new HttpGet(uri);
@@ -173,8 +170,8 @@ public class ITSoloContestController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getSoloContests().size(), 1);
-            testEquality(doc.getSoloContests().get(0), TestFixture.INSTANCE.soloContest);
+            assertEquals(doc.getSoloContestResults().size(), 1);
+            testEquality(doc.getSoloContestResults().get(0), TestFixture.INSTANCE.soloResult);
 
             EntityUtils.consume(entity);
         }
@@ -184,8 +181,8 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("eventtype", SoloEventType.SR.toString())
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloContest.getSeason()))
+                .setParameter("person", TestFixture.INSTANCE.bob.getId())
+                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloResult.getContest().getSeason()))
                 .build();
 
         httpGet = new HttpGet(uri);
@@ -197,14 +194,14 @@ public class ITSoloContestController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getSoloContests().size(), 0);
+            assertEquals(doc.getSoloContestResults().size(), 0);
 
             EntityUtils.consume(entity);
         }
     }
 
     @Test
-    public void testListGrade() throws Exception {
+    public void testListPlace() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         URI uri = new URIBuilder()
@@ -212,8 +209,8 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("grade", TestFixture.INSTANCE.soloContest.getGrade().toString())
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloContest.getSeason()))
+                .setParameter("place", Integer.toString(TestFixture.INSTANCE.soloResult.getPlace()))
+                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloResult.getContest().getSeason()))
                 .build();
 
         HttpGet httpGet = new HttpGet(uri);
@@ -225,8 +222,8 @@ public class ITSoloContestController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getSoloContests().size(), 1);
-            testEquality(doc.getSoloContests().get(0), TestFixture.INSTANCE.soloContest);
+            assertEquals(doc.getSoloContestResults().size(), 1);
+            testEquality(doc.getSoloContestResults().get(0), TestFixture.INSTANCE.soloResult);
 
             EntityUtils.consume(entity);
         }
@@ -236,8 +233,8 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("grade", Grade.AMATEUR.toString())
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloContest.getSeason()))
+                .setParameter("place", Integer.toString(9))
+                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloResult.getContest().getSeason()))
                 .build();
 
         httpGet = new HttpGet(uri);
@@ -249,7 +246,59 @@ public class ITSoloContestController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getSoloContests().size(), 0);
+            assertEquals(doc.getSoloContestResults().size(), 0);
+
+            EntityUtils.consume(entity);
+        }
+    }
+
+    @Test
+    public void testListEval() throws Exception {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        URI uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("eval", TestFixture.INSTANCE.result5.getEvaluation())
+                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloResult.getContest().getSeason()))
+                .build();
+
+        HttpGet httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            assertEquals(doc.getSoloContestResults().size(), 1);
+            testEquality(doc.getSoloContestResults().get(0), TestFixture.INSTANCE.soloResult);
+
+            EntityUtils.consume(entity);
+        }
+
+        uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("eval", Integer.toString(9))
+                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloResult.getContest().getSeason()))
+                .build();
+
+        httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            assertEquals(doc.getSoloContestResults().size(), 0);
 
             EntityUtils.consume(entity);
         }
@@ -264,7 +313,7 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloContest.getSeason()))
+                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloResult.getContest().getSeason()))
                 .build();
 
         HttpGet httpGet = new HttpGet(uri);
@@ -276,8 +325,8 @@ public class ITSoloContestController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getSoloContests().size(), 1);
-            testEquality(doc.getSoloContests().get(0), TestFixture.INSTANCE.soloContest);
+            assertEquals(doc.getSoloContestResults().size(), 1);
+            testEquality(doc.getSoloContestResults().get(0), TestFixture.INSTANCE.soloResult);
 
             EntityUtils.consume(entity);
         }
@@ -287,7 +336,7 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("season", "1990")
+                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloResult.getContest().getSeason() - 1))
                 .build();
 
         httpGet = new HttpGet(uri);
@@ -299,150 +348,7 @@ public class ITSoloContestController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getSoloContests().size(), 0);
-
-            EntityUtils.consume(entity);
-        }
-    }
-
-    @Test
-    public void testListJudge() throws Exception {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-
-        URI uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("judge", TestFixture.INSTANCE.soloContest.getJudges().get(0).getJudge().getId())
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloContest.getSeason()))
-                .build();
-
-        HttpGet httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getSoloContests().size(), 1);
-            testEquality(doc.getSoloContests().get(0), TestFixture.INSTANCE.soloContest);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("judge", TestFixture.INSTANCE.soloContest.getJudges().get(0).getJudge().getId())
-                .build();
-
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getSoloContests().size(), 1);
-            testEquality(doc.getSoloContests().get(0), TestFixture.INSTANCE.soloContest);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("judge", TestFixture.INSTANCE.soloContest.getJudges().get(1).getJudge().getId())
-                .build();
-
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getSoloContests().size(), 1);
-            testEquality(doc.getSoloContests().get(0), TestFixture.INSTANCE.soloContest);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("judge", TestFixture.INSTANCE.soloContest.getJudges().get(2).getJudge().getId())
-                .build();
-
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getSoloContests().size(), 1);
-            testEquality(doc.getSoloContests().get(0), TestFixture.INSTANCE.soloContest);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("judge", TestFixture.INSTANCE.judgeEoin.getId())
-                .setParameter("season", Integer.toString(TestFixture.INSTANCE.soloContest.getSeason()))
-                .build();
-
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getSoloContests().size(), 0);
-
-            EntityUtils.consume(entity);
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("judge", TestFixture.INSTANCE.judgeEoin.getId())
-                .build();
-
-        httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            assertEquals(doc.getSoloContests().size(), 0);
+            assertEquals(doc.getSoloContestResults().size(), 0);
 
             EntityUtils.consume(entity);
         }
@@ -471,7 +377,7 @@ public class ITSoloContestController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getSoloContests().size(), 0);
+            assertEquals(doc.getSoloContestResults().size(), 0);
 
             EntityUtils.consume(entity);
         }
@@ -479,26 +385,18 @@ public class ITSoloContestController {
         add();
     }
 
-    protected static void add() throws Exception {
-        ITVenueController.add();
-        ITHiredJudgeController.add();
-        ITJudgeController.add();
+    private static void add() throws Exception {
+        ITSoloContestController.add();
         
         CTAMSDocument doc = new CTAMSDocument();
+        doc.getPeople().add(TestFixture.INSTANCE.elaine);
         doc.getVenues().add(TestFixture.INSTANCE.venue);
-        doc.getPeople().add(TestFixture.INSTANCE.andy);
-        doc.getPeople().add(TestFixture.INSTANCE.jamie);
-        doc.getPeople().add(TestFixture.INSTANCE.bob);
-        doc.getPeople().add(TestFixture.INSTANCE.eoin);
         doc.getJudges().add(TestFixture.INSTANCE.judgeAndy);
         doc.getJudges().add(TestFixture.INSTANCE.judgeJamie);
         doc.getJudges().add(TestFixture.INSTANCE.judgeBob);
-        doc.getJudges().add(TestFixture.INSTANCE.judgeEoin);
-        doc.getHiredJudges().add(TestFixture.INSTANCE.hiredJudgeAndy);
-        doc.getHiredJudges().add(TestFixture.INSTANCE.hiredJudgeJamie);
-        doc.getHiredJudges().add(TestFixture.INSTANCE.hiredJudgeBob);
-        doc.getHiredJudges().add(TestFixture.INSTANCE.hiredJudgeEoin);
+        doc.getResults().add(TestFixture.INSTANCE.result5);
         doc.getSoloContests().add(TestFixture.INSTANCE.soloContest);
+        doc.getSoloContestResults().add(TestFixture.INSTANCE.soloResult);
         
         String xml = ControllerUtils.marshal(doc);
 
@@ -508,7 +406,7 @@ public class ITSoloContestController {
                 .setScheme(PROTOCOL)
                 .setHost(HOST)
                 .setPort(PORT)
-                .setPath(ITVenueController.PATH)
+                .setPath(PATH)
                 .build();
         
         HttpPost httpPost = new HttpPost(uri);
@@ -527,43 +425,21 @@ public class ITSoloContestController {
 
             doc = IntegrationTestUtils.convertEntity(responseEntity);
 
-            TestFixture.INSTANCE.soloContest.setId(doc.getSoloContests().get(0).getId());
-            
-            EntityUtils.consume(responseEntity);
-        } catch(UnsupportedEncodingException ex) {
-            LOG.error("Unsupported coding", ex);
-        } catch(IOException ioex) {
-            LOG.error("IOException", ioex);
-        } finally {
-            if(response != null) {
-                try {
-                    response.close();
-                } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITSoloContestController.class.getName()).log(Level.SEVERE, null, ex);
+            TestFixture.INSTANCE.soloResult.setId(doc.getSoloContestResults().get(0).getId());
+
+            for(Result r : doc.getSoloContestResults().get(0).getResults()) {
+                if(r.getPoints() == TestFixture.INSTANCE.result1.getPoints()) {
+                    TestFixture.INSTANCE.result1.setId(r.getId());
+                } else if(r.getPoints() == TestFixture.INSTANCE.result2.getPoints()) {
+                    TestFixture.INSTANCE.result2.setId(r.getId());
+                } else if(r.getPoints() == TestFixture.INSTANCE.result3.getPoints()) {
+                    TestFixture.INSTANCE.result3.setId(r.getId());
+                } else if(r.getPoints() == TestFixture.INSTANCE.result4.getPoints()) {
+                    TestFixture.INSTANCE.result4.setId(r.getId());
+                } else if(r.getPoints() == TestFixture.INSTANCE.result5.getPoints()) {
+                    TestFixture.INSTANCE.result5.setId(r.getId());
                 }
             }
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(ITJudgeController.PATH)
-                .build();
-        
-        httpPost = new HttpPost(uri);
-
-        xmlEntity = new StringEntity(xml, ContentType.APPLICATION_XML); 
-
-        response = null;
-
-        try {
-            httpPost.setEntity(xmlEntity);
-            response = httpclient.execute(httpPost);
-        
-            assertEquals(IntegrationTestUtils.OK_STRING, response.getStatusLine().toString());
-            
-            HttpEntity responseEntity = response.getEntity();
             
             EntityUtils.consume(responseEntity);
         } catch(UnsupportedEncodingException ex) {
@@ -575,55 +451,13 @@ public class ITSoloContestController {
                 try {
                     response.close();
                 } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITSoloContestController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .build();
-        
-        httpPost = new HttpPost(uri);
-
-        xmlEntity = new StringEntity(xml, ContentType.APPLICATION_XML); 
-
-        response = null;
-
-        try {
-            httpPost.setEntity(xmlEntity);
-            response = httpclient.execute(httpPost);
-        
-            assertEquals(IntegrationTestUtils.OK_STRING, response.getStatusLine().toString());
-            
-            HttpEntity responseEntity = response.getEntity();
-
-            doc = IntegrationTestUtils.convertEntity(responseEntity);
-
-            TestFixture.INSTANCE.soloContest.setId(doc.getSoloContests().get(0).getId());
-            
-            EntityUtils.consume(responseEntity);
-        } catch(UnsupportedEncodingException ex) {
-            LOG.error("Unsupported coding", ex);
-        } catch(IOException ioex) {
-            LOG.error("IOException", ioex);
-        } finally {
-            if(response != null) {
-                try {
-                    response.close();
-                } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITSoloContestController.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(ITSoloResultController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
 
     protected static void delete() throws Exception {
-        String id;
-
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         URI uri = new URIBuilder()
@@ -631,30 +465,7 @@ public class ITSoloContestController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .build();
-        
-        HttpGet httpGet = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
-            
-            HttpEntity entity = response.getEntity();
-
-            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
-
-            id = doc.getSoloContests().get(0).getId();
-
-            EntityUtils.consume(entity);
-        }
-        
-        httpclient = HttpClients.createDefault();
-
-        uri = new URIBuilder()
-                .setScheme(PROTOCOL)
-                .setHost(HOST)
-                .setPort(PORT)
-                .setPath(PATH)
-                .setParameter("id", id)
+                .setParameter("id", TestFixture.INSTANCE.soloResult.getId())
                 .build();
         
         HttpDelete httpDelete = new HttpDelete(uri);
@@ -678,24 +489,19 @@ public class ITSoloContestController {
                 try {
                     response.close();
                 } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITSoloContestController.class.getName()).log(Level.SEVERE, null, ex);
+                    java.util.logging.Logger.getLogger(ITSoloResultController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
 
-        ITVenueController.delete();
-        ITHiredJudgeController.delete();
-        ITJudgeController.delete();
+        ITSoloContestController.delete();
     }
 
-    private void testEquality(SoloContest c1, SoloContest c2) {
-        assertEquals(c1.getContestants(), c2.getContestants());
-        assertEquals(c1.getEventType(), c2.getEventType());
-        assertEquals(c1.getGrade(), c2.getGrade());
-        assertEquals(c1.getId(), c2.getId());
-        assertTrue(c1.getJudges().containsAll(c2.getJudges()));
-        assertEquals(c1.getLeet(), c2.getLeet());
-        assertEquals(c1.getSeason(), c2.getSeason());
-        assertEquals(c1.getVenue(), c2.getVenue());
+    private void testEquality(SoloResult r1, SoloResult r2) {
+        assertEquals(r1.getContest(), r2.getContest());
+        assertTrue(r1.getResults().containsAll(r2.getResults()));
+        assertEquals(r1.getId(), r2.getId());
+        assertEquals(r1.getPlace(), r2.getPlace());
+        assertEquals(r1.getSoloist(), r2.getSoloist());
     }
 }

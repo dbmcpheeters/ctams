@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wuspba.ctams.data.BandContestRepository;
-import org.wuspba.ctams.data.BandRepository;
-import org.wuspba.ctams.data.BandResultRepository;
+import org.wuspba.ctams.data.SoloContestRepository;
+import org.wuspba.ctams.data.PersonRepository;
+import org.wuspba.ctams.data.SoloResultRepository;
 import org.wuspba.ctams.data.ResultRepository;
-import org.wuspba.ctams.model.Band;
-import org.wuspba.ctams.model.BandContest;
-import org.wuspba.ctams.model.BandResult;
+import org.wuspba.ctams.model.Person;
+import org.wuspba.ctams.model.SoloContest;
+import org.wuspba.ctams.model.SoloResult;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Result;
 
@@ -36,40 +36,39 @@ import org.wuspba.ctams.model.Result;
 @ComponentScan
 @Controller
 @Transactional
-@RequestMapping("/bandresult")
-public class BandResultController {
+@RequestMapping("/soloresult")
+public class SoloResultController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BandResultController.class);
-
-    @Autowired
-    private BandResultRepository repository;
+    private static final Logger LOG = LoggerFactory.getLogger(SoloResultController.class);
 
     @Autowired
-    private BandContestRepository contestRepository;
+    private SoloResultRepository repository;
 
     @Autowired
-    private BandRepository bandRepository;
+    private SoloContestRepository contestRepository;
+
+    @Autowired
+    private PersonRepository personRepository;
 
     @Autowired
     private ResultRepository resultRepository;
     
-    public BandResultController() {
+    public SoloResultController() {
         
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody String listBandResults(
+    public @ResponseBody String listSoloResults(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "season", required = false, defaultValue = "") String season,
             @RequestParam(value = "contest", required = false, defaultValue = "") String contest,
-            @RequestParam(value = "band", required = false, defaultValue = "") String band,
-            @RequestParam(value = "individualplace", required = false, defaultValue = "") String individualPlace,
+            @RequestParam(value = "person", required = false, defaultValue = "") String person,
             @RequestParam(value = "place", required = false, defaultValue = "") String place,
             @RequestParam(value = "eval", required = false, defaultValue = "") String eval) {
 
         CTAMSDocument ret = new CTAMSDocument();
 
-        Iterable<BandResult> results = Collections.EMPTY_LIST;
+        Iterable<SoloResult> results = Collections.EMPTY_LIST;
 
         int seasonInt = -1;
         if(!"".equals(season)) {
@@ -79,17 +78,15 @@ public class BandResultController {
         if(!"".equals(id)) {
             results = repository.findById(id);
         } else if(!"".equals(contest)) {
-            List<BandContest> contests = contestRepository.findById(contest);
+            List<SoloContest> contests = contestRepository.findById(contest);
             if(!contests.isEmpty()) {
                 results = repository.findByContest(contests.get(0));
             }
-        } else if(!"".equals(band)) {
-            List<Band> bands = bandRepository.findById(band);
-            if(!bands.isEmpty()) {
-                results = repository.findByBand(bands.get(0), seasonInt);
+        } else if(!"".equals(person)) {
+            List<Person> people = personRepository.findById(person);
+            if(!people.isEmpty()) {
+                results = repository.findBySoloist(people.get(0), seasonInt);
             }
-        } else if(!"".equals(individualPlace)) {
-            results = repository.findByIndividualPlace(Integer.valueOf(individualPlace), seasonInt);
         } else if(!"".equals(place)) {
             results = repository.findByPlace(Integer.valueOf(place), seasonInt);
         } else if(!"".equals(eval)) {
@@ -100,24 +97,24 @@ public class BandResultController {
             results = repository.findAll();
         }
 
-        for (BandResult result : results) {
+        for (SoloResult result : results) {
             ret.getResults().addAll(result.getResults());
-            ret.getBandContests().add(result.getContest());
-            ret.getBands().add(result.getBand());
-            ret.getBandContestResults().add(result);
+            ret.getSoloContests().add(result.getContest());
+            ret.getPeople().add(result.getSoloist());
+            ret.getSoloContestResults().add(result);
         }
 
         return ControllerUtils.marshal(ret);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void deleteBandResult(
+    public @ResponseBody void deleteSoloResult(
             @RequestParam(value = "id", required = true) String id) {
 
-        List<BandResult> results = repository.findById(id);
+        List<SoloResult> results = repository.findById(id);
 
-        for(BandResult r : results) {
-            LOG.info("Deleting band result " + r.getId());
+        for(SoloResult r : results) {
+            LOG.info("Deleting solo result " + r.getId());
             repository.delete(r);
         }
     }
@@ -128,7 +125,7 @@ public class BandResultController {
 
         CTAMSDocument doc = ControllerUtils.unmarshal(xml);
 
-        for(BandResult r : doc.getBandContestResults()) {
+        for(SoloResult r : doc.getSoloContestResults()) {
             for(Result result : r.getResults()) {
                 if(result.getId() == null || "".equals(result.getId()) || repository.findById(result.getId()).isEmpty()) {
                     result.setId(UUID.randomUUID().toString());
@@ -142,9 +139,9 @@ public class BandResultController {
             
             if(r.getId() == null || "".equals(r.getId()) || repository.findById(r.getId()).isEmpty()) {
                 r.setId(UUID.randomUUID().toString());
-                LOG.info("Creating band result " + r.getId());
+                LOG.info("Creating solo result " + r.getId());
             } else {
-                LOG.info("Updating band result " + r.getId());
+                LOG.info("Updating solo result " + r.getId());
             }
 
             repository.save(r);

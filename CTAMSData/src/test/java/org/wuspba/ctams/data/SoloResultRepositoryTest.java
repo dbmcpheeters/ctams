@@ -54,6 +54,17 @@ public class SoloResultRepositoryTest {
         ret = repository.findById("abcd");
         assertEquals(ret.size(), 0);
     }
+
+    @Test
+    public void testFindBySeason() {
+        List<SoloResult> ret = repository.findBySeason(TestFixture.INSTANCE.soloContest.getSeason());
+        assertEquals(ret.size(), 1);
+
+        assertEquals(ret.get(0), TestFixture.INSTANCE.soloResult);
+        
+        ret = repository.findBySeason(TestFixture.INSTANCE.soloContest.getSeason() + 1);
+        assertEquals(ret.size(), 0);
+    }
     
     @Test
     public void testFindByContest() {
@@ -95,16 +106,16 @@ public class SoloResultRepositoryTest {
     }
     
     @Test
-    public void testFindByCPL() {
-        List<SoloResult> ret = repository.findByCpl(TestFixture.INSTANCE.soloResult.getCpl(), TestFixture.INSTANCE.soloContest.getSeason());
+    public void testFindByEval() {
+        List<SoloResult> ret = repository.findByEval(TestFixture.INSTANCE.result5.getEvaluation(), TestFixture.INSTANCE.soloContest.getSeason());
         assertEquals(ret.size(), 1);
 
         assertEquals(ret.get(0), TestFixture.INSTANCE.soloResult);
         
-        ret = repository.findByCpl(TestFixture.INSTANCE.soloResult.getCpl() + "_", TestFixture.INSTANCE.soloContest.getSeason());
+        ret = repository.findByEval(TestFixture.INSTANCE.result5.getEvaluation() + "_", TestFixture.INSTANCE.soloContest.getSeason());
         assertEquals(ret.size(), 0);
         
-        ret = repository.findByCpl(TestFixture.INSTANCE.soloResult.getCpl(), TestFixture.INSTANCE.soloContest.getSeason() + 1);
+        ret = repository.findByEval(TestFixture.INSTANCE.result5.getEvaluation(), TestFixture.INSTANCE.soloContest.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
     

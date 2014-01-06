@@ -25,7 +25,7 @@ public interface SoloRegistrationRepository extends CrudRepository<SoloRegistrat
 
     List<SoloRegistration> findByPerson(Person person);
     
-    List<SoloRegistration> findByNumber(int number);
+    List<SoloRegistration> findByNumber(String number);
 
     List<SoloRegistration> findByGrade(Grade grade);
     
