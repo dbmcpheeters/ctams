@@ -26,9 +26,8 @@ import org.wuspba.ctams.model.CTAMSDocument;
 public class ControllerUtils {
     
     private static final Logger LOG = LoggerFactory.getLogger(ControllerUtils.class);
-    
-    private static final SimpleDateFormat dateParser = 
-            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+
+    private static final String PARSE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
 
     private ControllerUtils() {
 
@@ -72,10 +71,16 @@ public class ControllerUtils {
     }
 
     public static final Date parseDate(String date) throws ParseException {
+        SimpleDateFormat dateParser = 
+            new SimpleDateFormat(PARSE_FORMAT);
+
         return dateParser.parse(date);
     }
 
     public static final String toString(Date date) {
+        SimpleDateFormat dateParser = 
+            new SimpleDateFormat(PARSE_FORMAT);
+
         return dateParser.format(date);
     }
 }
