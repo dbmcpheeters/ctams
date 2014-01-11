@@ -1,5 +1,8 @@
-/CTAMSCommon/target/
-/CTAMSWS/target/
-/CTAMSData/target/
 /target/
 /ws/target/
+/ui/target/
+/common/target/
+/data/target
+.DS_Store
+derby.log
+.sonar
