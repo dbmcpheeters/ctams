@@ -45,7 +45,8 @@ public class JudgeQualificationController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody CTAMSDocument listJudgeQualifications(
+    @ResponseBody
+    public CTAMSDocument listJudgeQualifications(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "panel", required = false, defaultValue = "") String panel,
             @RequestParam(value = "type", required = false, defaultValue = "") String type) {
@@ -76,7 +77,8 @@ public class JudgeQualificationController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void deleteJudgeQualification(
+    @ResponseBody 
+    public void deleteJudgeQualification(
             @RequestParam(value = "id", required = true) String id) {
 
         List<JudgeQualification> quals = repository.findById(id);
@@ -89,7 +91,8 @@ public class JudgeQualificationController {
 
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
-    public @ResponseBody CTAMSDocument modifyAddJudgeQualification(@RequestBody String xml) {
+    @ResponseBody
+    public CTAMSDocument modifyAddJudgeQualification(@RequestBody String xml) {
 
         CTAMSDocument quals = ControllerUtils.unmarshal(xml);
 

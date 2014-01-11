@@ -54,7 +54,8 @@ public class BandContestEntryController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody String listBandContestEntries(
+    @ResponseBody 
+    public String listBandContestEntries(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "band", required = false, defaultValue = "") String band,
             @RequestParam(value = "contest", required = false, defaultValue = "") String contest) {
@@ -96,7 +97,8 @@ public class BandContestEntryController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void deleteBandContestEntries(
+    @ResponseBody 
+    public void deleteBandContestEntries(
             @RequestParam(value = "id", required = true) String id) {
 
         List<BandContestEntry> entries = repository.findById(id);
@@ -109,7 +111,8 @@ public class BandContestEntryController {
 
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
-    public @ResponseBody String modifyAddBandContestEntries(@RequestBody String xml) {
+    @ResponseBody
+    public String modifyAddBandContestEntries(@RequestBody String xml) {
 
         CTAMSDocument doc = ControllerUtils.unmarshal(xml);
 

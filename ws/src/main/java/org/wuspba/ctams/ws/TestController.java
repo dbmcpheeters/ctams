@@ -25,7 +25,8 @@ public class TestController {
     }
 
     @RequestMapping(TEST_URI)
-    public @ResponseBody String testDeployment() {
+    @ResponseBody
+    public String testDeployment() {
         return TEST_STRING;
     }
 }

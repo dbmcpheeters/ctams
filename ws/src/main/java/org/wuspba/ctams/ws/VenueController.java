@@ -41,7 +41,8 @@ public class VenueController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody CTAMSDocument listVenues(
+    @ResponseBody 
+    public CTAMSDocument listVenues(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "name", required = false, defaultValue = "") String name,
             @RequestParam(value = "state", required = false, defaultValue = "") String state,
@@ -71,7 +72,8 @@ public class VenueController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void deleteVenue(
+    @ResponseBody 
+    public void deleteVenue(
             @RequestParam(value = "id", required = true) String id) {
 
         List<Venue> venues = repository.findById(id);
@@ -84,7 +86,8 @@ public class VenueController {
 
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
-    public @ResponseBody CTAMSDocument modifyAddVenues(@RequestBody String xml) {
+    @ResponseBody
+    public CTAMSDocument modifyAddVenues(@RequestBody String xml) {
 
         CTAMSDocument venues = ControllerUtils.unmarshal(xml);
 

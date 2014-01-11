@@ -41,7 +41,8 @@ public class PersonController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody CTAMSDocument listPeople(
+    @ResponseBody 
+    public CTAMSDocument listPeople(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "firstname", required = false, defaultValue = "") String firstName,
             @RequestParam(value = "lastname", required = false, defaultValue = "") String lastName,
@@ -78,7 +79,8 @@ public class PersonController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void deletePerson(
+    @ResponseBody
+    public void deletePerson(
             @RequestParam(value = "id", required = true) String id) {
 
         List<Person> people = repository.findById(id);
@@ -91,7 +93,8 @@ public class PersonController {
 
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
-    public @ResponseBody CTAMSDocument modifyAddBands(@RequestBody String xml) {
+    @ResponseBody 
+    public CTAMSDocument modifyAddBands(@RequestBody String xml) {
 
         CTAMSDocument people = ControllerUtils.unmarshal(xml);
 

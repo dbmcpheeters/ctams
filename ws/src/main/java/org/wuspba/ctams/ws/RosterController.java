@@ -54,7 +54,7 @@ public class RosterController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody CTAMSDocument listRosters(
+    @ResponseBody public CTAMSDocument listRosters(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "season", required = true, defaultValue = "") String season,
             @RequestParam(value = "band", required = false, defaultValue = "") String band,
@@ -129,7 +129,8 @@ public class RosterController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void deleteRoster(
+    @ResponseBody 
+    public void deleteRoster(
             @RequestParam(value = "id", required = true) String id) {
 
         List<Roster> rosters = repository.findById(id);
@@ -142,7 +143,8 @@ public class RosterController {
 
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
-    public @ResponseBody CTAMSDocument modifyAddRoster(@RequestBody String xml) {
+    @ResponseBody 
+    public CTAMSDocument modifyAddRoster(@RequestBody String xml) {
 
         CTAMSDocument rosters = ControllerUtils.unmarshal(xml);
 

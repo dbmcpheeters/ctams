@@ -54,7 +54,8 @@ public class SoloContestEntryController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody String listSoloContestEntries(
+    @ResponseBody 
+    public String listSoloContestEntries(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "person", required = false, defaultValue = "") String person,
             @RequestParam(value = "contest", required = false, defaultValue = "") String contest) {
@@ -96,7 +97,8 @@ public class SoloContestEntryController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void deleteSoloContestEntries(
+    @ResponseBody
+    public void deleteSoloContestEntries(
             @RequestParam(value = "id", required = true) String id) {
 
         List<SoloContestEntry> entries = repository.findById(id);
@@ -109,7 +111,8 @@ public class SoloContestEntryController {
 
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
-    public @ResponseBody String modifyAddSoloContestEntries(@RequestBody String xml) {
+    @ResponseBody 
+    public String modifyAddSoloContestEntries(@RequestBody String xml) {
 
         CTAMSDocument doc = ControllerUtils.unmarshal(xml);
 

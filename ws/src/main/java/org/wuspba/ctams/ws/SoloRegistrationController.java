@@ -48,7 +48,8 @@ public class SoloRegistrationController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody CTAMSDocument listRegistrations(
+    @ResponseBody 
+    public CTAMSDocument listRegistrations(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "person", required = false, defaultValue = "") String person,
             @RequestParam(value = "grade", required = false, defaultValue = "") String grade,
@@ -90,7 +91,8 @@ public class SoloRegistrationController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void deleteSoloRegistration(
+    @ResponseBody
+    public void deleteSoloRegistration(
             @RequestParam(value = "id", required = true) String id) {
 
         List<SoloRegistration> registrations = repository.findById(id);
@@ -103,7 +105,8 @@ public class SoloRegistrationController {
 
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
-    public @ResponseBody CTAMSDocument modifyAddSoloRegistrations(@RequestBody String xml) {
+    @ResponseBody 
+    public CTAMSDocument modifyAddSoloRegistrations(@RequestBody String xml) {
 
         CTAMSDocument registrations = ControllerUtils.unmarshal(xml);
 

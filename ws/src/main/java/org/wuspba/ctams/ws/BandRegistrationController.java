@@ -48,7 +48,8 @@ public class BandRegistrationController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody CTAMSDocument listRegistrations(
+    @ResponseBody 
+    public CTAMSDocument listRegistrations(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "band", required = false, defaultValue = "") String band,
             @RequestParam(value = "grade", required = false, defaultValue = "") String grade,
@@ -90,7 +91,8 @@ public class BandRegistrationController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void deleteBandRegistration(
+    @ResponseBody
+    public void deleteBandRegistration(
             @RequestParam(value = "id", required = true) String id) {
 
         List<BandRegistration> registrations = repository.findById(id);
@@ -103,7 +105,8 @@ public class BandRegistrationController {
 
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
-    public @ResponseBody CTAMSDocument modifyAddBandRegistrations(@RequestBody String xml) {
+    @ResponseBody
+    public CTAMSDocument modifyAddBandRegistrations(@RequestBody String xml) {
 
         CTAMSDocument registrations = ControllerUtils.unmarshal(xml);
 

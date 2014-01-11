@@ -83,6 +83,8 @@ public class ITRosterController {
                 .setPath(PATH)
                 .setParameter("season", Integer.toString(TestFixture.INSTANCE.roster1.getSeason()))
                 .build();
+        
+        LOG.info("Connecting to " + uri.toString());
 
         HttpGet httpGet = new HttpGet(uri);
 

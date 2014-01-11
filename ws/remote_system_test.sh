@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mvn -Dctams.protocol=http -Dctams.host=wuspba.org -Dctams.port=8080 -Dctams.uri=/ctams clean install
+mvn -Dctams.protocol=http -Dctams.host=ctams.wuspba.org -Dctams.port=80 -Dctams.uri=/ctams clean install

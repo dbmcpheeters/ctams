@@ -79,6 +79,8 @@ public class ITSoloContestEntryController {
                 .setPort(PORT)
                 .setPath(PATH)
                 .build();
+        
+        LOG.info("Connecting to " + uri.toString());
 
         HttpGet httpGet = new HttpGet(uri);
 

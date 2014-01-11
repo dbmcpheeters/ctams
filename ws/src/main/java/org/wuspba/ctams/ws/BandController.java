@@ -42,7 +42,8 @@ public class BandController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody CTAMSDocument listBands(
+    @ResponseBody 
+    public CTAMSDocument listBands(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "name", required = false, defaultValue = "") String name,
             @RequestParam(value = "state", required = false, defaultValue = "") String state,
@@ -78,7 +79,8 @@ public class BandController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void deleteBand(
+    @ResponseBody
+    public void deleteBand(
             @RequestParam(value = "id", required = true) String id) {
 
         List<Band> bands = repository.findById(id);
@@ -91,7 +93,8 @@ public class BandController {
 
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
-    public @ResponseBody CTAMSDocument modifyAddBands(@RequestBody String xml) {
+    @ResponseBody 
+    public CTAMSDocument modifyAddBands(@RequestBody String xml) {
 
         CTAMSDocument bands = ControllerUtils.unmarshal(xml);
 

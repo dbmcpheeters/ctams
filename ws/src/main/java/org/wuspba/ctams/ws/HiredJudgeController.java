@@ -49,7 +49,8 @@ public class HiredJudgeController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody String listHiredJudge(
+    @ResponseBody 
+    public String listHiredJudge(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "judge", required = false, defaultValue = "") String judge,
             @RequestParam(value = "type", required = false, defaultValue = "") String type) {
@@ -82,7 +83,8 @@ public class HiredJudgeController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public @ResponseBody void deleteHiredJudge(
+    @ResponseBody 
+    public void deleteHiredJudge(
             @RequestParam(value = "id", required = true) String id) {
 
         List<HiredJudge> workers = repository.findById(id);
@@ -95,7 +97,8 @@ public class HiredJudgeController {
 
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
-    public @ResponseBody String modifyAddHiredJudge(@RequestBody String xml) {
+    @ResponseBody
+    public String modifyAddHiredJudge(@RequestBody String xml) {
 
         CTAMSDocument doc = ControllerUtils.unmarshal(xml);
 

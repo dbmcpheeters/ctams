@@ -218,8 +218,6 @@ public class ITJudgeController {
             EntityUtils.consume(entity);
         }
 
-        LOG.info(qualId);
-
         uri = new URIBuilder()
                 .setScheme(PROTOCOL)
                 .setHost(HOST)
@@ -300,8 +298,6 @@ public class ITJudgeController {
                 .setParameter("id", TestFixture.INSTANCE.judgeAndy.getId())
                 .build();
 
-        LOG.info(TestFixture.INSTANCE.judgeAndy.getId());
-        
         HttpGet httpGet = new HttpGet(uri);
 
         try (CloseableHttpResponse response = httpclient.execute(httpGet)) {

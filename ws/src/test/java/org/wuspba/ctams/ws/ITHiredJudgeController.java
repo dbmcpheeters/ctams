@@ -83,6 +83,8 @@ public class ITHiredJudgeController {
                 .setPath(PATH)
                 .build();
 
+        LOG.info("Connecting to " + uri.toString());
+        
         HttpGet httpGet = new HttpGet(uri);
 
         try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
@@ -93,7 +95,6 @@ public class ITHiredJudgeController {
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
             assertEquals(doc.getHiredJudges().size(), 4);
-//            testEquality(doc.getHiredJudges().get(0), TestFixture.INSTANCE.hiredJudgeAndy);
 
             EntityUtils.consume(entity);
         }
