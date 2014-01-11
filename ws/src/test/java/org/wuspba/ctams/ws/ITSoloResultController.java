@@ -10,7 +10,6 @@ import org.wuspba.ctams.util.ControllerUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.util.logging.Level;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
@@ -451,7 +450,7 @@ public class ITSoloResultController {
                 try {
                     response.close();
                 } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITSoloResultController.class.getName()).log(Level.SEVERE, null, ex);
+                    LOG.error("Could not close response", ex);
                 }
             }
         }
@@ -489,7 +488,7 @@ public class ITSoloResultController {
                 try {
                     response.close();
                 } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITSoloResultController.class.getName()).log(Level.SEVERE, null, ex);
+                    LOG.error("Could not close response", ex);
                 }
             }
         }

@@ -4,12 +4,12 @@
  */
 package org.wuspba.ctams.util;
 
-import org.wuspba.ctams.model.CTAMSDocument;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wuspba.ctams.model.CTAMSDocument;
 
 /**
@@ -18,33 +18,36 @@ import org.wuspba.ctams.model.CTAMSDocument;
  */
 public class CreateXML {
     
-    private static final Logger LOG = Logger.getLogger(CreateXML.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CreateXML.class);
     
     public static void main(String[] args) {
         CTAMSDocument doc = new CTAMSDocument();
-        doc.getPeople().add(TestFixture.INSTANCE.bob);
+//        doc.getPeople().add(TestFixture.INSTANCE.bob);
 //        doc.getPeople().add(TestFixture.INSTANCE.eoin);
         doc.getPeople().add(TestFixture.INSTANCE.andy);
         doc.getPeople().add(TestFixture.INSTANCE.jamie);
-        doc.getPeople().add(TestFixture.INSTANCE.elaine);
-        doc.getJudges().add(TestFixture.INSTANCE.judgeBob);
-        doc.getJudges().add(TestFixture.INSTANCE.judgeAndy);
-        doc.getJudges().add(TestFixture.INSTANCE.judgeJamie);
+//        doc.getPeople().add(TestFixture.INSTANCE.elaine);
+//        doc.getJudges().add(TestFixture.INSTANCE.judgeBob);
+//        doc.getJudges().add(TestFixture.INSTANCE.judgeAndy);
+//        doc.getJudges().add(TestFixture.INSTANCE.judgeJamie);
 //        doc.getJudges().add(TestFixture.INSTANCE.judgeEoin);
 //        doc.getResults().add(TestFixture.INSTANCE.result1);
 //        doc.getResults().add(TestFixture.INSTANCE.result2);
 //        doc.getResults().add(TestFixture.INSTANCE.result3);
-        doc.getResults().add(TestFixture.INSTANCE.result4);
-        doc.getVenues().add(TestFixture.INSTANCE.venue);
-//        doc.getBands().add(TestFixture.INSTANCE.skye);
+//        doc.getResults().add(TestFixture.INSTANCE.result4);
+//        doc.getVenues().add(TestFixture.INSTANCE.venue);
+        doc.getBands().add(TestFixture.INSTANCE.skye);
+        doc.getBandMembers().add(TestFixture.INSTANCE.andyMember);
+        doc.getBandMembers().add(TestFixture.INSTANCE.jamieMember);
 //        doc.getBandContests().add(TestFixture.INSTANCE.bandContest);
 //        doc.getRosters().add(TestData.INSTANCE.roster);
 //        doc.getBandRegistrations().add(TestData.INSTANCE.bandRegistration);
 //        doc.getBandContestResults().add(TestFixture.INSTANCE.bandResult);
-        doc.getSoloContests().add(TestFixture.INSTANCE.soloContest);
+//        doc.getSoloContests().add(TestFixture.INSTANCE.soloContest);
 //        doc.getSoloRegistrations().add(TestData.INSTANCE.soloRegistration);
-        doc.getSoloContestResults().add(TestFixture.INSTANCE.soloResult);
+//        doc.getSoloContestResults().add(TestFixture.INSTANCE.soloResult);
 //        doc.getResults().add(TestFixture.INSTANCE.result1);
+        doc.getRosters().add(TestFixture.INSTANCE.roster1);
             
         String packageName = CTAMSDocument.class.getPackage().getName();
 

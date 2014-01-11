@@ -12,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
@@ -277,7 +276,7 @@ public class ITJudgeController {
 
             CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
 
-            assertEquals(doc.getPeople().size(), 0);
+            assertEquals(doc.getJudges().size(), 0);
 
             EntityUtils.consume(entity);
         }
@@ -393,7 +392,7 @@ public class ITJudgeController {
                     try {
                         response.close();
                     } catch (IOException ex) {
-                        java.util.logging.Logger.getLogger(ITJudgeController.class.getName()).log(Level.SEVERE, null, ex);
+                        LOG.error("Could not close response", ex);
                     }
                 }
             }
@@ -447,7 +446,7 @@ public class ITJudgeController {
                 try {
                     response.close();
                 } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(ITJudgeController.class.getName()).log(Level.SEVERE, null, ex);
+                    LOG.error("Could not close response", ex);
                 }
             }
         }

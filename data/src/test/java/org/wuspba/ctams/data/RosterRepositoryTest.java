@@ -56,8 +56,8 @@ public class RosterRepositoryTest {
     }
 
     @Test
-    public void testFindByBand() {
-        List<Roster> ret = repository.findByBand(TestFixture.INSTANCE.skye);
+    public void testFindBySeason() {
+        List<Roster> ret = repository.findBySeason(TestFixture.INSTANCE.roster1.getSeason());
         assertEquals(ret.size(), 2);
 
         assertTrue(ret.get(0).getId().equals(TestFixture.INSTANCE.roster1.getId())
@@ -65,24 +65,44 @@ public class RosterRepositoryTest {
         assertTrue(ret.get(1).getId().equals(TestFixture.INSTANCE.roster1.getId())
                 || ret.get(1).getId().equals(TestFixture.INSTANCE.roster2.getId()));
         
-        ret = repository.findByBand(TestFixture.INSTANCE.scots);
+        ret = repository.findBySeason(TestFixture.INSTANCE.roster1.getSeason() + 1);
+        assertEquals(ret.size(), 0);
+    }
+
+    @Test
+    public void testFindByBand() {
+        List<Roster> ret = repository.findByBand(TestFixture.INSTANCE.skye, TestFixture.INSTANCE.roster1.getSeason());
+        assertEquals(ret.size(), 2);
+
+        assertTrue(ret.get(0).getId().equals(TestFixture.INSTANCE.roster1.getId())
+                || ret.get(0).getId().equals(TestFixture.INSTANCE.roster2.getId()));
+        assertTrue(ret.get(1).getId().equals(TestFixture.INSTANCE.roster1.getId())
+                || ret.get(1).getId().equals(TestFixture.INSTANCE.roster2.getId()));
+        
+        ret = repository.findByBand(TestFixture.INSTANCE.scots, TestFixture.INSTANCE.roster1.getSeason());
+        assertEquals(ret.size(), 0);
+        
+        ret = repository.findByBand(TestFixture.INSTANCE.skye, TestFixture.INSTANCE.roster1.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
 
     @Test
     public void testFindLatest() {
-        List<Roster> ret = repository.findLatest(TestFixture.INSTANCE.skye);
+        List<Roster> ret = repository.findLatest(TestFixture.INSTANCE.skye, TestFixture.INSTANCE.roster2.getSeason());
         assertEquals(ret.size(), 1);
 
         assertEquals(ret.get(0).getId(), TestFixture.INSTANCE.roster2.getId());
         
-        ret = repository.findByBand(TestFixture.INSTANCE.scots);
+        ret = repository.findByBand(TestFixture.INSTANCE.scots, TestFixture.INSTANCE.roster2.getSeason());
+        assertEquals(ret.size(), 0);
+        
+        ret = repository.findByBand(TestFixture.INSTANCE.skye, TestFixture.INSTANCE.roster2.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
 
     @Test
     public void testFindByMember() {
-        List<Roster> ret = repository.findByMembers(TestFixture.INSTANCE.andyMember.getPerson());
+        List<Roster> ret = repository.findByMembers(TestFixture.INSTANCE.andyMember.getPerson(), TestFixture.INSTANCE.roster1.getSeason());
         assertEquals(ret.size(), 2);
 
         assertTrue(ret.get(0).getId().equals(TestFixture.INSTANCE.roster1.getId())
@@ -90,18 +110,24 @@ public class RosterRepositoryTest {
         assertTrue(ret.get(1).getId().equals(TestFixture.INSTANCE.roster1.getId())
                 || ret.get(1).getId().equals(TestFixture.INSTANCE.roster2.getId()));
         
-        ret = repository.findByMembers(TestFixture.INSTANCE.bobMember.getPerson());
+        ret = repository.findByMembers(TestFixture.INSTANCE.bobMember.getPerson(), TestFixture.INSTANCE.roster1.getSeason());
+        assertEquals(ret.size(), 0);
+        
+        ret = repository.findByMembers(TestFixture.INSTANCE.andyMember.getPerson(), TestFixture.INSTANCE.roster1.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
 
     @Test
     public void testFindByMemberLatest() {
-        List<Roster> ret = repository.findByMemberLatest(TestFixture.INSTANCE.andyMember.getPerson());
+        List<Roster> ret = repository.findByMemberLatest(TestFixture.INSTANCE.andyMember.getPerson(), TestFixture.INSTANCE.roster2.getSeason());
         assertEquals(ret.size(), 1);
         
         assertEquals(ret.get(0).getId(), TestFixture.INSTANCE.roster2.getId());
 
-        ret = repository.findByMembers(TestFixture.INSTANCE.bobMember.getPerson());
+        ret = repository.findByMembers(TestFixture.INSTANCE.bobMember.getPerson(), TestFixture.INSTANCE.roster2.getSeason());
+        assertEquals(ret.size(), 0);
+        
+        ret = repository.findByMembers(TestFixture.INSTANCE.andyMember.getPerson(), TestFixture.INSTANCE.roster2.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
 

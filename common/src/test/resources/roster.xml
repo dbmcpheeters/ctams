@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <CTAMS xmlns:ns2="ctams">
     <band>
         <id>skyeBand</id>
@@ -15,21 +14,66 @@
         <dissolved>true</dissolved>
         <type>COMPETITIVE</type>
     </band>
+    <person>
+        <id>andyPerson</id>
+        <title>Mr.</title>
+        <firstName>Andy</firstName>
+        <middleName>Ryan</middleName>
+        <nickName>The Man</nickName>
+        <lastName>Trimble</lastName>
+        <suffix></suffix>
+        <email>andy.trimble@gmail.com</email>
+        <address>214 S Hancock Ave.</address>
+        <city>Colorado Springs</city>
+        <state>CO</state>
+        <zip>80903</zip>
+        <phone>719-555-5555</phone>
+        <notes>What a bad ass!</notes>
+        <lifeMember>true</lifeMember>
+        <branch>INTERMOUNTAIN</branch>
+    </person>
+    <person>
+        <id>jamiePerson</id>
+        <title>Mrs.</title>
+        <firstName>Jamie</firstName>
+        <middleName>Ross</middleName>
+        <nickName>The Douche</nickName>
+        <lastName>Cuthill</lastName>
+        <suffix></suffix>
+        <email>douche@baggery.com</email>
+        <address>231 Lame St.</address>
+        <city>Denver</city>
+        <state>CO</state>
+        <zip>80831</zip>
+        <phone>303-555-5555</phone>
+        <notes>Lame!</notes>
+        <lifeMember>false</lifeMember>
+        <branch>NORTHERN</branch>
+    </person>
     <bandMember>
         <id>andyMember</id>
-        <person>andy</person>
-        <type>PipeMajor</type>
+        <person>andyPerson</person>
+        <type>PIPE_MAJOR</type>
     </bandMember>
     <bandMember>
-        <id>jameiMember</id>
-        <person>jamie</person>
-        <type>Piper</type>
+        <id>jamieMember</id>
+        <person>jamiePerson</person>
+        <type>PIPER</type>
     </bandMember>
     <roster>
         <id>roster1</id>
         <band>skyeBand</band>
         <version>1</version>
-        <members>andyMember</members>
-        <members>jameiMember</members>
+        <season>2013</season>
+        <members>
+            <id>andyMember</id>
+            <person>andyPerson</person>
+            <type>PIPE_MAJOR</type>
+        </members>
+        <members>
+            <id>jamieMember</id>
+            <person>jamiePerson</person>
+            <type>PIPER</type>
+        </members>
     </roster>
 </CTAMS>

@@ -530,7 +530,7 @@ public enum TestFixture {
         andyMember.setType(BandMemberType.PIPE_MAJOR);
         
         jamieMember = new BandMember();
-        jamieMember.setId("jameiMember");
+        jamieMember.setId("jamieMember");
         jamieMember.setPerson(jamie);
         jamieMember.setType(BandMemberType.PIPER);
         
@@ -545,6 +545,7 @@ public enum TestFixture {
         roster1.setId("roster1");
         roster1.setBand(skye);
         roster1.setVersion(1);
+        roster1.setSeason(2013);
         roster1.getMembers().add(andyMember);
         roster1.getMembers().add(jamieMember);
         
@@ -552,6 +553,7 @@ public enum TestFixture {
         roster2.setId("roster2");
         roster2.setBand(skye);
         roster2.setVersion(2);
+        roster2.setSeason(2013);
         roster2.getMembers().add(andyMember);
         roster2.getMembers().add(jamieMember);
     }

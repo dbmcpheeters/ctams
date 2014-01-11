@@ -54,7 +54,7 @@ public class BandResult implements Serializable {
     @XmlElement(name = "band", required = true)
     private Band band;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name="BandIndividualResultID")
     @XmlIDREF
     @XmlElement(name = "results", required = true)

@@ -7,9 +7,10 @@ package org.wuspba.ctams.model;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wuspba.ctams.util.TestFixture;
 
 /**
@@ -18,7 +19,7 @@ import org.wuspba.ctams.util.TestFixture;
  */
 public class SoloContestEntryTest extends AbstractUnitTest {
 
-    private static final Logger LOG = Logger.getLogger(SoloContestEntryTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SoloContestEntryTest.class);
 
     @Test
     public void testUnmarshal() {

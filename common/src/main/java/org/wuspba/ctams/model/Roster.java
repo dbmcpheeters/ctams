@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Entity
 @Table(name = "Roster")
-@XmlType(propOrder = {"id", "band", "version", "members"})
+@XmlType(propOrder = {"id", "band", "version", "season", "members"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Roster")
 public class Roster implements Serializable {
@@ -48,9 +48,12 @@ public class Roster implements Serializable {
     @Column(name = "VersionID")
     @XmlElement(name = "version", required = true)
     private int version;
+    
+    @Column(name = "Season")
+    @XmlElement(name = "season", required = true)
+    private int season;
 
     @ManyToMany
-    @XmlIDREF
     @XmlElement(name = "members", required = true)
     private final List<BandMember> members = 
             new ArrayList<>();
@@ -117,5 +120,19 @@ public class Roster implements Serializable {
      */
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    /**
+     * @return the season
+     */
+    public int getSeason() {
+        return season;
+    }
+
+    /**
+     * @param season the season to set
+     */
+    public void setSeason(int season) {
+        this.season = season;
     }
 }
