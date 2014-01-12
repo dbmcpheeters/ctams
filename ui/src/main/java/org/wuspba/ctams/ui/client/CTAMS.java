@@ -244,7 +244,7 @@ public class CTAMS implements EntryPoint {
             }
         });
 
-        MenuItem closeAllButCurrent = new MenuItem("Close All But Current");
+        MenuItem closeAllButCurrent = new MenuItem("Close Others");
         closeAllButCurrent.setEnableIfCondition(enableCondition);
         closeAllButCurrent.addClickHandler(new ClickHandler() {
             @Override

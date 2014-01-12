@@ -16,18 +16,18 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class ContestResultsPanel extends VLayout {
     
     public static class Factory implements PanelFactory {
-		private String id;
+        private String id;
 
         @Override
-		public Canvas create() {
-			ContestResultsPanel panel = new ContestResultsPanel();
-			id = panel.getID();
-			return panel;
-		}
+        public Canvas create() {
+            ContestResultsPanel panel = new ContestResultsPanel();
+            id = panel.getID();
+            return panel;
+        }
 
         @Override
-		public String getID() {
-			return id;
-		}
-	}
+        public String getID() {
+            return id;
+        }
+    }
 }

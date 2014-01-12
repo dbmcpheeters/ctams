@@ -31,7 +31,10 @@ public class JPAConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(JPAConfig.class);
 
-    private enum DBType { EMBEDDED, MYSQL }
+    private enum DBType { 
+        EMBEDDED, 
+        MYSQL 
+    }
 
     private DBType type = DBType.EMBEDDED;
 
@@ -60,12 +63,17 @@ public class JPAConfig {
                 try {
                     type = DBType.valueOf(dbTypeIn);
                 } catch(IllegalArgumentException ex) {
-                    LOG.warn("Unknown database type '" + dbTypeIn + "'");
+                    LOG.warn("Unknown database type '" + dbTypeIn + "'", ex);
                     type = DBType.EMBEDDED;
                 }
 
             } catch (IOException ex) {
                 LOG.warn("Could not find configuration file, using defaults.", ex);
+            }
+            try {
+                in.close();
+            } catch (IOException ex) {
+                LOG.error("Could not close configuration file input stream", ex);
             }
         } else {
             LOG.warn("Could not find configuration file, using defaults.");

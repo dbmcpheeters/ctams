@@ -13,21 +13,21 @@ import com.smartgwt.client.widgets.layout.VLayout;
  *
  * @author atrimble
  */
-public class SoloExplorePanel extends VLayout {
+public class JudgeExplorerPanel extends VLayout {
     
     public static class Factory implements PanelFactory {
-		private String id;
+        private String id;
 
         @Override
-		public Canvas create() {
-			SoloExplorePanel panel = new SoloExplorePanel();
-			id = panel.getID();
-			return panel;
-		}
+        public Canvas create() {
+            JudgeExplorerPanel panel = new JudgeExplorerPanel();
+            id = panel.getID();
+            return panel;
+        }
 
         @Override
-		public String getID() {
-			return id;
-		}
-	}
+        public String getID() {
+            return id;
+        }
+    }
 }

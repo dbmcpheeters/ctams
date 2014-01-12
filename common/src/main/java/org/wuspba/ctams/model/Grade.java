@@ -18,5 +18,6 @@ public enum Grade {
     FOUR,
     FIVE,
     AMATEUR,
-    PROFESSIONAL
+    PROFESSIONAL,
+    NON_COMPETITIVE
 }

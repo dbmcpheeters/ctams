@@ -14,14 +14,14 @@ import com.smartgwt.client.widgets.layout.VLayout;
  *
  * @author atrimble
  */
-public class BandRegistrationPanel extends VLayout {
+public class ContestExplorerPanel extends VLayout {
     
     public static class Factory implements PanelFactory {
         private String id;
 
         @Override
         public Canvas create() {
-            BandRegistrationPanel panel = new BandRegistrationPanel();
+            ContestExplorerPanel panel = new ContestExplorerPanel();
             id = panel.getID();
             return panel;
         }
@@ -32,16 +32,10 @@ public class BandRegistrationPanel extends VLayout {
         }
     }
 
-    public BandRegistrationPanel() {
-        init();
-    }
-
-    private void init() {
-
-        Label title = new Label("This is a test");
+    public ContestExplorerPanel() {
+        Label title = new Label("This is a different test");
         title.setStyleName("sgwtTitle");
         title.setWidth(500);
         addMember(title);
-        
     }
 }

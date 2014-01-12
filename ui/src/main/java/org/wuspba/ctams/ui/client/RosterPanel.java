@@ -16,18 +16,18 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class RosterPanel extends VLayout {
     
     public static class Factory implements PanelFactory {
-		private String id;
+        private String id;
 
         @Override
-		public Canvas create() {
-			RosterPanel panel = new RosterPanel();
-			id = panel.getID();
-			return panel;
-		}
+        public Canvas create() {
+            RosterPanel panel = new RosterPanel();
+            id = panel.getID();
+            return panel;
+        }
 
         @Override
-		public String getID() {
-			return id;
-		}
-	}
+        public String getID() {
+            return id;
+        }
+    }
 }

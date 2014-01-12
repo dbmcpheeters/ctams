@@ -44,13 +44,11 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.3.1</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
             <version>4.3</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -70,7 +68,6 @@
             <artifactId>smartgwt</artifactId>
             <version>2.4</version>
         </dependency>
-            
     </dependencies>
     
     <build>

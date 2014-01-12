@@ -414,11 +414,11 @@ public class ITBandController {
         add(TestFixture.INSTANCE.skye);
     }
 
-    protected static void add() throws Exception {
+    public static void add() throws Exception {
         add(TestFixture.INSTANCE.skye);
     }
 
-    protected static void delete() throws Exception {
+    public static void delete() throws Exception {
         String id;
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
