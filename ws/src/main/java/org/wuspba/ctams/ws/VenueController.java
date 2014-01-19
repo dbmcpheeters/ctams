@@ -4,7 +4,7 @@
  */
 package org.wuspba.ctams.ws;
 
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -89,7 +89,7 @@ public class VenueController {
     @ResponseBody
     public CTAMSDocument modifyAddVenues(@RequestBody String xml) {
 
-        CTAMSDocument venues = ControllerUtils.unmarshal(xml);
+        CTAMSDocument venues = XMLUtils.unmarshal(xml);
 
         for(Venue v : venues.getVenues()) {
             if(v.getId() == null || "".equals(v.getId()) || repository.findById(v.getId()).isEmpty()) {

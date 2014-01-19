@@ -5,7 +5,7 @@
 package org.wuspba.ctams.ws;
 
 import java.util.Collections;
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -93,7 +93,7 @@ public class BandContestEntryController {
             ret.getBandContestEntry().add(entry);
         }
 
-        return ControllerUtils.marshal(ret);
+        return XMLUtils.marshal(ret);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
@@ -114,7 +114,7 @@ public class BandContestEntryController {
     @ResponseBody
     public String modifyAddBandContestEntries(@RequestBody String xml) {
 
-        CTAMSDocument doc = ControllerUtils.unmarshal(xml);
+        CTAMSDocument doc = XMLUtils.unmarshal(xml);
 
         for(BandContestEntry e : doc.getBandContestEntry()) {
             if(e.getId() == null || "".equals(e.getId()) || repository.findById(e.getId()).isEmpty()) {
@@ -127,6 +127,6 @@ public class BandContestEntryController {
             repository.save(e);
         }
 
-        return ControllerUtils.marshal(doc);
+        return XMLUtils.marshal(doc);
     }
 }

@@ -5,7 +5,7 @@
 package org.wuspba.ctams.ws;
 
 import java.util.Collections;
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -79,7 +79,7 @@ public class HiredJudgeController {
             ret.getHiredJudges().add(j);
         }
 
-        return ControllerUtils.marshal(ret);
+        return XMLUtils.marshal(ret);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
@@ -100,7 +100,7 @@ public class HiredJudgeController {
     @ResponseBody
     public String modifyAddHiredJudge(@RequestBody String xml) {
 
-        CTAMSDocument doc = ControllerUtils.unmarshal(xml);
+        CTAMSDocument doc = XMLUtils.unmarshal(xml);
 
         for(HiredJudge j : doc.getHiredJudges()) {
             if(j.getId() == null || "".equals(j.getId()) || repository.findById(j.getId()).isEmpty()) {
@@ -113,6 +113,6 @@ public class HiredJudgeController {
             repository.save(j);
         }
 
-        return ControllerUtils.marshal(doc);
+        return XMLUtils.marshal(doc);
     }
 }

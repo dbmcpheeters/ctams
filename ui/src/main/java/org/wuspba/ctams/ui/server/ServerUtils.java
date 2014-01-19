@@ -13,10 +13,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -24,6 +30,8 @@ import org.apache.http.util.EntityUtils;
  */
 public class ServerUtils  {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ServerUtils.class);
+    
     protected static final String PROTOCOL = "http";
     protected static final String HOST = "localhost";
     protected static final int PORT = 8080;
@@ -70,17 +78,55 @@ public class ServerUtils  {
         return buff.toString();
     }
 
-    public static String query(URI uri) throws IOException {
+    public static String get(URI uri) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(uri);
+
         String ret;
 
-        try (CloseableHttpResponse resp = httpclient.execute(httpGet)) {
-            HttpEntity entity = resp.getEntity();
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            HttpEntity entity = response.getEntity();
 
             ret = ServerUtils.convertEntity(entity);
 
             EntityUtils.consume(entity);
+        }
+
+        return ret;
+    }
+
+    public static String post(URI uri, String xml) throws IOException {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(uri);
+        StringEntity xmlEntity = new StringEntity(xml, ContentType.APPLICATION_XML); 
+        
+        String ret;
+
+        httpPost.setEntity(xmlEntity);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
+            HttpEntity entity = response.getEntity();
+
+            ret = convertEntity(entity);
+
+            EntityUtils.consume(entity);
+        }
+
+        return ret;
+    }
+
+    public static String delete(URI uri) throws IOException {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpDelete httpDelete = new HttpDelete(uri);
+
+        String ret;
+
+        try (CloseableHttpResponse response = httpclient.execute(httpDelete)) {
+            HttpEntity responseEntity = response.getEntity();
+
+            ret = convertEntity(responseEntity);
+
+            EntityUtils.consume(responseEntity);
         }
 
         return ret;

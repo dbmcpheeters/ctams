@@ -6,7 +6,7 @@
 package org.wuspba.ctams.ws;
 
 import org.wuspba.ctams.util.IntegrationTestUtils;
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -605,7 +605,7 @@ public class ITPersonController {
         CTAMSDocument doc = new CTAMSDocument();
         doc.getPeople().add(person);
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        String xml = ControllerUtils.marshal(doc);
+        String xml = XMLUtils.marshal(doc);
 
         URI uri = new URIBuilder()
                 .setScheme(PROTOCOL)

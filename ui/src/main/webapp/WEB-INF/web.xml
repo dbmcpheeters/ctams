@@ -5,20 +5,50 @@
 
 <web-app>
 
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>CTAMS.html</welcome-file>
-  </welcome-file-list>
+    <!-- Default page to serve -->
+    <welcome-file-list>
+        <welcome-file>CTAMS.html</welcome-file>
+    </welcome-file-list>
   
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>bandListServlet</servlet-name>
-    <servlet-class>org.wuspba.ctams.ui.server.BandListService</servlet-class>
-  </servlet>
+    <!-- Servlets -->
+    <servlet>
+        <servlet-name>bandListServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.BandListService</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>bandUpdateServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.BandUpdateService</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>bandAddServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.BandAddService</servlet-class>
+    </servlet>
   
-  <servlet-mapping>
-    <servlet-name>bandListServlet</servlet-name>
-    <url-pattern>/bandlist</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>bandDeleteServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.BandDeleteService</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>bandListServlet</servlet-name>
+        <url-pattern>/bandlist</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>bandUpdateServlet</servlet-name>
+        <url-pattern>/bandupdate</url-pattern>
+    </servlet-mapping>
+
+<servlet-mapping>
+        <servlet-name>bandAddServlet</servlet-name>
+        <url-pattern>/bandadd</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>bandDeleteServlet</servlet-name>
+        <url-pattern>/banddelete</url-pattern>
+    </servlet-mapping>
 
 </web-app>

@@ -6,7 +6,7 @@
 package org.wuspba.ctams.ws;
 
 import org.wuspba.ctams.util.IntegrationTestUtils;
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -403,7 +403,7 @@ public class ITJudgeController {
         doc.getPeople().add(j.getPerson());
         doc.getJudgeQualifications().addAll(j.getQualifications());
         doc.getJudges().add(j);
-        String xml = ControllerUtils.marshal(doc);
+        String xml = XMLUtils.marshal(doc);
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
 

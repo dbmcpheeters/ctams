@@ -10,20 +10,24 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wuspba.ctams.model.CTAMSDocument;
+import org.wuspba.ctams.util.XMLUtils;
 
 /**
  * The server side implementation of the RPC service.
  */
-public class BandListService extends HttpServlet {
+public class BandAddService extends HttpServlet {
 
     protected final static String PATH = ServerUtils.URI + "/band";
 
-    private static final Logger LOG = LoggerFactory.getLogger(BandListService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BandAddService.class);
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        LOG.info("Listing Bands");
+        LOG.info("Updating band");
+
+        CTAMSDocument doc = DataUtils.getBand(request);
 
         try {
             
@@ -36,7 +40,7 @@ public class BandListService extends HttpServlet {
             
             LOG.info("Connecting to " + uri.toString());
             
-            String ret = ServerUtils.get(uri);
+            String ret = ServerUtils.post(uri, XMLUtils.marshal(doc));
             
             PrintWriter out = response.getWriter();
             out.println(ret);

@@ -5,7 +5,7 @@
 package org.wuspba.ctams.ws;
 
 import java.util.ArrayList;
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -146,7 +146,7 @@ public class RosterController {
     @ResponseBody 
     public CTAMSDocument modifyAddRoster(@RequestBody String xml) {
 
-        CTAMSDocument rosters = ControllerUtils.unmarshal(xml);
+        CTAMSDocument rosters = XMLUtils.unmarshal(xml);
 
         for(Roster r : rosters.getRosters()) {
             if(r.getId() == null || "".equals(r.getId()) || repository.findById(r.getId()).isEmpty()) {

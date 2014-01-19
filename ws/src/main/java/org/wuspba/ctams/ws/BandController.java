@@ -4,7 +4,7 @@
  */
 package org.wuspba.ctams.ws;
 
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -96,7 +96,7 @@ public class BandController {
     @ResponseBody 
     public CTAMSDocument modifyAddBands(@RequestBody String xml) {
 
-        CTAMSDocument bands = ControllerUtils.unmarshal(xml);
+        CTAMSDocument bands = XMLUtils.unmarshal(xml);
 
         for(Band b : bands.getBands()) {
             if(b.getId() == null || "".equals(b.getId()) || repository.findById(b.getId()).isEmpty()) {

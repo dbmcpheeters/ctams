@@ -126,7 +126,7 @@ public class PopulateData {
                     band.setType(BandType.JUVENILE);
                     break;
                 case "7":
-                    band.setGrade(Grade.AMATEUR);
+                    band.setGrade(Grade.NON_COMPETITIVE);
                     band.setType(BandType.ASSOCIATE);
                     break;
             }
@@ -158,7 +158,7 @@ public class PopulateData {
             doc.getBands().add(band);
         }
 
-        String xml = ControllerUtils.marshal(doc);
+        String xml = XMLUtils.marshal(doc);
 
 
         URI uri = new URIBuilder()

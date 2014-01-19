@@ -6,7 +6,7 @@
 package org.wuspba.ctams.ws;
 
 import org.wuspba.ctams.util.IntegrationTestUtils;
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -447,7 +447,7 @@ public class ITBandContestController {
         doc.getJudges().add(TestFixture.INSTANCE.judgeEoin);
         doc.getBandContests().add(TestFixture.INSTANCE.bandContest);
         
-        String xml = ControllerUtils.marshal(doc);
+        String xml = XMLUtils.marshal(doc);
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
 

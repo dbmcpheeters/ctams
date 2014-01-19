@@ -5,7 +5,7 @@
 package org.wuspba.ctams.ws;
 
 import java.util.ArrayList;
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -94,7 +94,7 @@ public class JudgeQualificationController {
     @ResponseBody
     public CTAMSDocument modifyAddJudgeQualification(@RequestBody String xml) {
 
-        CTAMSDocument quals = ControllerUtils.unmarshal(xml);
+        CTAMSDocument quals = XMLUtils.unmarshal(xml);
 
         for(JudgeQualification q : quals.getJudgeQualifications()) {
             if(q.getId() == null || "".equals(q.getId()) || repository.findById(q.getId()).isEmpty()) {

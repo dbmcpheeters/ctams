@@ -32,7 +32,7 @@ public class IntegrationTestUtils {
             }
         }
 
-        CTAMSDocument doc = ControllerUtils.unmarshal(buff.toString());
+        CTAMSDocument doc = XMLUtils.unmarshal(buff.toString());
 
         return doc;
     }

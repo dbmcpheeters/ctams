@@ -6,7 +6,7 @@ package org.wuspba.ctams.ws;
 
 import java.text.ParseException;
 import java.util.Collections;
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -74,7 +74,7 @@ public class BandRegistrationController {
         } else if(!"".equals(date)) {
             try {
                 LOG.info(date);
-                registrations = repository.findByDate(ControllerUtils.parseDate(date));
+                registrations = repository.findByDate(XMLUtils.parseDate(date));
             } catch (ParseException ex) {
                 LOG.error("Cannot parse date '" + date + "'", ex);
             }
@@ -108,7 +108,7 @@ public class BandRegistrationController {
     @ResponseBody
     public CTAMSDocument modifyAddBandRegistrations(@RequestBody String xml) {
 
-        CTAMSDocument registrations = ControllerUtils.unmarshal(xml);
+        CTAMSDocument registrations = XMLUtils.unmarshal(xml);
 
         for(BandRegistration r : registrations.getBandRegistrations()) {
             if(r.getId() == null || "".equals(r.getId()) || repository.findById(r.getId()).isEmpty()) {

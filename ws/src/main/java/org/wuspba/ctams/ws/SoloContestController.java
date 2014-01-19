@@ -5,7 +5,7 @@
 package org.wuspba.ctams.ws;
 
 import java.util.Collections;
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -117,7 +117,7 @@ public class SoloContestController {
             ret.getSoloContests().add(contest);
         }
 
-        return ControllerUtils.marshal(ret);
+        return XMLUtils.marshal(ret);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
@@ -138,7 +138,7 @@ public class SoloContestController {
     @ResponseBody 
     public String modifyAddSolos(@RequestBody String xml) {
 
-        CTAMSDocument doc = ControllerUtils.unmarshal(xml);
+        CTAMSDocument doc = XMLUtils.unmarshal(xml);
 
         for(SoloContest c : doc.getSoloContests()) {
             if(c.getId() == null || "".equals(c.getId()) || repository.findById(c.getId()).isEmpty()) {
@@ -151,6 +151,6 @@ public class SoloContestController {
             repository.save(c);
         }
 
-        return ControllerUtils.marshal(doc);
+        return XMLUtils.marshal(doc);
     }
 }

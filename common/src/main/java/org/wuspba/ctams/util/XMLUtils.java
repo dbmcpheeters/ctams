@@ -23,13 +23,13 @@ import org.wuspba.ctams.model.CTAMSDocument;
  *
  * @author atrimble
  */
-public class ControllerUtils {
+public class XMLUtils {
     
-    private static final Logger LOG = LoggerFactory.getLogger(ControllerUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XMLUtils.class);
 
     private static final String PARSE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
 
-    private ControllerUtils() {
+    private XMLUtils() {
 
     }
     

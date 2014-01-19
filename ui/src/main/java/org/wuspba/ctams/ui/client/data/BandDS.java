@@ -7,12 +7,12 @@
 package org.wuspba.ctams.ui.client.data;
 
 import com.smartgwt.client.data.DataSource;
+import com.smartgwt.client.data.OperationBinding;
 import com.smartgwt.client.data.fields.DataSourceBooleanField;
 import com.smartgwt.client.data.fields.DataSourceEnumField;
 import com.smartgwt.client.data.fields.DataSourceTextField;
+import com.smartgwt.client.types.DSOperationType;
 import com.smartgwt.client.widgets.form.validator.RegExpValidator;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -21,10 +21,6 @@ import java.util.Map;
 public class BandDS extends DataSource {
 
     private static BandDS instance = null;
-
-    private final Map gradeMap = new HashMap();
-    private final Map branchMap = new HashMap();
-    private final Map typeMap = new HashMap();
 
     public static BandDS getInstance() {
         if (instance == null) {
@@ -35,27 +31,9 @@ public class BandDS extends DataSource {
 
     public BandDS(String id) {
 
-        gradeMap.put("ONE", "1");
-        gradeMap.put("TWO", "2");
-        gradeMap.put("THREE", "3");
-        gradeMap.put("FOUR", "4");
-        gradeMap.put("FIVE", "5");
-        gradeMap.put("AMATEUR", "Amateur");
-        gradeMap.put("PROFESSIONAL", "Professional");
-        gradeMap.put("NON_COMPETITIVE", "Non Competitive");
-        
-        branchMap.put("NORTHERN", "Northern");
-        branchMap.put("INTERMOUNTAIN", "Intermountain");
-        branchMap.put("GREATBASIN", "Great Basin");
-        branchMap.put("SOUTHERN", "Southern");
-        branchMap.put("OTHER", "Other");
-        
-        typeMap.put("COMPETITIVE", "Competitive");
-        typeMap.put("ASSOCIATE", "Associate");
-        typeMap.put("JUVENILE", "Juvenile");
-
         setID(id);
         setRecordXPath("/CTAMS/band");
+
         DataSourceTextField idField = new DataSourceTextField("id");
         idField.setHidden(true);
         idField.setPrimaryKey(true);
@@ -66,27 +44,44 @@ public class BandDS extends DataSource {
         DataSourceTextField stateField = new DataSourceTextField("state", "State", 2, true);
         DataSourceTextField zipField = new DataSourceTextField("zip", "Zipcode", 5, true);
         DataSourceTextField telephoneField = new DataSourceTextField("telephone", "Telephone", 15, true);
-        DataSourceTextField emailField = new DataSourceTextField("email", "email", 128, true);
+        DataSourceTextField emailField = new DataSourceTextField("email", "Email", 128, true);
         DataSourceTextField urlField = new DataSourceTextField("url", "URL", 128, true);
         DataSourceEnumField gradeField = new DataSourceEnumField("grade", "Grade", 10, true);
         DataSourceEnumField branchField = new DataSourceEnumField("branch", "Branch", 32, true);
         DataSourceBooleanField dissolvedField = new DataSourceBooleanField("dissolved", "Dissolved", 2, true);
         DataSourceEnumField typeField = new DataSourceEnumField("type", "Type", 32, true);
 
-        gradeField.setValueMap(gradeMap);
-        branchField.setValueMap(branchMap);
-        typeField.setValueMap(typeMap);
+        nameField.setRequired(true);
+        addressField.setRequired(true);
+        cityField.setRequired(true);
+        stateField.setRequired(true);
+        zipField.setRequired(true);
+        telephoneField.setRequired(false);
+        emailField.setRequired(false);
+        urlField.setRequired(false);
+        gradeField.setRequired(true);
+        branchField.setRequired(true);
+        dissolvedField.setRequired(false);
+        typeField.setRequired(true);
 
-        RegExpValidator emailValidator = new RegExpValidator();  
-        emailValidator.setErrorMessage("Invalid email address");  
-        emailValidator.setExpression("^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,4}$");  
-        emailField.setValidators(emailValidator); 
+        gradeField.setValueMap(ClientUtils.INSTANCE.getGradeMap());
+        branchField.setValueMap(ClientUtils.INSTANCE.getBranchMap());
+        typeField.setValueMap(ClientUtils.INSTANCE.getTypeMap());
+
+//        RegExpValidator emailValidator = new RegExpValidator();  
+//        emailValidator.setErrorMessage("Invalid email address");  
+//        emailValidator.setExpression("^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,4}$");  
+//        emailField.setValidators(emailValidator); 
 
         setFields(idField, nameField, addressField, cityField, stateField, 
                 zipField, telephoneField, emailField, urlField, gradeField, 
                 branchField, dissolvedField, typeField);
         
-        setDataURL("/bandlist");
+        setOperationBindings(
+                new OperationBinding(DSOperationType.ADD, "/bandadd"),
+                new OperationBinding(DSOperationType.FETCH, "/bandlist"),
+                new OperationBinding(DSOperationType.UPDATE, "/bandupdate"),
+                new OperationBinding(DSOperationType.REMOVE, "/banddelete"));
 
     }
 }

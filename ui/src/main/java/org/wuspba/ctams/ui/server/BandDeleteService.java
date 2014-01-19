@@ -14,16 +14,18 @@ import org.slf4j.LoggerFactory;
 /**
  * The server side implementation of the RPC service.
  */
-public class BandListService extends HttpServlet {
+public class BandDeleteService extends HttpServlet {
 
     protected final static String PATH = ServerUtils.URI + "/band";
 
-    private static final Logger LOG = LoggerFactory.getLogger(BandListService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BandDeleteService.class);
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        LOG.info("Listing Bands");
+        LOG.info("Deleting band");
+
+        String id = request.getParameter("id");
 
         try {
             
@@ -32,11 +34,12 @@ public class BandListService extends HttpServlet {
                     .setHost(ServerUtils.HOST)
                     .setPort(ServerUtils.PORT)
                     .setPath(PATH)
+                    .setParameter("id", id)
                     .build();
             
             LOG.info("Connecting to " + uri.toString());
             
-            String ret = ServerUtils.get(uri);
+            String ret = ServerUtils.delete(uri);
             
             PrintWriter out = response.getWriter();
             out.println(ret);

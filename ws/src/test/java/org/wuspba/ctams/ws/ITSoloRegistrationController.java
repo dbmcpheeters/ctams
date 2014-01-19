@@ -6,7 +6,7 @@
 package org.wuspba.ctams.ws;
 
 import org.wuspba.ctams.util.IntegrationTestUtils;
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -218,7 +218,7 @@ public class ITSoloRegistrationController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("date", ControllerUtils.toString(goodTime.getTime()))
+                .setParameter("date", XMLUtils.toString(goodTime.getTime()))
                 .build();
 
         HttpGet httpGet = new HttpGet(uri);
@@ -241,7 +241,7 @@ public class ITSoloRegistrationController {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH)
-                .setParameter("date", ControllerUtils.toString(badTime.getTime()))
+                .setParameter("date", XMLUtils.toString(badTime.getTime()))
                 .build();
 
         httpGet = new HttpGet(uri);
@@ -347,7 +347,7 @@ public class ITSoloRegistrationController {
         doc.getPeople().add(TestFixture.INSTANCE.elaine);
         doc.getSoloRegistrations().add(TestFixture.INSTANCE.soloRegistration);
         
-        String xml = ControllerUtils.marshal(doc);
+        String xml = XMLUtils.marshal(doc);
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
 

@@ -6,7 +6,7 @@
 package org.wuspba.ctams.ws;
 
 import org.wuspba.ctams.util.IntegrationTestUtils;
-import org.wuspba.ctams.util.ControllerUtils;
+import org.wuspba.ctams.util.XMLUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -282,7 +282,7 @@ public class ITVenueController {
     protected static void add() throws Exception {
         CTAMSDocument doc = new CTAMSDocument();
         doc.getVenues().add(TestFixture.INSTANCE.venue);
-        String xml = ControllerUtils.marshal(doc);
+        String xml = XMLUtils.marshal(doc);
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
