@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,33 +16,33 @@ import org.slf4j.LoggerFactory;
 /**
  * The server side implementation of the RPC service.
  */
-public class BandDeleteService extends HttpServlet {
+public class ListService extends HttpServlet {
 
-    protected final static String PATH = ServerUtils.URI + "/band";
+    protected String path;
 
-    private static final Logger LOG = LoggerFactory.getLogger(BandDeleteService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ListService.class);
+
+    @Override
+    public void init(ServletConfig servletConfig) throws ServletException {
+        this.path = ServerUtils.URI + servletConfig.getInitParameter("uri");
+    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        LOG.info("Deleting band");
-
-        String id = request.getParameter("id");
-
         try {
-            
+
             URI uri = new URIBuilder()
                     .setScheme(ServerUtils.PROTOCOL)
                     .setHost(ServerUtils.HOST)
                     .setPort(ServerUtils.PORT)
-                    .setPath(PATH)
-                    .setParameter("id", id)
+                    .setPath(path)
                     .build();
-            
+
             LOG.info("Connecting to " + uri.toString());
-            
-            String ret = ServerUtils.delete(uri);
-            
+
+            String ret = ServerUtils.get(uri);
+
             PrintWriter out = response.getWriter();
             out.println(ret);
         } catch (URISyntaxException ex) {

@@ -12,7 +12,6 @@ import com.smartgwt.client.data.fields.DataSourceBooleanField;
 import com.smartgwt.client.data.fields.DataSourceEnumField;
 import com.smartgwt.client.data.fields.DataSourceTextField;
 import com.smartgwt.client.types.DSOperationType;
-import com.smartgwt.client.widgets.form.validator.RegExpValidator;
 
 /**
  *
@@ -46,7 +45,7 @@ public class BandDS extends DataSource {
         DataSourceTextField telephoneField = new DataSourceTextField("telephone", "Telephone", 15, true);
         DataSourceTextField emailField = new DataSourceTextField("email", "Email", 128, true);
         DataSourceTextField urlField = new DataSourceTextField("url", "URL", 128, true);
-        DataSourceEnumField gradeField = new DataSourceEnumField("grade", "Grade", 10, true);
+        DataSourceEnumField gradeField = new DataSourceEnumField("grade", "Grade", 15, true);
         DataSourceEnumField branchField = new DataSourceEnumField("branch", "Branch", 32, true);
         DataSourceBooleanField dissolvedField = new DataSourceBooleanField("dissolved", "Dissolved", 2, true);
         DataSourceEnumField typeField = new DataSourceEnumField("type", "Type", 32, true);
@@ -67,11 +66,6 @@ public class BandDS extends DataSource {
         gradeField.setValueMap(ClientUtils.INSTANCE.getGradeMap());
         branchField.setValueMap(ClientUtils.INSTANCE.getBranchMap());
         typeField.setValueMap(ClientUtils.INSTANCE.getTypeMap());
-
-//        RegExpValidator emailValidator = new RegExpValidator();  
-//        emailValidator.setErrorMessage("Invalid email address");  
-//        emailValidator.setExpression("^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,4}$");  
-//        emailField.setValidators(emailValidator); 
 
         setFields(idField, nameField, addressField, cityField, stateField, 
                 zipField, telephoneField, emailField, urlField, gradeField, 

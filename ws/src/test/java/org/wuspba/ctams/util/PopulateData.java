@@ -30,6 +30,7 @@ import org.wuspba.ctams.model.BandType;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Grade;
+import org.wuspba.ctams.model.Person;
 
 /**
  *
@@ -65,7 +66,12 @@ public class PopulateData {
 
             statement = connect.createStatement();
             resultSet = statement.executeQuery("select * from Band");
-            writeResultSet(resultSet);
+            writeBandResultSet(resultSet);
+            resultSet.close();
+
+            statement = connect.createStatement();
+            resultSet = statement.executeQuery("select * from Person");
+            writePeopleResultSet(resultSet);
 
         } catch (ClassNotFoundException | SQLException e) {
             throw e;
@@ -75,7 +81,7 @@ public class PopulateData {
 
     }
 
-    private void writeResultSet(ResultSet resultSet) throws SQLException, URISyntaxException {
+    private void writeBandResultSet(ResultSet resultSet) throws SQLException, URISyntaxException {
         CTAMSDocument doc = new CTAMSDocument();
 
         while (resultSet.next()) {
@@ -166,6 +172,85 @@ public class PopulateData {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH + "/band")
+                .build();
+        
+        send(xml, uri);
+    }
+
+    private void writePeopleResultSet(ResultSet resultSet) throws SQLException, URISyntaxException {
+        CTAMSDocument doc = new CTAMSDocument();
+
+        while (resultSet.next()) {
+            String title = resultSet.getString("Title");
+            String firstName = resultSet.getString("FirstName");
+            String middleName = resultSet.getString("MiddleName");
+            String nickName = resultSet.getString("Nickname");
+            String lastName = resultSet.getString("LastName");
+            String suffix = resultSet.getString("Suffix");
+            String address = resultSet.getString("Address");
+            String city = resultSet.getString("City");
+            String state = resultSet.getString("State");
+            String zip = resultSet.getString("Zip");
+            String telephone = resultSet.getString("Phone");
+            String email = resultSet.getString("Email");
+            String notes = resultSet.getString("Notes");
+            String lifeMember = resultSet.getString("LifeMember");
+            String branch = resultSet.getString("BranchID");
+
+            Person person = new Person();
+            person.setTitle(title);
+            person.setFirstName(firstName);
+            person.setMiddleName(middleName);
+            person.setNickName(nickName);
+            person.setLastName(lastName);
+            person.setSuffix(suffix);
+            person.setAddress(address);
+            person.setCity(city);
+            person.setState(state);
+            person.setZip(zip);
+            person.setPhone(telephone);
+            person.setEmail(email);
+            person.setNotes(notes);
+
+            if(lifeMember == null) {
+                person.setLifeMember(false);
+            } else {
+                person.setLifeMember(true);
+            }
+
+            if(branch != null) {
+                switch (branch) {
+                    case "1":
+                        person.setBranch(Branch.NORTHERN);
+                        break;
+                    case "2":
+                        person.setBranch(Branch.INTERMOUNTAIN);
+                        break;
+                    case "3":
+                        person.setBranch(Branch.GREATBASIN);
+                        break;
+                    case "4":
+                        person.setBranch(Branch.SOUTHERN);
+                        break;
+                    case "5":
+                        person.setBranch(Branch.OTHER);
+                        break;
+                }
+            } else {
+                person.setBranch(Branch.OTHER);
+            }
+
+            doc.getPeople().add(person);
+        }
+
+        String xml = XMLUtils.marshal(doc);
+
+
+        URI uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH + "/person")
                 .build();
         
         send(xml, uri);

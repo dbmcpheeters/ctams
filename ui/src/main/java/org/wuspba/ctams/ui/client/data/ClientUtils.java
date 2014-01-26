@@ -17,6 +17,7 @@ public enum ClientUtils  {
     private final HashMap gradeMap = new HashMap();
     private final HashMap branchMap = new HashMap();
     private final HashMap typeMap = new HashMap();
+    private final HashMap titleMap = new HashMap();
 
     private ClientUtils() {
         
@@ -38,6 +39,9 @@ public enum ClientUtils  {
         typeMap.put("COMPETITIVE", "Competitive");
         typeMap.put("ASSOCIATE", "Associate");
         typeMap.put("JUVENILE", "Juvenile");
+
+        titleMap.put("MR", "Mr.");
+        titleMap.put("MRS", "Mrs.");
     }
 
     /**
@@ -59,5 +63,12 @@ public enum ClientUtils  {
      */
     public HashMap getTypeMap() {
         return typeMap;
+    }
+
+    /**
+     * @return the titleMap
+     */
+    public HashMap getTitleMap() {
+        return titleMap;
     }
 }

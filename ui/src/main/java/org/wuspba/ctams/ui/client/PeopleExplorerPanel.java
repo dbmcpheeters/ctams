@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package org.wuspba.ctams.ui.client;
 
 import com.smartgwt.client.data.DSCallback;
@@ -30,21 +31,20 @@ import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
 import com.smartgwt.client.widgets.grid.events.RecordClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
-import org.wuspba.ctams.ui.client.data.BandDS;
+import org.wuspba.ctams.ui.client.data.PersonDS;
 
 /**
  *
  * @author atrimble
  */
-public class BandExplorerPanel extends VLayout {
-
+public class PeopleExplorerPanel extends VLayout {
+    
     public static class Factory implements PanelFactory {
-
         private String id;
 
         @Override
         public Canvas create() {
-            BandExplorerPanel panel = new BandExplorerPanel();
+            PeopleExplorerPanel panel = new PeopleExplorerPanel();
             id = panel.getID();
             return panel;
         }
@@ -55,39 +55,38 @@ public class BandExplorerPanel extends VLayout {
         }
     }
 
-    public BandExplorerPanel() {
+    public PeopleExplorerPanel() {
         init();
     }
 
     private void init() {
 
-        final BandDS bandDS = new BandDS(SC.generateID());
+        final PersonDS personDS = new PersonDS(SC.generateID());
 
-        final ListGrid bandGrid = new ListGrid();
-        bandGrid.setWidth100();
-        bandGrid.setHeight100();
-        bandGrid.setAutoFetchData(true);
-        bandGrid.setShowFilterEditor(true);
-        bandGrid.setFilterOnKeypress(true);
-        bandGrid.setAutoFitFieldWidths(true);
-        bandGrid.setFetchDelay(100);
-        bandGrid.setDataSource(bandDS);
+        final ListGrid personGrid = new ListGrid();
+        personGrid.setWidth100();
+        personGrid.setHeight100();
+        personGrid.setAutoFetchData(true);
+        personGrid.setShowFilterEditor(true);
+        personGrid.setFilterOnKeypress(true);
+        personGrid.setAutoFitFieldWidths(true);
+        personGrid.setFetchDelay(100);
+        personGrid.setDataSource(personDS);
 
-        ListGridField nameListField = new ListGridField("name", 100);
+        ListGridField firstNameListField = new ListGridField("firstName", 100);
+        ListGridField lastNameListField = new ListGridField("lastName", 100);
         ListGridField cityListField = new ListGridField("city", 100);
         ListGridField stateListField = new ListGridField("state", 150);
-        ListGridField gradeListField = new ListGridField("grade", 250);
         ListGridField branchListField = new ListGridField("branch", 100);
-        ListGridField typeListField = new ListGridField("type", 100);
 
-        bandGrid.setFields(nameListField, cityListField, stateListField,
-                gradeListField, branchListField, typeListField);
+        personGrid.setFields(firstNameListField, lastNameListField, 
+                cityListField, stateListField, branchListField);
 
         HeaderItem header = new HeaderItem();
         header.setDefaultValue("Details");
 
         final DynamicForm form = new DynamicForm();
-        form.setDataSource(bandDS);
+        form.setDataSource(personDS);
         form.setUseAllDataSourceFields(true);
         form.setNumCols(4);
         form.setMargin(10);
@@ -96,11 +95,11 @@ public class BandExplorerPanel extends VLayout {
         form.setHeight100();
         form.setBrowserSpellCheck(true);
 
-        bandGrid.addRecordClickHandler(new RecordClickHandler() {
+        personGrid.addRecordClickHandler(new RecordClickHandler() {
             @Override
             public void onRecordClick(RecordClickEvent event) {
                 form.reset();
-                form.editSelectedData(bandGrid);
+                form.editSelectedData(personGrid);
             }
         });
 
@@ -109,7 +108,7 @@ public class BandExplorerPanel extends VLayout {
             @Override
             public void onClick(ClickEvent event) {
                 final DynamicForm addForm = new DynamicForm();
-                addForm.setDataSource(bandDS);
+                addForm.setDataSource(personDS);
                 addForm.setUseAllDataSourceFields(true);
                 addForm.setAutoFetchData(false);
                 addForm.setNumCols(4);
@@ -120,8 +119,8 @@ public class BandExplorerPanel extends VLayout {
         
                 final Window winModal = new Window();
                 winModal.setWidth(550);
-                winModal.setHeight(250);
-                winModal.setTitle("Add New Band");
+                winModal.setHeight(350);
+                winModal.setTitle("Add New Person");
                 winModal.setShowMinimizeButton(false);
                 winModal.setIsModal(true);
                 winModal.setShowModalMask(true);
@@ -191,12 +190,13 @@ public class BandExplorerPanel extends VLayout {
         deleteButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                final String name = bandGrid.getSelectedRecord().getAttributeAsString("name");
-                SC.confirm("Are you sure you want to delete '" + name + "'? This operation cannot be undone.", new BooleanCallback() {  
+                final String firstName = personGrid.getSelectedRecord().getAttributeAsString("firstName");
+                final String lastName = personGrid.getSelectedRecord().getAttributeAsString("firstName");
+                SC.confirm("Are you sure you want to delete '" + firstName + " " + lastName + "'? This operation cannot be undone.", new BooleanCallback() {  
                     @Override
                     public void execute(Boolean value) {  
                         if (value != null && value) {  
-                            bandGrid.removeSelectedData();
+                            personGrid.removeSelectedData();
                             form.clearValues();
                         }
                     }  
@@ -243,8 +243,7 @@ public class BandExplorerPanel extends VLayout {
         setLayoutAlign(Alignment.CENTER);
         setAlign(Alignment.CENTER);
 
-        addMember(bandGrid);
+        addMember(personGrid);
         addMember(bottom);
     }
-
 }

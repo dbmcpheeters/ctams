@@ -4,30 +4,33 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wuspba.ctams.model.CTAMSDocument;
-import org.wuspba.ctams.util.XMLUtils;
 
 /**
  * The server side implementation of the RPC service.
  */
-public class BandAddService extends HttpServlet {
+public class DeleteService extends HttpServlet {
 
-    protected final static String PATH = ServerUtils.URI + "/band";
+    protected String path;
 
-    private static final Logger LOG = LoggerFactory.getLogger(BandAddService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeleteService.class);
+
+    @Override
+    public void init(ServletConfig servletConfig) throws ServletException {
+        this.path = ServerUtils.URI + servletConfig.getInitParameter("uri");
+    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        LOG.info("Updating band");
-
-        CTAMSDocument doc = DataUtils.getBand(request);
+        String id = request.getParameter("id");
 
         try {
             
@@ -35,12 +38,13 @@ public class BandAddService extends HttpServlet {
                     .setScheme(ServerUtils.PROTOCOL)
                     .setHost(ServerUtils.HOST)
                     .setPort(ServerUtils.PORT)
-                    .setPath(PATH)
+                    .setPath(path)
+                    .setParameter("id", id)
                     .build();
             
             LOG.info("Connecting to " + uri.toString());
             
-            String ret = ServerUtils.post(uri, XMLUtils.marshal(doc));
+            String ret = ServerUtils.delete(uri);
             
             PrintWriter out = response.getWriter();
             out.println(ret);

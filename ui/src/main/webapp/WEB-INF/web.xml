@@ -11,26 +11,104 @@
     </welcome-file-list>
   
     <!-- Servlets -->
+    
+
     <servlet>
         <servlet-name>bandListServlet</servlet-name>
-        <servlet-class>org.wuspba.ctams.ui.server.BandListService</servlet-class>
+        <servlet-class>org.wuspba.ctams.ui.server.ListService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/band</param-value>
+        </init-param>
     </servlet>
 
     <servlet>
         <servlet-name>bandUpdateServlet</servlet-name>
-        <servlet-class>org.wuspba.ctams.ui.server.BandUpdateService</servlet-class>
+        <servlet-class>org.wuspba.ctams.ui.server.UpdateService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/band</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.Band</param-value>
+        </init-param>
     </servlet>
 
     <servlet>
         <servlet-name>bandAddServlet</servlet-name>
-        <servlet-class>org.wuspba.ctams.ui.server.BandAddService</servlet-class>
+        <servlet-class>org.wuspba.ctams.ui.server.AddService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/band</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.Band</param-value>
+        </init-param>
     </servlet>
-  
+    
     <servlet>
         <servlet-name>bandDeleteServlet</servlet-name>
-        <servlet-class>org.wuspba.ctams.ui.server.BandDeleteService</servlet-class>
+        <servlet-class>org.wuspba.ctams.ui.server.DeleteService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/band</param-value>
+        </init-param>
     </servlet>
 
+    <servlet>
+        <servlet-name>personListServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.ListService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/person</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>personUpdateServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.UpdateService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/person</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.Person</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>personAddServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.AddService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/person</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.Person</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>personDeleteServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.DeleteService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/person</param-value>
+        </init-param>
+    </servlet>
+  
     <servlet-mapping>
         <servlet-name>bandListServlet</servlet-name>
         <url-pattern>/bandlist</url-pattern>
@@ -41,7 +119,7 @@
         <url-pattern>/bandupdate</url-pattern>
     </servlet-mapping>
 
-<servlet-mapping>
+    <servlet-mapping>
         <servlet-name>bandAddServlet</servlet-name>
         <url-pattern>/bandadd</url-pattern>
     </servlet-mapping>
@@ -49,6 +127,26 @@
     <servlet-mapping>
         <servlet-name>bandDeleteServlet</servlet-name>
         <url-pattern>/banddelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>personListServlet</servlet-name>
+        <url-pattern>/personlist</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>personUpdateServlet</servlet-name>
+        <url-pattern>/personupdate</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>personAddServlet</servlet-name>
+        <url-pattern>/personadd</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>personDeleteServlet</servlet-name>
+        <url-pattern>/persondelete</url-pattern>
     </servlet-mapping>
 
 </web-app>
