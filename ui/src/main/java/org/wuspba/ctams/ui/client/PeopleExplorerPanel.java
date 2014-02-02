@@ -18,8 +18,8 @@ import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.Window;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.events.CloseClickEvent;
 import com.smartgwt.client.widgets.events.CloseClickHandler;
-import com.smartgwt.client.widgets.events.CloseClientEvent;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.CheckboxItem;
 import com.smartgwt.client.widgets.form.fields.HeaderItem;
@@ -64,7 +64,7 @@ public class PeopleExplorerPanel extends VLayout {
         final PersonDS personDS = new PersonDS(SC.generateID());
 
         final ListGrid personGrid = new ListGrid();
-        personGrid.setWidth100();
+        personGrid.setWidth(720);
         personGrid.setHeight100();
         personGrid.setAutoFetchData(true);
         personGrid.setShowFilterEditor(true);
@@ -79,7 +79,7 @@ public class PeopleExplorerPanel extends VLayout {
         ListGridField stateListField = new ListGridField("state", 150);
         ListGridField branchListField = new ListGridField("branch", 100);
 
-        personGrid.setFields(firstNameListField, lastNameListField, 
+        personGrid.setFields(lastNameListField, firstNameListField, 
                 cityListField, stateListField, branchListField);
 
         HeaderItem header = new HeaderItem();
@@ -129,7 +129,7 @@ public class PeopleExplorerPanel extends VLayout {
                 winModal.setAlign(Alignment.CENTER);
                 winModal.addCloseClickHandler(new CloseClickHandler() {
                     @Override
-                    public void onCloseClick(CloseClientEvent event) {
+                    public void onCloseClick(CloseClickEvent event) {
                         winModal.destroy();
                     }
                 });

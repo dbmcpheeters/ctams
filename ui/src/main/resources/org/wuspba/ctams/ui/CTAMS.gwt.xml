@@ -6,6 +6,8 @@
 
   <inherits name="com.smartgwt.SmartGwt"/>
 
+  <inherits name="com.smartgwt.tools.SmartGwtTools"/>
+
   <entry-point class='org.wuspba.ctams.ui.client.CTAMS'/>
 
 </module>

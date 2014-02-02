@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Enumeration;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,12 +33,25 @@ public class ListService extends HttpServlet {
 
         try {
 
-            URI uri = new URIBuilder()
+            URIBuilder builder = new URIBuilder()
                     .setScheme(ServerUtils.PROTOCOL)
                     .setHost(ServerUtils.HOST)
                     .setPort(ServerUtils.PORT)
-                    .setPath(path)
-                    .build();
+                    .setPath(path);
+
+            Enumeration attrs = request.getAttributeNames();
+            while(attrs.hasMoreElements()) {
+                Object attr = attrs.nextElement();
+                builder.addParameter(attr.toString(), request.getAttribute(attr.toString()).toString());
+            }
+
+            Enumeration parameters = request.getParameterNames();
+            while(parameters.hasMoreElements()) {
+                Object param = parameters.nextElement();
+                builder.addParameter(param.toString(), request.getParameter(param.toString()).toString());
+            }
+
+            URI uri = builder.build();
 
             LOG.info("Connecting to " + uri.toString());
 

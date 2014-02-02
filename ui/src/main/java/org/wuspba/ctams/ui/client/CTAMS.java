@@ -4,7 +4,9 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.History;
 import com.smartgwt.client.core.KeyIdentifier;
 import com.smartgwt.client.types.TabBarControls;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.Label;
@@ -144,6 +146,15 @@ public class CTAMS implements EntryPoint {
         topBar.addMember(title);
 
         topBar.addFill();
+        
+        IButton devConsole = new IButton("Developer's Console");
+        devConsole.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                SC.showConsole();
+            }
+        });
+        topBar.addMember(devConsole);
 
         contentLayout.addMember(sideNavLayout);
         contentLayout.addMember(forms);

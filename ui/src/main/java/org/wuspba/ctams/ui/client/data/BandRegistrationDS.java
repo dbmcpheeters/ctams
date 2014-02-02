@@ -44,6 +44,8 @@ public class BandRegistrationDS extends DataSource {
         DataSourceDateField startField = new DataSourceDateField("start", "Registration Date", 128, true);
         DataSourceDateField endField = new DataSourceDateField("end", "Expiration", 2, true);
 
+        bandField.setValueXPath("band/name");
+
         bandField.setRequired(true);
         seasonField.setRequired(true);
         gradeField.setRequired(true);

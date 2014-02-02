@@ -20,7 +20,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -43,7 +42,6 @@ public class BandRegistration implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "BandID")
-    @XmlIDREF
     @XmlElement(name = "band", required = true)
     private Band band;
 
@@ -53,7 +51,7 @@ public class BandRegistration implements Serializable {
     private Grade grade;
 
     @Column(name = "SeasonID")
-    @XmlElement(name = "seaon", required = true)
+    @XmlElement(name = "season", required = true)
     private int season;
 
     @Column(name = "StartDate")

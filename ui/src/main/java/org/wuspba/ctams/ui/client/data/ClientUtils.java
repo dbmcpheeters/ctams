@@ -5,7 +5,7 @@
  */
 package org.wuspba.ctams.ui.client.data;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -14,10 +14,10 @@ import java.util.HashMap;
 public enum ClientUtils  {
     INSTANCE;
 
-    private final HashMap gradeMap = new HashMap();
-    private final HashMap branchMap = new HashMap();
-    private final HashMap typeMap = new HashMap();
-    private final HashMap titleMap = new HashMap();
+    private final LinkedHashMap gradeMap = new LinkedHashMap();
+    private final LinkedHashMap branchMap = new LinkedHashMap();
+    private final LinkedHashMap typeMap = new LinkedHashMap();
+    private final LinkedHashMap titleMap = new LinkedHashMap();
 
     private ClientUtils() {
         
@@ -47,28 +47,28 @@ public enum ClientUtils  {
     /**
      * @return the gradeMap
      */
-    public HashMap getGradeMap() {
+    public LinkedHashMap getGradeMap() {
         return gradeMap;
     }
 
     /**
      * @return the branchMap
      */
-    public HashMap getBranchMap() {
+    public LinkedHashMap getBranchMap() {
         return branchMap;
     }
 
     /**
      * @return the typeMap
      */
-    public HashMap getTypeMap() {
+    public LinkedHashMap getTypeMap() {
         return typeMap;
     }
 
     /**
      * @return the titleMap
      */
-    public HashMap getTitleMap() {
+    public LinkedHashMap getTitleMap() {
         return titleMap;
     }
 }

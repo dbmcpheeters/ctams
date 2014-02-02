@@ -14,8 +14,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
@@ -26,6 +30,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wuspba.ctams.model.Band;
+import org.wuspba.ctams.model.BandRegistration;
 import org.wuspba.ctams.model.BandType;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
@@ -51,11 +56,10 @@ public class PopulateData {
     public static void main(String[] args) throws Exception {
         System.setProperty("ctams.port", "8080");
         System.setProperty("ctams.uri", "/ctams");
-        //ITBandController.add();
-        new PopulateData().loadBands();
+        new PopulateData().loadData();
     }
 
-    public void loadBands() throws Exception {
+    public void loadData() throws Exception {
         try {
             // This will load the MySQL driver, each DB has its own driver
             Class.forName("com.mysql.jdbc.Driver");
@@ -72,6 +76,33 @@ public class PopulateData {
             statement = connect.createStatement();
             resultSet = statement.executeQuery("select * from Person");
             writePeopleResultSet(resultSet);
+
+            URI uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH + "/band")
+                .build();
+
+            URI regUri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH + "/bandregistration")
+                .build();
+
+            CTAMSDocument bands = list(uri, new HashMap<String, String>());
+
+            for(Band band : bands.getBands()) {
+                BandRegistration reg = new BandRegistration();
+                reg.setBand(band);
+                reg.setEnd(new Date(new Date().getTime()));
+                reg.setStart(new Date(new Date().getTime()));
+                reg.setSeason((int)(Math.random() * (2015 - 2009) + 2009));
+                reg.setGrade(Grade.values()[(int)(Math.random() * Grade.values().length)]);
+                bands.getBandRegistrations().add(reg);
+            }
+            send(XMLUtils.marshal(bands), regUri);
 
         } catch (ClassNotFoundException | SQLException e) {
             throw e;
@@ -305,5 +336,52 @@ public class PopulateData {
                 }
             }
         }
+    }
+
+    public CTAMSDocument list(URI uri, Map<String, String> parameters) {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        URIBuilder builder = new URIBuilder(uri);
+
+        for(String key : parameters.keySet()) {
+            builder.setParameter(key, parameters.get(key));
+        }
+        try {
+            uri = builder.build();
+        } catch (URISyntaxException ex) {
+            LOG.error("Invalid URI", ex);
+        }
+
+        HttpGet httpGet = new HttpGet(uri);
+
+        CloseableHttpResponse response = null;
+        CTAMSDocument doc;
+
+        try {
+            response = httpclient.execute(httpGet);
+
+            HttpEntity entity = response.getEntity();
+
+            doc = IntegrationTestUtils.convertEntity(entity);
+
+            EntityUtils.consume(entity);
+
+        } catch(UnsupportedEncodingException ex) {
+            LOG.error("Unsupported coding", ex);
+            doc = new CTAMSDocument();
+        } catch(IOException ioex) {
+            LOG.error("IOException", ioex);
+            doc = new CTAMSDocument();
+        } finally {
+            if(response != null) {
+                try {
+                    response.close();
+                } catch (IOException ex) {
+                    LOG.error("Could not close response", ex);
+                }
+            }
+        }
+        
+        return doc;
     }
 }

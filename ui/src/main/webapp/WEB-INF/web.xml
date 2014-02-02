@@ -62,6 +62,54 @@
     </servlet>
 
     <servlet>
+        <servlet-name>bandRegistrationListServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.ListService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/bandregistration</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>bandRegistrationUpdateServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.UpdateService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/bandregistration</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.BandRegistration</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>bandRegistrationAddServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.AddService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/bandregistration</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.BandRegistration</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>bandRegistrationDeleteServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.DeleteService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/bandregistration</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
         <servlet-name>personListServlet</servlet-name>
         <servlet-class>org.wuspba.ctams.ui.server.ListService</servlet-class>
 
@@ -127,6 +175,26 @@
     <servlet-mapping>
         <servlet-name>bandDeleteServlet</servlet-name>
         <url-pattern>/banddelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>bandRegistrationListServlet</servlet-name>
+        <url-pattern>/bandregistrationlist</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>bandRegistrationUpdateServlet</servlet-name>
+        <url-pattern>/bandregistrationupdate</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>bandRegistrationAddServlet</servlet-name>
+        <url-pattern>/bandregistrationadd</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>bandRegistrationDeleteServlet</servlet-name>
+        <url-pattern>/bandregistrationdelete</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
