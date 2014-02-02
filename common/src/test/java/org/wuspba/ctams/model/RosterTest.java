@@ -48,7 +48,7 @@ public class RosterTest extends AbstractUnitTest {
 
     private void testEquality(Roster r1, Roster r2) {
         assertEquals(r1.getId(), r2.getId());
-        assertEquals(r1.getBand(), r2.getBand());
+        assertEquals(r1.getRegistration(), r2.getRegistration());
         assertEquals(r1.getSeason(), r2.getSeason());
         assertEquals(r1.getVersion(), r2.getVersion());
         assertEquals(r1.getMembers().size(), r2.getMembers().size());

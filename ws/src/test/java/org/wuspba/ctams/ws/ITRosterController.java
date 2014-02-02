@@ -497,7 +497,7 @@ public class ITRosterController {
     }
 
     protected static void add() throws Exception {
-        ITBandController.add();
+        ITBandRegistrationController.add();
         ITBandMemberController.add();
 
         add(TestFixture.INSTANCE.roster1);
@@ -570,17 +570,17 @@ public class ITRosterController {
             }
         }
 
+        ITBandRegistrationController.delete();
         ITBandMemberController.delete();
-        ITBandController.delete();
     }
 
     private static void add(Roster roster) throws Exception {
         CTAMSDocument doc = new CTAMSDocument();
-        for(BandMember m : roster.getMembers()) {
-            doc.getBandMembers().add(m);
-            doc.getPeople().add(m.getPerson());
-        }
-        doc.getBands().add(roster.getBand());
+//        for(BandMember m : roster.getMembers()) {
+//            doc.getBandMembers().add(m);
+//            doc.getPeople().add(m.getPerson());
+//        }
+//        doc.getBands().add(roster.getBand());
         doc.getRosters().add(roster);
         String xml = XMLUtils.marshal(doc);
         
@@ -629,7 +629,7 @@ public class ITRosterController {
 
     private void testEquality(Roster r1, Roster r2) {
         assertEquals(r1.getId(), r2.getId());
-        assertEquals(r1.getBand(), r2.getBand());
+        assertEquals(r1.getRegistration(), r2.getRegistration());
         assertEquals(r1.getSeason(), r2.getSeason());
         assertEquals(r1.getVersion(), r2.getVersion());
         assertEquals(r1.getMembers().size(), r2.getMembers().size());

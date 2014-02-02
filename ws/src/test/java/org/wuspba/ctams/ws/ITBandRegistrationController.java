@@ -340,7 +340,7 @@ public class ITBandRegistrationController {
         add();
     }
 
-    private static void add() throws Exception {
+    protected static void add() throws Exception {
         ITBandController.add();
         
         CTAMSDocument doc = new CTAMSDocument();

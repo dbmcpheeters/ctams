@@ -40,7 +40,6 @@ public class BandMember implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "PersonID")
-    @XmlIDREF
     @XmlElement(name = "person", required = true)
     private Person person;
 

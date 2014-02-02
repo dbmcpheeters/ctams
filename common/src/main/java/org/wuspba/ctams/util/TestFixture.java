@@ -117,8 +117,8 @@ public enum TestFixture {
         createSoloResult();
         createSoloRegistration();
         createBandMembers();
-        createRoster();
         createBandRegistration();
+        createRoster();
     }
 
     private void createJudgeQualifications() {
@@ -543,7 +543,7 @@ public enum TestFixture {
     private  void createRoster() {
         roster1 = new Roster();
         roster1.setId("roster1");
-        roster1.setBand(skye);
+        roster1.setRegistration(bandRegistration);
         roster1.setVersion(1);
         roster1.setSeason(2013);
         roster1.getMembers().add(andyMember);
@@ -551,7 +551,7 @@ public enum TestFixture {
         
         roster2 = new Roster();
         roster2.setId("roster2");
-        roster2.setBand(skye);
+        roster2.setRegistration(bandRegistration);
         roster2.setVersion(2);
         roster2.setSeason(2013);
         roster2.getMembers().add(andyMember);

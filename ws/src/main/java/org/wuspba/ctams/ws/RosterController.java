@@ -117,7 +117,7 @@ public class RosterController {
         }
 
         for (Roster roster : rosters) {
-            ret.getBands().add(roster.getBand());
+            ret.getBandRegistrations().add(roster.getRegistration());
             for(BandMember m : roster.getMembers()) {
                 ret.getPeople().add(m.getPerson());
                 ret.getBandMembers().add(m);

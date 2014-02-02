@@ -18,7 +18,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -28,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Entity
 @Table(name = "Roster")
-@XmlType(propOrder = {"id", "band", "version", "season", "members"})
+@XmlType(propOrder = {"id", "registration", "version", "season", "members"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Roster")
 public class Roster implements Serializable {
@@ -40,10 +39,9 @@ public class Roster implements Serializable {
     private String id;
 
     @ManyToOne
-    @JoinColumn(name = "BandID")
-    @XmlIDREF
-    @XmlElement(name = "band", required = true)
-    private Band band;
+    @JoinColumn(name = "RegistrationID")
+    @XmlElement(name = "registration", required = true)
+    private BandRegistration registration;
 
     @Column(name = "VersionID")
     @XmlElement(name = "version", required = true)
@@ -79,35 +77,6 @@ public class Roster implements Serializable {
         return members;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof Roster) {
-            return ((Roster)obj).getId().equals(getId());
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
-        return hash;
-    }
-
-    /**
-     * @return the band
-     */
-    public Band getBand() {
-        return band;
-    }
-
-    /**
-     * @param band the band to set
-     */
-    public void setBand(Band band) {
-        this.band = band;
-    }
-
     /**
      * @return the version
      */
@@ -134,5 +103,34 @@ public class Roster implements Serializable {
      */
     public void setSeason(int season) {
         this.season = season;
+    }
+
+    /**
+     * @return the registration
+     */
+    public BandRegistration getRegistration() {
+        return registration;
+    }
+
+    /**
+     * @param registration the registration to set
+     */
+    public void setRegistration(BandRegistration registration) {
+        this.registration = registration;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Roster) {
+            return ((Roster)obj).getId().equals(getId());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
     }
 }

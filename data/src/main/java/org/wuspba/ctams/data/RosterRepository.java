@@ -23,13 +23,13 @@ public interface RosterRepository extends CrudRepository<Roster, Long> {
 
     List<Roster> findBySeason(int season);
 
-    @Query(value = "SELECT r FROM Roster r WHERE r.band = :band AND r.season = :season")
+    @Query(value = "SELECT r FROM Roster r WHERE r.registration.band = :band AND r.season = :season")
     List<Roster> findByBand(@Param("band")Band band, @Param("season") int season);
 
     @Query(value = "SELECT DISTINCT r FROM Roster r, IN (r.members) AS m WHERE m.person = :person AND r.season = :season")
     List<Roster> findByMembers(@Param("person") Person person, @Param("season") int season);
 
-    @Query(value = "SELECT r FROM Roster r WHERE r.band = :band AND r.version = (SELECT MAX(ro.version) FROM Roster ro) AND r.season = :season")
+    @Query(value = "SELECT r FROM Roster r WHERE r.registration.band = :band AND r.version = (SELECT MAX(ro.version) FROM Roster ro) AND r.season = :season")
     List<Roster> findLatest(@Param("band") Band band, @Param("season") int season);
     
     @Query(value = "SELECT DISTINCT r FROM Roster r, IN (r.members) AS m WHERE m.person = :person AND r.version = (SELECT MAX(ro.version) FROM Roster ro) AND r.season = :season")
