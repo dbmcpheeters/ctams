@@ -90,6 +90,7 @@ public class PersonTest extends AbstractUnitTest {
         assertEquals(p1.getSuffix(), p2.getSuffix());
         assertEquals(p1.getTitle(), p2.getTitle());
         assertEquals(p1.getZip(), p2.getZip());
+        assertEquals(p1.getCountry(), p2.getCountry());
         assertEquals(p1.isLifeMember(), p2.isLifeMember());
     }
 }

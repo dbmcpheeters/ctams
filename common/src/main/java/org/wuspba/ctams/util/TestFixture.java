@@ -229,6 +229,7 @@ public enum TestFixture {
         venue.setState("CO");
         venue.setUrl("pikespeakcelticfestival.com");
         venue.setZip("80903");
+        venue.setCountry("USA");
     }
     
     private  void birthEoin() {
@@ -249,6 +250,7 @@ public enum TestFixture {
         eoin.setSuffix("");
         eoin.setTitle("Mr.");
         eoin.setZip("80902");
+        eoin.setCountry("USA");
     }
     
     private  void birthAndy() {
@@ -269,6 +271,7 @@ public enum TestFixture {
         andy.setSuffix("");
         andy.setTitle("Mr.");
         andy.setZip("80903");
+        andy.setCountry("USA");
     }
     
     private  void birthJamie() {
@@ -289,6 +292,7 @@ public enum TestFixture {
         jamie.setSuffix("");
         jamie.setTitle("Mrs.");
         jamie.setZip("80831");
+        jamie.setCountry("USA");
     }
 
     private  void birthBob() {
@@ -309,6 +313,7 @@ public enum TestFixture {
         bob.setSuffix("");
         bob.setTitle("Mr.");
         bob.setZip("80891");
+        bob.setCountry("USA");
     }
 
     private  void birthElaine() {
@@ -329,6 +334,7 @@ public enum TestFixture {
         elaine.setSuffix("");
         elaine.setTitle("Mrs.");
         elaine.setZip("80291");
+        elaine.setCountry("USA");
     }
 
     private  void birthMason() {
@@ -349,6 +355,7 @@ public enum TestFixture {
         mason.setSuffix("");
         mason.setTitle("Mr.");
         mason.setZip("90210");
+        mason.setCountry("USA");
     }
 
     private  void createBandContest() {
@@ -406,6 +413,7 @@ public enum TestFixture {
         skye.setType(BandType.COMPETITIVE);
         skye.setUrl("www.coloradoskye.com");
         skye.setZip("80903");
+        skye.setCountry("USA");
 
         scots = new Band();
         scots.setAddress("999 Holywood Blvd");
@@ -421,6 +429,7 @@ public enum TestFixture {
         scots.setType(BandType.COMPETITIVE);
         scots.setUrl("www.lascots.com");
         scots.setZip("90210");
+        scots.setCountry("USA");
     }
 
     private void createResults() {
@@ -546,6 +555,7 @@ public enum TestFixture {
         roster1.setRegistration(bandRegistration);
         roster1.setVersion(1);
         roster1.setSeason(2013);
+        roster1.setDate(start);
         roster1.getMembers().add(andyMember);
         roster1.getMembers().add(jamieMember);
         
@@ -554,6 +564,7 @@ public enum TestFixture {
         roster2.setRegistration(bandRegistration);
         roster2.setVersion(2);
         roster2.setSeason(2013);
+        roster2.setDate(start);
         roster2.getMembers().add(andyMember);
         roster2.getMembers().add(jamieMember);
     }

@@ -83,5 +83,6 @@ public class VenueTest extends AbstractUnitTest {
         assertEquals(v1.getState(), v2.getState());
         assertEquals(v1.getUrl(), v2.getUrl());
         assertEquals(v1.getZip(), v2.getZip());
+        assertEquals(v1.getCountry(), v2.getCountry());
     }
 }

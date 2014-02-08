@@ -23,6 +23,7 @@ import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Grade;
 import org.wuspba.ctams.model.Person;
+import org.wuspba.ctams.model.Roster;
 import org.wuspba.ctams.util.XMLUtils;
 
 /**
@@ -42,6 +43,8 @@ public class DataUtils {
             return getPerson(request);
         } else if(type == BandRegistration.class) {
             return getBandRegistration(request);
+        } else if(type == Roster.class) {
+            return getRoster(request);
         }
 
         return new CTAMSDocument();
@@ -56,6 +59,7 @@ public class DataUtils {
         band.setCity(request.getParameter("city"));
         band.setState(request.getParameter("state"));
         band.setZip(request.getParameter("zip"));
+        band.setCountry(request.getParameter("country"));
         band.setTelephone(request.getParameter("telephone"));
         band.setUrl(request.getParameter("url"));
         band.setEmail(request.getParameter("email"));
@@ -112,6 +116,39 @@ public class DataUtils {
         return doc;
     }
 
+    protected static CTAMSDocument getRoster(HttpServletRequest request) {
+        
+        Roster roster = new Roster();
+        
+        roster.setId(request.getParameter("id"));
+        roster.setVersion(Integer.parseInt(request.getParameter("version")));
+        roster.setSeason(Integer.parseInt(request.getParameter("season")));
+
+        URIBuilder builder = new URIBuilder()
+                    .setScheme(ServerUtils.PROTOCOL)
+                    .setHost(ServerUtils.HOST)
+                    .setPort(ServerUtils.PORT)
+                    .setParameter("id", request.getParameter("registration"))
+                    .setPath(ServerUtils.URI + "/registration");
+        
+        try {
+            String xml = ServerUtils.get(builder.build());
+            CTAMSDocument registrations = XMLUtils.unmarshal(xml);
+            roster.setRegistration(registrations.getBandRegistrations().get(0));
+        } catch (IOException ex) {
+            LOG.error("Error finding band", ex);
+        } catch (URISyntaxException uex) {
+            LOG.error("Invalide URI", uex);
+        }
+
+        LOG.info("Members param: " + request.getParameter("members"));
+        
+        CTAMSDocument doc = new CTAMSDocument();
+        doc.getRosters().add(roster);
+
+        return doc;
+    }
+
     private static CTAMSDocument getPerson(HttpServletRequest request) {
 
         Person person = new Person();
@@ -125,6 +162,7 @@ public class DataUtils {
         person.setCity(request.getParameter("city"));
         person.setState(request.getParameter("state"));
         person.setZip(request.getParameter("zip"));
+        person.setCountry(request.getParameter("Country"));
         person.setPhone(request.getParameter("phone"));
         person.setEmail(request.getParameter("email"));
         person.setNotes(request.getParameter("notes"));

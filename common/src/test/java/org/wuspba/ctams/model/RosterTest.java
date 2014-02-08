@@ -51,6 +51,7 @@ public class RosterTest extends AbstractUnitTest {
         assertEquals(r1.getRegistration(), r2.getRegistration());
         assertEquals(r1.getSeason(), r2.getSeason());
         assertEquals(r1.getVersion(), r2.getVersion());
+        testDates(r1.getDate(), r2.getDate());
         assertEquals(r1.getMembers().size(), r2.getMembers().size());
         assertTrue(r1.getMembers().containsAll(r2.getMembers()));
     }

@@ -6,6 +6,7 @@ package org.wuspba.ctams.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -27,7 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Entity
 @Table(name = "Roster")
-@XmlType(propOrder = {"id", "registration", "version", "season", "members"})
+@XmlType(propOrder = {"id", "registration", "version", "season", "date", "members"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Roster")
 public class Roster implements Serializable {
@@ -50,6 +53,11 @@ public class Roster implements Serializable {
     @Column(name = "Season")
     @XmlElement(name = "season", required = true)
     private int season;
+
+    @Column(name = "RosterDate")
+    @Temporal(TemporalType.DATE)
+    @XmlElement(name = "date")
+    private Date date = new Date();
 
     @ManyToMany
     @XmlElement(name = "members", required = true)
@@ -117,6 +125,20 @@ public class Roster implements Serializable {
      */
     public void setRegistration(BandRegistration registration) {
         this.registration = registration;
+    }
+
+    /**
+     * @return the date
+     */
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * @param date the date to set
+     */
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override

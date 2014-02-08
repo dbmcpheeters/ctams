@@ -76,11 +76,12 @@ public class BandExplorerPanel extends VLayout {
         ListGridField nameListField = new ListGridField("name", 100);
         ListGridField cityListField = new ListGridField("city", 100);
         ListGridField stateListField = new ListGridField("state", 150);
+        ListGridField countryListField = new ListGridField("country", 150);
         ListGridField gradeListField = new ListGridField("grade", 250);
         ListGridField branchListField = new ListGridField("branch", 100);
         ListGridField typeListField = new ListGridField("type", 100);
 
-        bandGrid.setFields(nameListField, cityListField, stateListField,
+        bandGrid.setFields(nameListField, cityListField, stateListField, countryListField,
                 gradeListField, branchListField, typeListField);
 
         HeaderItem header = new HeaderItem();

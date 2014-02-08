@@ -47,6 +47,7 @@ public class PersonDS extends DataSource {
         DataSourceTextField cityField = new DataSourceTextField("city", "City", 128, true);
         DataSourceTextField stateField = new DataSourceTextField("state", "State", 2, true);
         DataSourceTextField zipField = new DataSourceTextField("zip", "Zipcode", 5, true);
+        DataSourceTextField countryField = new DataSourceTextField("country", "Country", 5, true);
         DataSourceTextField telephoneField = new DataSourceTextField("phone", "Telephone", 15, true);
         DataSourceTextField notesField = new DataSourceTextField("notes", "Notes", 256, true);
         DataSourceBooleanField lifeMemberField = new DataSourceBooleanField("lifeMember", "Life Member", 2, true);
@@ -61,6 +62,7 @@ public class PersonDS extends DataSource {
         cityField.setRequired(true);
         stateField.setRequired(true);
         zipField.setRequired(true);
+        countryField.setRequired(true);
         telephoneField.setRequired(false);
         emailField.setRequired(false);
         notesField.setRequired(false);
@@ -72,7 +74,7 @@ public class PersonDS extends DataSource {
 
         setFields(idField, titleField, firstNameField, middleNameField,
                 lastNameField, suffixField, addressField, cityField, stateField, 
-                zipField, telephoneField, emailField, notesField,
+                zipField, countryField, telephoneField, emailField, notesField,
                 branchField, lifeMemberField);
         
         setOperationBindings(

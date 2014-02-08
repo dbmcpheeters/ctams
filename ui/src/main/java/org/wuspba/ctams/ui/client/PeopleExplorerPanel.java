@@ -77,10 +77,11 @@ public class PeopleExplorerPanel extends VLayout {
         ListGridField lastNameListField = new ListGridField("lastName", 100);
         ListGridField cityListField = new ListGridField("city", 100);
         ListGridField stateListField = new ListGridField("state", 150);
+        ListGridField countryListField = new ListGridField("country", 150);
         ListGridField branchListField = new ListGridField("branch", 100);
 
         personGrid.setFields(lastNameListField, firstNameListField, 
-                cityListField, stateListField, branchListField);
+                cityListField, stateListField, countryListField, branchListField);
 
         HeaderItem header = new HeaderItem();
         header.setDefaultValue("Details");
@@ -119,7 +120,7 @@ public class PeopleExplorerPanel extends VLayout {
         
                 final Window winModal = new Window();
                 winModal.setWidth(550);
-                winModal.setHeight(350);
+                winModal.setHeight(400);
                 winModal.setTitle("Add New Person");
                 winModal.setShowMinimizeButton(false);
                 winModal.setIsModal(true);
@@ -158,6 +159,7 @@ public class PeopleExplorerPanel extends VLayout {
 
                 HLayout buttonPanel = new HLayout();
                 buttonPanel.setWidth100();
+                buttonPanel.setMembersMargin(5);
                 buttonPanel.setLayoutAlign(Alignment.CENTER);
                 buttonPanel.setAlign(Alignment.CENTER);
 

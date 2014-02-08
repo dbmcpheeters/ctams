@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Table(name = "Person")
 @XmlType(propOrder = {"id", "title", "firstName", "middleName", "nickName",
-                      "lastName", "suffix", "email", "address", "city", "state", "zip",
-                      "phone", "notes", "lifeMember", "branch"
+                      "lastName", "suffix", "email", "address", "city", "state", 
+                      "zip", "country", "phone", "notes", "lifeMember", "branch"
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Person")
@@ -81,6 +81,10 @@ public class Person implements Serializable {
     @Column(name = "Zip")
     @XmlElement(name = "zip", required = true)
     private String zip;
+
+    @Column(name = "Country")
+    @XmlElement(name = "country", required = true)
+    private String country;
 
     @Column(name = "Phone")
     @XmlElement(name = "phone", required = true)
@@ -321,6 +325,20 @@ public class Person implements Serializable {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return the country
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    /**
+     * @param country the country to set
+     */
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Override

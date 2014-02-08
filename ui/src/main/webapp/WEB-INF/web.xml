@@ -110,6 +110,54 @@
     </servlet>
 
     <servlet>
+        <servlet-name>rosterListServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.ListService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/roster</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>rosterUpdateServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.UpdateService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/roster</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.Roster</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>rosterAddServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.AddService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/roster</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.Roster</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>rosterDeleteServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.DeleteService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/roster</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
         <servlet-name>personListServlet</servlet-name>
         <servlet-class>org.wuspba.ctams.ui.server.ListService</servlet-class>
 
@@ -195,6 +243,26 @@
     <servlet-mapping>
         <servlet-name>bandRegistrationDeleteServlet</servlet-name>
         <url-pattern>/bandregistrationdelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>rosterListServlet</servlet-name>
+        <url-pattern>/rosterlist</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>rosterUpdateServlet</servlet-name>
+        <url-pattern>/rosterupdate</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>rosterAddServlet</servlet-name>
+        <url-pattern>/rosteradd</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>rosterDeleteServlet</servlet-name>
+        <url-pattern>/rosterdelete</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

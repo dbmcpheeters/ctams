@@ -3,6 +3,7 @@
         <id>roster1</id>
         <version>1</version>
         <season>2013</season>
+        <date>2013-02-01T22:59:00-06:00</date>
         <registration>
             <id>bandRegistration</id>
             <band>
@@ -13,6 +14,7 @@
                 <state>CO</state>
                 <zip>80903</zip>
                 <telephone>719-963-9844</telephone>
+                <country>USA</country>
                 <email>andy.trimble@gmail.com</email>
                 <url>www.coloradoskye.com</url>
                 <grade>THREE</grade>
@@ -40,6 +42,8 @@
                 <city>Colorado Springs</city>
                 <state>CO</state>
                 <zip>80903</zip>
+                <country>USA</country>
+                <country>USA</country>
                 <phone>719-555-5555</phone>
                 <notes>What a bad ass!</notes>
                 <lifeMember>true</lifeMember>
@@ -62,6 +66,8 @@
                 <city>Denver</city>
                 <state>CO</state>
                 <zip>80831</zip>
+                <country>USA</country>
+                <country>USA</country>
                 <phone>303-555-5555</phone>
                 <notes>Lame!</notes>
                 <lifeMember>false</lifeMember>

@@ -192,6 +192,84 @@ public class ITRosterController {
     }
 
     @Test
+    public void testListBandVersion() throws Exception {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        URI uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("band", TestFixture.INSTANCE.skye.getId())
+                .setParameter("version", Integer.toString(TestFixture.INSTANCE.roster1.getVersion()))
+                .setParameter("season", Integer.toString(TestFixture.INSTANCE.roster1.getSeason()))
+                .build();
+        
+        HttpGet httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            assertEquals(doc.getRosters().size(), 1);
+            testEquality(doc.getRosters().get(0), TestFixture.INSTANCE.roster1);
+
+            EntityUtils.consume(entity);
+        }
+
+        uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("band", TestFixture.INSTANCE.scots.getId())
+                .setParameter("version", "100")
+                .setParameter("season", Integer.toString(TestFixture.INSTANCE.roster1.getSeason()))
+                .build();
+        
+        httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            assertEquals(doc.getRosters().size(), 0);
+
+            EntityUtils.consume(entity);
+        }
+
+        uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH)
+                .setParameter("band", TestFixture.INSTANCE.skye.getId())
+                .setParameter("version", Integer.toString(TestFixture.INSTANCE.roster1.getVersion()))
+                .setParameter("season", Integer.toString(TestFixture.INSTANCE.roster1.getSeason() + 1))
+                .build();
+        
+        httpGet = new HttpGet(uri);
+
+        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+            assertEquals(response.getStatusLine().toString(), IntegrationTestUtils.OK_STRING);
+            
+            HttpEntity entity = response.getEntity();
+
+            CTAMSDocument doc = IntegrationTestUtils.convertEntity(entity);
+
+            assertEquals(doc.getRosters().size(), 0);
+
+            EntityUtils.consume(entity);
+        }
+    }
+
+    @Test
     public void testListBandLatest() throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
@@ -576,11 +654,6 @@ public class ITRosterController {
 
     private static void add(Roster roster) throws Exception {
         CTAMSDocument doc = new CTAMSDocument();
-//        for(BandMember m : roster.getMembers()) {
-//            doc.getBandMembers().add(m);
-//            doc.getPeople().add(m.getPerson());
-//        }
-//        doc.getBands().add(roster.getBand());
         doc.getRosters().add(roster);
         String xml = XMLUtils.marshal(doc);
         

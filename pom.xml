@@ -25,9 +25,7 @@
         <jaxb.version>2.1.9</jaxb.version>
         <jaxb.api.version>2.1</jaxb.api.version>
         <log4j.version>1.2.17</log4j.version>
-        <hibernate.version>4.2.7.SP1</hibernate.version>
-        <hibernate.ejb3.version>1.0.2.GA</hibernate.ejb3.version>
-        <hibernate.validator.version>5.0.1.Final</hibernate.validator.version>
+        <hibernate.version>4.3.1.Final</hibernate.version>
         <javaee.version>7.0</javaee.version>
     </properties>
 
@@ -108,11 +106,6 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>ejb3-persistence</artifactId>
-                <version>${hibernate.ejb3.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax</groupId>

@@ -43,12 +43,18 @@ public class ListService extends HttpServlet {
             while(attrs.hasMoreElements()) {
                 Object attr = attrs.nextElement();
                 builder.addParameter(attr.toString(), request.getAttribute(attr.toString()).toString());
+                
+                LOG.debug(attr.toString());
+                LOG.debug(request.getAttribute(attr.toString()).toString());
             }
 
             Enumeration parameters = request.getParameterNames();
             while(parameters.hasMoreElements()) {
                 Object param = parameters.nextElement();
                 builder.addParameter(param.toString(), request.getParameter(param.toString()).toString());
+                
+                LOG.debug(param.toString());
+                LOG.debug(request.getParameter(param.toString()).toString());
             }
 
             URI uri = builder.build();

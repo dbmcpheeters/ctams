@@ -84,5 +84,6 @@ public class BandTest extends AbstractUnitTest {
         assertEquals(band1.getType(), band2.getType());
         assertEquals(band1.getUrl(), band2.getUrl());
         assertEquals(band1.getZip(), band2.getZip());
+        assertEquals(band1.getCountry(), band2.getCountry());
     }
 }

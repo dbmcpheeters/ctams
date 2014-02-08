@@ -44,7 +44,7 @@ public class RosterController {
     private RosterRepository repository;
 
     @Autowired
-    private PersonRepository memberRepository;
+    private PersonRepository personRepository;
 
     @Autowired
     private BandRepository bandRepository;
@@ -59,6 +59,7 @@ public class RosterController {
             @RequestParam(value = "season", required = true, defaultValue = "") String season,
             @RequestParam(value = "band", required = false, defaultValue = "") String band,
             @RequestParam(value = "member", required = false, defaultValue = "") String member,
+            @RequestParam(value = "version", required = false, defaultValue = "") String version,
             @RequestParam(value = "latest", required = false, defaultValue = "") String latest) {
 
         CTAMSDocument ret = new CTAMSDocument();
@@ -89,11 +90,13 @@ public class RosterController {
             
             if(isLatest) {
                 rosters = repository.findLatest(b, seasonInt);
+            } else if(!"".equals(version)) {
+                rosters = repository.findByBandVersion(b, seasonInt, Integer.parseInt(version));
             } else {
                 rosters = repository.findByBand(b, seasonInt);
             }
         } else if(!"".equals(member)) {
-            List<Person> members = memberRepository.findById(member);
+            List<Person> members = personRepository.findById(member);
 
             Person m = null;
 
@@ -107,7 +110,15 @@ public class RosterController {
                 rosters = repository.findByMembers(m, seasonInt);
             }
         } else if(!"".equals(season)) {
-            for(Roster r : repository.findBySeason(seasonInt)) {
+            List<Roster> list;
+
+            if(isLatest) {
+                list = repository.findBySeasonLatest(seasonInt);
+            } else {
+                list = repository.findBySeason(seasonInt);
+            }
+
+            for(Roster r : list) {
                 rosters.add(r);
             }
         } else {
@@ -118,6 +129,7 @@ public class RosterController {
 
         for (Roster roster : rosters) {
             ret.getBandRegistrations().add(roster.getRegistration());
+            ret.getBands().add(roster.getRegistration().getBand());
             for(BandMember m : roster.getMembers()) {
                 ret.getPeople().add(m.getPerson());
                 ret.getBandMembers().add(m);

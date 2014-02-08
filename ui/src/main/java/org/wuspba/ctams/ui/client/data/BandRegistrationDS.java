@@ -39,14 +39,17 @@ public class BandRegistrationDS extends DataSource {
         idField.setPrimaryKey(true);
 
         DataSourceTextField bandField = new DataSourceTextField("band", "Band", 128, true);
+        DataSourceTextField bandIdField = new DataSourceTextField("bandId", "Band ID", 128, true);
         DataSourceIntegerField seasonField = new DataSourceIntegerField("season", "Season", 4, true);
         DataSourceEnumField gradeField = new DataSourceEnumField("grade", "Grade", 10, true);
         DataSourceDateField startField = new DataSourceDateField("start", "Registration Date", 128, true);
         DataSourceDateField endField = new DataSourceDateField("end", "Expiration", 2, true);
 
         bandField.setValueXPath("band/name");
+        bandIdField.setValueXPath("band/id");
 
         bandField.setRequired(true);
+        bandIdField.setRequired(true);
         seasonField.setRequired(true);
         gradeField.setRequired(true);
         startField.setRequired(true);
@@ -54,7 +57,7 @@ public class BandRegistrationDS extends DataSource {
 
         gradeField.setValueMap(ClientUtils.INSTANCE.getGradeMap());
 
-        setFields(idField, bandField, seasonField, gradeField, startField, endField);
+        setFields(idField, bandField, bandIdField, seasonField, gradeField, startField, endField);
         
         setOperationBindings(
                 new OperationBinding(DSOperationType.ADD, "/bandregistrationadd"),

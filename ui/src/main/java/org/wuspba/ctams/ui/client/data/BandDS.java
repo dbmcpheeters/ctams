@@ -42,6 +42,7 @@ public class BandDS extends DataSource {
         DataSourceTextField cityField = new DataSourceTextField("city", "City", 128, true);
         DataSourceTextField stateField = new DataSourceTextField("state", "State", 2, true);
         DataSourceTextField zipField = new DataSourceTextField("zip", "Zipcode", 5, true);
+        DataSourceTextField countryField = new DataSourceTextField("country", "Country", 5, true);
         DataSourceTextField telephoneField = new DataSourceTextField("telephone", "Telephone", 15, true);
         DataSourceTextField emailField = new DataSourceTextField("email", "Email", 128, true);
         DataSourceTextField urlField = new DataSourceTextField("url", "URL", 128, true);
@@ -55,6 +56,7 @@ public class BandDS extends DataSource {
         cityField.setRequired(true);
         stateField.setRequired(true);
         zipField.setRequired(true);
+        countryField.setRequired(true);
         telephoneField.setRequired(false);
         emailField.setRequired(false);
         urlField.setRequired(false);
@@ -68,8 +70,8 @@ public class BandDS extends DataSource {
         typeField.setValueMap(ClientUtils.INSTANCE.getTypeMap());
 
         setFields(idField, nameField, addressField, cityField, stateField, 
-                zipField, telephoneField, emailField, urlField, gradeField, 
-                branchField, dissolvedField, typeField);
+                zipField, countryField, telephoneField, emailField, urlField, 
+                gradeField, branchField, dissolvedField, typeField);
         
         setOperationBindings(
                 new OperationBinding(DSOperationType.ADD, "/bandadd"),

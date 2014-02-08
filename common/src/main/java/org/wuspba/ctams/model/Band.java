@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Entity
 @Table(name = "Band")
-@XmlType(propOrder = { "id", "name", "address", "city", "state", "zip", 
+@XmlType(propOrder = { "id", "name", "address", "city", "state", "zip", "country",
                        "telephone", "email", "url", "grade", "branch", 
                        "dissolved", "type"
 })
@@ -57,6 +57,10 @@ public class Band implements Serializable {
     @Column(name = "Zip")
     @XmlElement(name = "zip", required = true)
     private String zip;
+
+    @Column(name = "Country")
+    @XmlElement(name = "country", required = true)
+    private String country;
 
     @Column(name = "Telephone")
     @XmlElement(name = "telephone", required = true)
@@ -262,6 +266,20 @@ public class Band implements Serializable {
      */
     public BandType getType() {
         return type;
+    }
+
+    /**
+     * @return the country
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    /**
+     * @param country the country to set
+     */
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     /**

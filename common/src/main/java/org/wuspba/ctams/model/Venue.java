@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Table(name = "Venue")
 @XmlType(propOrder = {"id", "name", "sponsor", "location", "address", "city",
-                      "state", "zip", "phone", "email", "url", "bandContest",
-                      "soloContest", "branch"
+                      "state", "zip", "country", "phone", "email", "url", 
+                      "bandContest", "soloContest", "branch"
 })
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Venue")
@@ -65,6 +65,10 @@ public class Venue implements Serializable {
     @Column(name = "Zip")
     @XmlElement(name = "zip", required = true)
     private String zip;
+
+    @Column(name = "Country")
+    @XmlElement(name = "country", required = true)
+    private String country;
 
     @Column(name = "Phone")
     @XmlElement(name = "phone", required = true)
@@ -285,6 +289,20 @@ public class Venue implements Serializable {
      */
     public void setBranch(Branch branch) {
         this.branch = branch;
+    }
+
+    /**
+     * @return the country
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    /**
+     * @param country the country to set
+     */
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Override

@@ -30,12 +30,15 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wuspba.ctams.model.Band;
+import org.wuspba.ctams.model.BandMember;
+import org.wuspba.ctams.model.BandMemberType;
 import org.wuspba.ctams.model.BandRegistration;
 import org.wuspba.ctams.model.BandType;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Grade;
 import org.wuspba.ctams.model.Person;
+import org.wuspba.ctams.model.Roster;
 
 /**
  *
@@ -91,7 +94,41 @@ public class PopulateData {
                 .setPath(PATH + "/bandregistration")
                 .build();
 
+            URI memberUri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH + "/bandmember")
+                .build();
+
+            URI rosterUri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH + "/roster")
+                .build();
+
+            URI peopleUri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH + "/person")
+                .build();
+
             CTAMSDocument bands = list(uri, new HashMap<String, String>());
+            CTAMSDocument people = list(peopleUri, new HashMap<String, String>());
+            CTAMSDocument registrations = new CTAMSDocument();
+            CTAMSDocument bandMembers = new CTAMSDocument();
+            CTAMSDocument rosters = new CTAMSDocument();
+
+            for(Person person : people.getPeople()) {
+                BandMember member = new BandMember();
+                member.setType(BandMemberType.values()[(int)(Math.random() * BandMemberType.values().length)]);
+                member.setPerson(person);
+                bandMembers.getBandMembers().add(member);
+            }
+            send(XMLUtils.marshal(bandMembers), memberUri);
+            bandMembers = list(memberUri, new HashMap<String, String>());
 
             for(Band band : bands.getBands()) {
                 BandRegistration reg = new BandRegistration();
@@ -100,9 +137,33 @@ public class PopulateData {
                 reg.setStart(new Date(new Date().getTime()));
                 reg.setSeason((int)(Math.random() * (2015 - 2009) + 2009));
                 reg.setGrade(Grade.values()[(int)(Math.random() * Grade.values().length)]);
-                bands.getBandRegistrations().add(reg);
+                registrations.getBandRegistrations().add(reg);
             }
-            send(XMLUtils.marshal(bands), regUri);
+            send(XMLUtils.marshal(registrations), regUri);
+            registrations = list(regUri, new HashMap<String, String>());
+            
+            for(BandRegistration reg : registrations.getBandRegistrations()) {
+                int nVersions = (int)(Math.random() * 5);
+
+                for(int v = 0; v < nVersions; ++v) {
+                    Roster roster = new Roster();
+                    roster.setVersion(v + 1);
+                    roster.setRegistration(reg);
+                    roster.setSeason(reg.getSeason());
+                    roster.setDate(new Date());
+
+                    int memberNum = (int)(Math.random() * 30 + 11);
+
+                    for(int i = 0; i < memberNum; ++i) {
+                        BandMember member = bandMembers.getBandMembers().get(
+                                (int)(Math.random() * bandMembers.getBandMembers().size()));
+                        roster.getMembers().add(member);
+                    }
+
+                    rosters.getRosters().add(roster);
+                }
+            }
+            send(XMLUtils.marshal(rosters), rosterUri);
 
         } catch (ClassNotFoundException | SQLException e) {
             throw e;

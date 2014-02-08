@@ -87,6 +87,26 @@ public class RosterRepositoryTest {
     }
 
     @Test
+    public void testFindByBandVersion() {
+        List<Roster> ret = repository.findByBandVersion(
+                TestFixture.INSTANCE.skye, 
+                TestFixture.INSTANCE.roster1.getSeason(), 
+                TestFixture.INSTANCE.roster1.getVersion());
+        
+        assertEquals(ret.size(), 1);
+
+        assertTrue(ret.get(0).getId().equals(TestFixture.INSTANCE.roster1.getId()));
+        
+        ret = repository.findByBandVersion(TestFixture.INSTANCE.scots, TestFixture.INSTANCE.roster1.getSeason(), 3);
+        assertEquals(ret.size(), 0);
+        
+        ret = repository.findByBandVersion(TestFixture.INSTANCE.skye, 
+                TestFixture.INSTANCE.roster1.getSeason() + 1, 
+                TestFixture.INSTANCE.roster1.getVersion());
+        assertEquals(ret.size(), 0);
+    }
+
+    @Test
     public void testFindLatest() {
         List<Roster> ret = repository.findLatest(TestFixture.INSTANCE.skye, TestFixture.INSTANCE.roster2.getSeason());
         assertEquals(ret.size(), 1);
@@ -97,6 +117,17 @@ public class RosterRepositoryTest {
         assertEquals(ret.size(), 0);
         
         ret = repository.findByBand(TestFixture.INSTANCE.skye, TestFixture.INSTANCE.roster2.getSeason() + 1);
+        assertEquals(ret.size(), 0);
+    }
+
+    @Test
+    public void testFindSeasonLatest() {
+        List<Roster> ret = repository.findBySeasonLatest(TestFixture.INSTANCE.roster2.getSeason());
+        assertEquals(ret.size(), 1);
+
+        assertEquals(ret.get(0).getId(), TestFixture.INSTANCE.roster2.getId());
+        
+        ret = repository.findBySeasonLatest(TestFixture.INSTANCE.roster2.getSeason() + 1);
         assertEquals(ret.size(), 0);
     }
 

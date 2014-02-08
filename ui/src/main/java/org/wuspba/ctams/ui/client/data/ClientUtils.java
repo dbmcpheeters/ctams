@@ -18,6 +18,7 @@ public enum ClientUtils  {
     private final LinkedHashMap branchMap = new LinkedHashMap();
     private final LinkedHashMap typeMap = new LinkedHashMap();
     private final LinkedHashMap titleMap = new LinkedHashMap();
+    private final LinkedHashMap memberTypeMap = new LinkedHashMap();
 
     private ClientUtils() {
         
@@ -42,6 +43,15 @@ public enum ClientUtils  {
 
         titleMap.put("MR", "Mr.");
         titleMap.put("MRS", "Mrs.");
+
+        memberTypeMap.put("PIPE_MAJOR", "Pipe Major");
+        memberTypeMap.put("PIPE_SERGEANT", "Pipe Sergeant");
+        memberTypeMap.put("DRUM_SERGEANT", "Drum Sergeant");
+        memberTypeMap.put("PIPER", "Piper");
+        memberTypeMap.put("SNARE", "Snare");
+        memberTypeMap.put("TENOR", "Tenor");
+        memberTypeMap.put("BASS", "Bass");
+        memberTypeMap.put("INSTRUCTOR", "Instructor");
     }
 
     /**
@@ -70,5 +80,12 @@ public enum ClientUtils  {
      */
     public LinkedHashMap getTitleMap() {
         return titleMap;
+    }
+
+    /**
+     * @return the memberTypeMap
+     */
+    public LinkedHashMap getMemberTypeMap() {
+        return memberTypeMap;
     }
 }

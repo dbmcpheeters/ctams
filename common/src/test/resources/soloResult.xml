@@ -13,6 +13,7 @@
         <city>Denver</city>
         <state>CO</state>
         <zip>80891</zip>
+        <country>USA</country>
         <phone>720-555-5555</phone>
         <notes></notes>
         <lifeMember>false</lifeMember>
@@ -31,6 +32,7 @@
         <city>Colorado Springs</city>
         <state>CO</state>
         <zip>80903</zip>
+        <country>USA</country>
         <phone>719-555-5555</phone>
         <notes>What a bad ass!</notes>
         <lifeMember>true</lifeMember>
@@ -49,6 +51,7 @@
         <city>Denver</city>
         <state>CO</state>
         <zip>80831</zip>
+        <country>USA</country>
         <phone>303-555-5555</phone>
         <notes>Lame!</notes>
         <lifeMember>false</lifeMember>
@@ -67,6 +70,7 @@
         <city>Fort Collins</city>
         <state>CO</state>
         <zip>80291</zip>
+        <country>USA</country>
         <phone>858-555-5555</phone>
         <notes></notes>
         <lifeMember>true</lifeMember>
@@ -108,6 +112,7 @@
         <city>Colorado Springs</city>
         <state>CO</state>
         <zip>80903</zip>
+        <country>USA</country>
         <phone>555-555-5555</phone>
         <email>joseph.poch@innovativemoments.com</email>
         <url>pikespeakcelticfestival.com</url>
