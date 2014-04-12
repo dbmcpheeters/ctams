@@ -33,8 +33,8 @@ public class ServerUtils  {
     private static final Logger LOG = LoggerFactory.getLogger(ServerUtils.class);
     
     protected static final String PROTOCOL = "http";
-    //protected static final String HOST = "localhost";
-    protected static final String HOST = "68.178.128.110";
+    protected static final String HOST = "localhost";
+    //protected static final String HOST = "68.178.128.110";
     protected static final int PORT = 8080;
     protected static final String URI = "/ctams";
 

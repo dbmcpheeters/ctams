@@ -49,9 +49,12 @@ public class AddService extends HttpServlet {
                     .setPath(path)
                     .build();
             
-            LOG.info("Connecting to " + uri.toString());
+            String xml = XMLUtils.marshal(doc);
             
-            String ret = ServerUtils.post(uri, XMLUtils.marshal(doc));
+            LOG.info("Connecting to " + uri.toString());
+            LOG.info("Payload" + xml);
+            
+            String ret = ServerUtils.post(uri, xml);
             
             PrintWriter out = response.getWriter();
             out.println(ret);

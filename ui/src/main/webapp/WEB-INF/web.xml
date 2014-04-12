@@ -204,6 +204,54 @@
             <param-value>/person</param-value>
         </init-param>
     </servlet>
+
+    <servlet>
+        <servlet-name>soloRegistrationListServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.ListService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/soloregistration</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>soloRegistrationUpdateServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.UpdateService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/soloregistration</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.SoloRegistration</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>soloRegistrationAddServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.AddService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/soloregistration</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.SoloRegistration</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>soloRegistrationDeleteServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.DeleteService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/soloregistration</param-value>
+        </init-param>
+    </servlet>
   
     <servlet-mapping>
         <servlet-name>bandListServlet</servlet-name>
@@ -283,6 +331,26 @@
     <servlet-mapping>
         <servlet-name>personDeleteServlet</servlet-name>
         <url-pattern>/persondelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>soloRegistrationListServlet</servlet-name>
+        <url-pattern>/soloregistrationlist</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>soloRegistrationUpdateServlet</servlet-name>
+        <url-pattern>/soloregistrationupdate</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>soloRegistrationAddServlet</servlet-name>
+        <url-pattern>/soloregistrationadd</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>soloRegistrationDeleteServlet</servlet-name>
+        <url-pattern>/soloregistrationdelete</url-pattern>
     </servlet-mapping>
 
 </web-app>

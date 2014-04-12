@@ -17,6 +17,7 @@ public enum ClientUtils  {
     private final LinkedHashMap gradeMap = new LinkedHashMap();
     private final LinkedHashMap branchMap = new LinkedHashMap();
     private final LinkedHashMap typeMap = new LinkedHashMap();
+    private final LinkedHashMap instrumentMap = new LinkedHashMap();
     private final LinkedHashMap titleMap = new LinkedHashMap();
     private final LinkedHashMap memberTypeMap = new LinkedHashMap();
 
@@ -52,6 +53,12 @@ public enum ClientUtils  {
         memberTypeMap.put("TENOR", "Tenor");
         memberTypeMap.put("BASS", "Bass");
         memberTypeMap.put("INSTRUCTOR", "Instructor");
+
+        instrumentMap.put("PIPING", "Piper");
+        instrumentMap.put("SNARE", "Snare Drummer");
+        instrumentMap.put("TENOR", "Tenor Drummer");
+        instrumentMap.put("BASS", "Bass Drummer");
+        instrumentMap.put("DRUM_MAJOR", "Drum Major");
     }
 
     /**
@@ -87,5 +94,12 @@ public enum ClientUtils  {
      */
     public LinkedHashMap getMemberTypeMap() {
         return memberTypeMap;
+    }
+
+    /**
+     * @return the instrumentMap
+     */
+    public LinkedHashMap getInstrumentMap() {
+        return instrumentMap;
     }
 }

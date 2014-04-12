@@ -33,7 +33,7 @@ public class ContestExplorerPanel extends VLayout {
     }
 
     public ContestExplorerPanel() {
-        Label title = new Label("This is a different test");
+        Label title = new Label("Coming soon!");
         title.setStyleName("sgwtTitle");
         title.setWidth(500);
         addMember(title);

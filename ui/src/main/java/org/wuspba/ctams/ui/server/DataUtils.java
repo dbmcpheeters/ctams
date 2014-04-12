@@ -23,8 +23,10 @@ import org.wuspba.ctams.model.BandType;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Grade;
+import org.wuspba.ctams.model.Instrument;
 import org.wuspba.ctams.model.Person;
 import org.wuspba.ctams.model.Roster;
+import org.wuspba.ctams.model.SoloRegistration;
 import org.wuspba.ctams.util.XMLUtils;
 
 /**
@@ -46,6 +48,8 @@ public class DataUtils {
             return getBandRegistration(request);
         } else if (type == Roster.class) {
             return getRoster(request);
+        } else if (type == SoloRegistration.class) {
+            return getSoloRegistration(request);
         }
 
         return new CTAMSDocument();
@@ -307,6 +311,51 @@ public class DataUtils {
 
         CTAMSDocument doc = new CTAMSDocument();
         doc.getPeople().add(person);
+
+        return doc;
+    }
+
+    protected static CTAMSDocument getSoloRegistration(HttpServletRequest request) {
+
+        SoloRegistration registration = new SoloRegistration();
+
+        URIBuilder builder = new URIBuilder()
+                .setScheme(ServerUtils.PROTOCOL)
+                .setHost(ServerUtils.HOST)
+                .setPort(ServerUtils.PORT)
+                .setParameter("firstname", request.getParameter("firstName"))
+                .setParameter("lastname", request.getParameter("lastName"))
+                .setPath(ServerUtils.URI + "/person");
+
+        try {
+            String xml = ServerUtils.get(builder.build());
+            CTAMSDocument people = XMLUtils.unmarshal(xml);
+            registration.setPerson(people.getPeople().get(0));
+        } catch (IOException ex) {
+            LOG.error("Error finding band", ex);
+        } catch (URISyntaxException uex) {
+            LOG.error("Invalide URI", uex);
+        }
+
+        registration.setId(request.getParameter("id"));
+        try {
+            registration.setEnd(dateParser.parse(request.getParameter("end")));
+        } catch (ParseException ex) {
+            LOG.error("Cannot parse date", ex);
+        }
+        try {
+            Date date = dateParser.parse(request.getParameter("start"));
+            registration.setStart(date);
+        } catch (ParseException ex) {
+            LOG.error("Cannot parse date", ex);
+        }
+        registration.setGrade(Grade.valueOf(request.getParameter("grade")));
+        registration.setSeason(Integer.parseInt(request.getParameter("season")));
+        registration.setNumber(request.getParameter("number"));
+        registration.setType(Instrument.valueOf(request.getParameter("instrument")));
+
+        CTAMSDocument doc = new CTAMSDocument();
+        doc.getSoloRegistrations().add(registration);
 
         return doc;
     }

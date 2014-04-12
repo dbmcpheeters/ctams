@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <CTAMS xmlns:ns2="ctams">
-    <person>
-        <id>elainePerson</id>
-        <title>Mrs.</title>
-        <firstName>Elaine</firstName>
-        <middleName></middleName>
-        <nickName>The Lady</nickName>
-        <lastName>Hoffman</lastName>
-        <suffix></suffix>
-        <email>elaine.hoffman@aol.com</email>
-        <address>222 Elaine Ave.</address>
-        <city>Fort Collins</city>
-        <state>CO</state>
-        <zip>80291</zip>
-        <country>USA</country>
-        <phone>858-555-5555</phone>
-        <notes></notes>
-        <lifeMember>true</lifeMember>
-        <branch>INTERMOUNTAIN</branch>
-    </person>
     <soloRegistration>
         <id>soloRegistration</id>
-        <person>elainePerson</person>
+        <person>
+            <id>elainePerson</id>
+            <title>Mrs.</title>
+            <firstName>Elaine</firstName>
+            <middleName></middleName>
+            <nickName>The Lady</nickName>
+            <lastName>Hoffman</lastName>
+            <suffix></suffix>
+            <email>elaine.hoffman@aol.com</email>
+            <address>222 Elaine Ave.</address>
+            <city>Fort Collins</city>
+            <state>CO</state>
+            <zip>80291</zip>
+            <country>USA</country>
+            <phone>858-555-5555</phone>
+            <notes></notes>
+            <lifeMember>true</lifeMember>
+            <branch>INTERMOUNTAIN</branch>
+        </person>
         <number>129</number>
         <grade>TWO</grade>
         <type>PIPING</type>
-        <seaon>2013</seaon>
+        <season>2013</season>
         <start>2013-02-01T22:59:00-06:00</start>
         <end>2013-12-30T21:00:00-06:00</end>
     </soloRegistration>

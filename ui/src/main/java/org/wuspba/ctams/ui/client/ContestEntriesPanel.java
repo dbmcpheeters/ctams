@@ -7,6 +7,7 @@
 package org.wuspba.ctams.ui.client;
 
 import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
@@ -29,5 +30,12 @@ public class ContestEntriesPanel extends VLayout {
         public String getID() {
             return id;
         }
+    }
+
+    public ContestEntriesPanel() {
+        Label title = new Label("Coming soon!");
+        title.setStyleName("sgwtTitle");
+        title.setWidth(500);
+        addMember(title);
     }
 }
