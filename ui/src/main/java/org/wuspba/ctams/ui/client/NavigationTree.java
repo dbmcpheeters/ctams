@@ -172,7 +172,7 @@ public class NavigationTree extends TreeGrid {
                     "Venue Explorer",
                     "venues",
                     "contest-category",
-                    "/ctams-ui/images/tree.png", 
+                    "/ctams-ui/images/house.png", 
                     new VenueExplorerPanel.Factory(),
                     true,
                     false),

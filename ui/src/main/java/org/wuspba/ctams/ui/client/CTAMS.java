@@ -122,7 +122,7 @@ public class CTAMS implements EntryPoint {
 
         topBar.addSpacer(6);
         ImgButton sgwtHomeButton = new ImgButton();
-        sgwtHomeButton.setSrc("/ctams-ui/images/logo.png");
+        sgwtHomeButton.setSrc("/ctams-ui/images/logo.jpg");
         sgwtHomeButton.setWidth(73);
         sgwtHomeButton.setHeight(33);
         sgwtHomeButton.setPrompt("WUSPBA");
