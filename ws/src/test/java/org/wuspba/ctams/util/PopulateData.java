@@ -37,8 +37,10 @@ import org.wuspba.ctams.model.BandType;
 import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Grade;
+import org.wuspba.ctams.model.Instrument;
 import org.wuspba.ctams.model.Person;
 import org.wuspba.ctams.model.Roster;
+import org.wuspba.ctams.model.SoloRegistration;
 
 /**
  *
@@ -94,6 +96,13 @@ public class PopulateData {
                 .setPath(PATH + "/bandregistration")
                 .build();
 
+            URI soloRegUri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH + "/soloregistration")
+                .build();
+
             URI memberUri = new URIBuilder()
                 .setScheme(PROTOCOL)
                 .setHost(HOST)
@@ -118,8 +127,25 @@ public class PopulateData {
             CTAMSDocument bands = list(uri, new HashMap<String, String>());
             CTAMSDocument people = list(peopleUri, new HashMap<String, String>());
             CTAMSDocument registrations = new CTAMSDocument();
+            CTAMSDocument soloRegistrations = new CTAMSDocument();
             CTAMSDocument bandMembers = new CTAMSDocument();
             CTAMSDocument rosters = new CTAMSDocument();
+
+            for(Person person : people.getPeople()) {
+                if(Math.random() < 0.3) {
+                    SoloRegistration soloReg = new SoloRegistration();
+                    soloReg.setStart(new Date());
+                    soloReg.setEnd(new Date());
+                    soloReg.setGrade(Grade.values()[(int)(Math.random() * Grade.values().length)]);
+                    soloReg.setNumber(Integer.toString((int)(Math.random() * 999)));
+                    soloReg.setPerson(person);
+                    soloReg.setSeason((int)(Math.random() * (2015 - 2009) + 2009));
+                    soloReg.setType(Instrument.values()[(int)(Math.random() * Instrument.values().length)]);
+                    
+                    soloRegistrations.getSoloRegistrations().add(soloReg);
+                }
+            }
+            send(XMLUtils.marshal(soloRegistrations), soloRegUri);
 
             for(Person person : people.getPeople()) {
                 BandMember member = new BandMember();
