@@ -70,7 +70,7 @@ public class CTAMS implements EntryPoint {
 
         Tab tab = new Tab();
         tab.setTitle("Home&nbsp;&nbsp;");
-        tab.setIcon("/images/house.png", 16);
+        tab.setIcon("/ctams-ui/images/house.png", 16);
         tab.setWidth(80);
         tab.setCanClose(false);
         tab.setContextMenu(contextMenu);
@@ -122,7 +122,7 @@ public class CTAMS implements EntryPoint {
 
         topBar.addSpacer(6);
         ImgButton sgwtHomeButton = new ImgButton();
-        sgwtHomeButton.setSrc("/images/logo.png");
+        sgwtHomeButton.setSrc("/ctams-ui/images/logo.png");
         sgwtHomeButton.setWidth(73);
         sgwtHomeButton.setHeight(33);
         sgwtHomeButton.setPrompt("WUSPBA");

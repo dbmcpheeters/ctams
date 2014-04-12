@@ -40,6 +40,7 @@ public class RosterMemberDS extends DataSource {
         DataSourceTextField seasonField = new DataSourceTextField("season", "First Name", 4, true);
         DataSourceTextField versionField = new DataSourceTextField("version", "First Name", 4, true);
         
+        DataSourceTextField memberIDField = new DataSourceTextField("memberID", "ID", 100, true);
         DataSourceTextField memberFirstNameField = new DataSourceTextField("memberFirstName", "First Name", 100, true);
         DataSourceTextField memberMiddleNameField = new DataSourceTextField("memberMiddleName", "Middle Name", 100, true);
         DataSourceTextField memberLastNameField = new DataSourceTextField("memberLastName", "Last Name", 100, true);
@@ -49,6 +50,7 @@ public class RosterMemberDS extends DataSource {
         DataSourceTextField memberStateField = new DataSourceTextField("memberState", "State", 2, true);
         DataSourceEnumField memberPositionField = new DataSourceEnumField("memberPosition", "Position", 128, true);
 
+        memberIDField.setRequired(true);
         memberFirstNameField.setRequired(true);
         memberMiddleNameField.setRequired(false);
         memberLastNameField.setRequired(true);
@@ -62,6 +64,7 @@ public class RosterMemberDS extends DataSource {
         seasonField.setValueXPath("ancestor::season");
         versionField.setValueXPath("ancestor::version");
 
+        memberIDField.setValueXPath("person/id");
         memberFirstNameField.setValueXPath("person/firstName");
         memberMiddleNameField.setValueXPath("person/middleName");
         memberLastNameField.setValueXPath("person/lastName");
@@ -73,7 +76,7 @@ public class RosterMemberDS extends DataSource {
         
         memberPositionField.setValueMap(ClientUtils.INSTANCE.getMemberTypeMap());
 
-        setFields(idField, bandField, seasonField, versionField, 
+        setFields(idField, bandField, seasonField, versionField, memberIDField,
                 memberFirstNameField, memberMiddleNameField, memberLastNameField, 
                 memberAddressField, memberCityField, memberZipField, 
                 memberStateField, memberPositionField);

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.wuspba.ctams.ui.server;
 
 import java.io.IOException;
@@ -17,6 +16,8 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wuspba.ctams.model.Band;
+import org.wuspba.ctams.model.BandMember;
+import org.wuspba.ctams.model.BandMemberType;
 import org.wuspba.ctams.model.BandRegistration;
 import org.wuspba.ctams.model.BandType;
 import org.wuspba.ctams.model.Branch;
@@ -37,21 +38,21 @@ public class DataUtils {
     private static final Logger LOG = LoggerFactory.getLogger(DataUtils.class);
 
     protected static CTAMSDocument getDocument(Class type, HttpServletRequest request) {
-        if(type == Band.class) {
+        if (type == Band.class) {
             return getBand(request);
-        } else if(type == Person.class) {
+        } else if (type == Person.class) {
             return getPerson(request);
-        } else if(type == BandRegistration.class) {
+        } else if (type == BandRegistration.class) {
             return getBandRegistration(request);
-        } else if(type == Roster.class) {
+        } else if (type == Roster.class) {
             return getRoster(request);
         }
 
         return new CTAMSDocument();
     }
-    
+
     protected static CTAMSDocument getBand(HttpServletRequest request) {
-        
+
         Band band = new Band();
         band.setId(request.getParameter("id"));
         band.setName(request.getParameter("name"));
@@ -75,16 +76,16 @@ public class DataUtils {
     }
 
     protected static CTAMSDocument getBandRegistration(HttpServletRequest request) {
-        
+
         BandRegistration registration = new BandRegistration();
 
         URIBuilder builder = new URIBuilder()
-                    .setScheme(ServerUtils.PROTOCOL)
-                    .setHost(ServerUtils.HOST)
-                    .setPort(ServerUtils.PORT)
-                    .setParameter("name", request.getParameter("band"))
-                    .setPath(ServerUtils.URI + "/band");
-        
+                .setScheme(ServerUtils.PROTOCOL)
+                .setHost(ServerUtils.HOST)
+                .setPort(ServerUtils.PORT)
+                .setParameter("name", request.getParameter("band"))
+                .setPath(ServerUtils.URI + "/band");
+
         try {
             String xml = ServerUtils.get(builder.build());
             CTAMSDocument bands = XMLUtils.unmarshal(xml);
@@ -94,7 +95,7 @@ public class DataUtils {
         } catch (URISyntaxException uex) {
             LOG.error("Invalide URI", uex);
         }
-        
+
         registration.setId(request.getParameter("id"));
         try {
             registration.setEnd(dateParser.parse(request.getParameter("end")));
@@ -117,32 +118,167 @@ public class DataUtils {
     }
 
     protected static CTAMSDocument getRoster(HttpServletRequest request) {
-        
-        Roster roster = new Roster();
-        
-        roster.setId(request.getParameter("id"));
-        roster.setVersion(Integer.parseInt(request.getParameter("version")));
-        roster.setSeason(Integer.parseInt(request.getParameter("season")));
 
-        URIBuilder builder = new URIBuilder()
+        Roster roster = null;
+
+        URIBuilder builder;
+        
+        if(request.getParameter("id") != null) {
+
+            LOG.info("Updating roster " + request.getParameter("id"));
+            
+            builder = new URIBuilder()
                     .setScheme(ServerUtils.PROTOCOL)
                     .setHost(ServerUtils.HOST)
                     .setPort(ServerUtils.PORT)
-                    .setParameter("id", request.getParameter("registration"))
-                    .setPath(ServerUtils.URI + "/registration");
-        
-        try {
-            String xml = ServerUtils.get(builder.build());
-            CTAMSDocument registrations = XMLUtils.unmarshal(xml);
-            roster.setRegistration(registrations.getBandRegistrations().get(0));
-        } catch (IOException ex) {
-            LOG.error("Error finding band", ex);
-        } catch (URISyntaxException uex) {
-            LOG.error("Invalide URI", uex);
+                    .setParameter("id", request.getParameter("id"))
+                    .setPath(ServerUtils.URI + "/roster");
+
+            try {
+                String xml = ServerUtils.get(builder.build());
+                CTAMSDocument doc = XMLUtils.unmarshal(xml);
+                if (!doc.getRosters().isEmpty()) {
+                    roster = doc.getRosters().get(0);
+                }
+            } catch (IOException ex) {
+                LOG.error("Error finding roster", ex);
+            } catch (URISyntaxException uex) {
+                LOG.error("Invalid URI", uex);
+            }
+        } else if(request.getParameter("bandId") != null) {
+            builder = new URIBuilder()
+                    .setScheme(ServerUtils.PROTOCOL)
+                    .setHost(ServerUtils.HOST)
+                    .setPort(ServerUtils.PORT)
+                    .setParameter("band", request.getParameter("bandId"))
+                    .setParameter("season", request.getParameter("season"))
+                    .setParameter("version", request.getParameter("version"))
+                    .setPath(ServerUtils.URI + "/roster");
+
+            try {
+                String xml = ServerUtils.get(builder.build());
+                CTAMSDocument doc = XMLUtils.unmarshal(xml);
+                if (!doc.getRosters().isEmpty()) {
+                    roster = doc.getRosters().get(0);
+                }
+            } catch (IOException ex) {
+                LOG.error("Error finding roster", ex);
+            } catch (URISyntaxException uex) {
+                LOG.error("Invalid URI", uex);
+            }
+
+            if(roster == null) {
+
+                LOG.info("Adding new roster");
+
+                BandRegistration reg = null;
+
+                builder = new URIBuilder()
+                        .setScheme(ServerUtils.PROTOCOL)
+                        .setHost(ServerUtils.HOST)
+                        .setPort(ServerUtils.PORT)
+                        .setParameter("band", request.getParameter("bandId"))
+                        .setParameter("season", request.getParameter("season"))
+                        .setPath(ServerUtils.URI + "/bandregistration");
+
+                try {
+                    String xml = ServerUtils.get(builder.build());
+                    CTAMSDocument doc = XMLUtils.unmarshal(xml);
+                    if (!doc.getBandRegistrations().isEmpty()) {
+                        reg = doc.getBandRegistrations().get(0);
+                    }
+                } catch (IOException ex) {
+                    LOG.error("Error finding registration", ex);
+                } catch (URISyntaxException uex) {
+                    LOG.error("Invalid URI", uex);
+                }
+
+                if(reg != null) {
+                    roster = new Roster();
+                    roster.setRegistration(reg);
+                    roster.setVersion(Integer.parseInt(request.getParameter("version")));
+                    roster.setSeason(Integer.parseInt(request.getParameter("season")));
+                    CTAMSDocument cd = new CTAMSDocument();
+                    cd.getRosters().add(roster);
+                    String rosterXML = XMLUtils.marshal(cd);
+                    builder = new URIBuilder()
+                        .setScheme(ServerUtils.PROTOCOL)
+                        .setHost(ServerUtils.HOST)
+                        .setPort(ServerUtils.PORT)
+                        .setPath(ServerUtils.URI + "/roster");
+                    try {
+                        rosterXML = ServerUtils.post(builder.build(), rosterXML);
+                    } catch (IOException ex) {
+                        LOG.error("Error adding roster", ex);
+                    } catch (URISyntaxException uex) {
+                        LOG.error("Invalid URI", uex);
+                    }
+                    roster = XMLUtils.unmarshal(rosterXML).getRosters().get(0);
+                }
+            }
         }
 
-        LOG.info("Members param: " + request.getParameter("members"));
-        
+        if (request.getParameter("memberID") != null) {
+
+            if(request.getParameter("remove") != null) {
+                LOG.info("Removing member from an existing roster");
+
+                String id = request.getParameter("memberID");
+
+                BandMember toRemove = null;
+
+                for(BandMember member : roster.getMembers()) {
+                    if(member.getPerson().getId().equals(id)) {
+                        toRemove = member;
+                        break;
+                    }
+                }
+
+                if(toRemove != null) {
+                    LOG.info("Removing " + toRemove.getId());
+                    roster.getMembers().remove(toRemove);
+                }
+                        
+            } else {
+            
+                LOG.info("Adding a member to an existing roster");
+
+                builder = new URIBuilder()
+                        .setScheme(ServerUtils.PROTOCOL)
+                        .setHost(ServerUtils.HOST)
+                        .setPort(ServerUtils.PORT)
+                        .setParameter("id", request.getParameter("memberID"))
+                        .setPath(ServerUtils.URI + "/person");
+
+                try {
+                    String xml = ServerUtils.get(builder.build());
+                    CTAMSDocument person = XMLUtils.unmarshal(xml);
+
+                    BandMember member = new BandMember();
+                    member.setPerson(person.getPeople().get(0));
+                    member.setType(BandMemberType.valueOf(request.getParameter("memberPosition")));
+                    CTAMSDocument memberDoc = new CTAMSDocument();
+                    memberDoc.getBandMembers().add(member);
+                    String memberXML = XMLUtils.marshal(memberDoc);
+
+                    builder = new URIBuilder()
+                        .setScheme(ServerUtils.PROTOCOL)
+                        .setHost(ServerUtils.HOST)
+                        .setPort(ServerUtils.PORT)
+                        .setPath(ServerUtils.URI + "/bandmember");
+                    memberXML = ServerUtils.post(builder.build(), memberXML);
+
+                    member = XMLUtils.unmarshal(memberXML).getBandMembers().get(0);
+
+                    roster.getMembers().add(member);
+                } catch (IOException ex) {
+                    LOG.error("Error finding band registration", ex);
+                } catch (URISyntaxException uex) {
+                    LOG.error("Invalid URI", uex);
+                }
+            }
+        }
+
         CTAMSDocument doc = new CTAMSDocument();
         doc.getRosters().add(roster);
 

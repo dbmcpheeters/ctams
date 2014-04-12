@@ -37,6 +37,7 @@ public class JPAConfig {
     }
 
     private DBType type = DBType.EMBEDDED;
+//    private DBType type = DBType.MYSQL;
 
     String testDB = "localhost:3306";
     String prodDB = "ctamtestsadmin.db.11349954.hostedresource.com";
@@ -45,6 +46,11 @@ public class JPAConfig {
     String dbName = "ctams";
     String dbUsername = "mysql";
     String dbPassword = "mysql";
+
+//    String dbURL = "ctamsadmin.db.11349954.hostedresource.com";
+//    String dbName = "ctamsadmin";
+//    String dbUsername = "ctamsadmin";
+//    String dbPassword = "Password1!";
 
     public JPAConfig() {
         InputStream in = getClass().getResourceAsStream("/config.properties");

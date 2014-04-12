@@ -121,7 +121,7 @@ public class BandExplorerPanel extends VLayout {
         
                 final Window winModal = new Window();
                 winModal.setWidth(550);
-                winModal.setHeight(250);
+                winModal.setHeight(300);
                 winModal.setTitle("Add New Band");
                 winModal.setShowMinimizeButton(false);
                 winModal.setIsModal(true);

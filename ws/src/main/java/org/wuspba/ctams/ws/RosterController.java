@@ -150,6 +150,7 @@ public class RosterController {
         for(Roster r : rosters) {
             LOG.info("Deleting roster " + r.getId());
             repository.delete(r);
+            LOG.info("Remaining rosters: " + repository.count());
         }
     }
 

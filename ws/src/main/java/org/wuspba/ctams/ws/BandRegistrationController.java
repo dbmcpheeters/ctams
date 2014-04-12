@@ -102,6 +102,7 @@ public class BandRegistrationController {
         for(BandRegistration r : registrations) {
             LOG.info("Deleting band registration " + r.getId());
             repository.delete(r);
+            LOG.info("Remaining registration: " + repository.count());
         }
     }
 

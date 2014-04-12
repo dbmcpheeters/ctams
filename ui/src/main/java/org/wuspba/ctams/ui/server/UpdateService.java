@@ -38,8 +38,6 @@ public class UpdateService extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        LOG.info("Updating band");
-
         CTAMSDocument doc = DataUtils.getDocument(type, request);
 
         try {
