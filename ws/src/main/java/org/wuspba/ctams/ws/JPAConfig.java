@@ -4,9 +4,6 @@
  */
 package org.wuspba.ctams.ws;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.DERBY;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
@@ -37,52 +34,41 @@ public class JPAConfig {
     }
 
     private DBType type = DBType.EMBEDDED;
-//    private DBType type = DBType.MYSQL;
 
-    String testDB = "localhost:3306";
-    String prodDB = "ctamtestsadmin.db.11349954.hostedresource.com";
-                
-    String dbURL = "localhost:3306";
-    String dbName = "ctams";
-    String dbUsername = "mysql";
-    String dbPassword = "mysql";
-
-//    String dbURL = "ctamsadmin.db.11349954.hostedresource.com";
-//    String dbName = "ctamsadmin";
-//    String dbUsername = "ctamsadmin";
-//    String dbPassword = "Password1!";
+    private String dbURL = "localhost:3306";
+    private String dbName = "ctams";
+    private String dbUsername = "mysql";
+    private String dbPassword = "mysql";
 
     public JPAConfig() {
-        InputStream in = getClass().getResourceAsStream("/config.properties");
 
-        if(in != null) {
-            Properties p = new Properties();
-            try {
-                p.load(in);
+        String url = System.getProperty("org.wuspba.ctams.dburl");
+        if(url != null) {
+            dbURL = url;
+        }
 
-                String dbTypeIn = p.getProperty("ctams.db.type");
-                dbURL = p.getProperty("ctams.db.url");
-                dbUsername = p.getProperty("ctams.db.username");
-                dbPassword = p.getProperty("ctams.db.password");
-                dbName = p.getProperty("ctams.db.name");
+        String username = System.getProperty("org.wuspba.ctams.dbuser");
+        if(username != null) {
+            dbUsername = username;
+        }
 
-                try {
-                    type = DBType.valueOf(dbTypeIn);
-                } catch(IllegalArgumentException ex) {
-                    LOG.warn("Unknown database type '" + dbTypeIn + "'", ex);
-                    type = DBType.EMBEDDED;
-                }
+        String password = System.getProperty("org.wuspba.ctams.dbpass");
+        if(password != null) {
+            dbPassword = password;
+        }
 
-            } catch (IOException ex) {
-                LOG.warn("Could not find configuration file, using defaults.", ex);
+        String name = System.getProperty("org.wuspba.ctams.dbname");
+        if(name != null) {
+            dbName = name;
+        }
+
+        try {
+            String dbTypeIn = System.getProperty("org.wuspba.ctams.dbtype");
+            if(dbTypeIn != null) {
+                type = DBType.valueOf(dbTypeIn);
             }
-            try {
-                in.close();
-            } catch (IOException ex) {
-                LOG.error("Could not close configuration file input stream", ex);
-            }
-        } else {
-            LOG.warn("Could not find configuration file, using defaults.");
+        } catch(IllegalArgumentException ex) {
+            type = DBType.EMBEDDED;
         }
     }
 

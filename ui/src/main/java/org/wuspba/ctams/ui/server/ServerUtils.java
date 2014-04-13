@@ -33,17 +33,28 @@ public class ServerUtils  {
     private static final Logger LOG = LoggerFactory.getLogger(ServerUtils.class);
     
     protected static final String PROTOCOL = "http";
-    protected static final String HOST = "localhost";
-    //protected static final String HOST = "68.178.128.110";
-    protected static final int PORT = 8080;
+    protected static String HOST = "localhost";
+    protected static int PORT = 8080;
     protected static final String URI = "/ctams";
 
     private final HashMap gradeMap = new HashMap();
     private final HashMap branchMap = new HashMap();
     private final HashMap typeMap = new HashMap();
 
+    static {
+        String host = System.getProperty("org.wuspba.ctams.host");
+        if(host != null) {
+            HOST = host;
+        }
+
+        String port = System.getProperty("org.wuspba.ctams.port");
+        if(port != null) {
+            PORT = Integer.parseInt(port);
+        }
+    }
+
     public ServerUtils() {
-        
+
         gradeMap.put("ONE", "1");
         gradeMap.put("TWO", "2");
         gradeMap.put("THREE", "3");

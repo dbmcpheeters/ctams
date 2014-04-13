@@ -74,18 +74,19 @@ public class BandRegistrationPanel extends VLayout {
         topLayout.setLayoutAlign(VerticalAlignment.CENTER);
         
         final ListGrid regGrid = new ListGrid();
-        regGrid.setWidth(700);
+        regGrid.setWidth(650);
         regGrid.setHeight100();
         regGrid.setShowFilterEditor(true);
         regGrid.setFilterOnKeypress(true);
         regGrid.setAutoFitFieldWidths(true);
+        regGrid.setAutoFitFieldsFillViewport(true);
         regGrid.setFetchDelay(100);
         regGrid.setDataSource(regDS);
         regGrid.setAutoFetchData(true);
 
-        ListGridField nameListField = new ListGridField("band", 100);
-        ListGridField gradeListField = new ListGridField("grade", 15);
-        ListGridField seasonListField = new ListGridField("season", 4);
+        ListGridField nameListField = new ListGridField("band", 198);
+        ListGridField gradeListField = new ListGridField("grade", 150);
+        ListGridField seasonListField = new ListGridField("season", 150);
         ListGridField startListField = new ListGridField("start", 150);
         
         regGrid.setFields(nameListField, gradeListField, seasonListField, startListField);
