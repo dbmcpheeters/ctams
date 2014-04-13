@@ -96,6 +96,7 @@ public class VenueExplorerPanel extends VLayout {
         form.setWidth(500);
         form.setHeight100();
         form.setBrowserSpellCheck(true);
+        form.setAlign(Alignment.CENTER);
 
         venueGrid.addRecordClickHandler(new RecordClickHandler() {
             @Override
@@ -180,7 +181,7 @@ public class VenueExplorerPanel extends VLayout {
                 winModal.show();
             }
         });
-        IButton updateButton = new IButton("Modify");
+        IButton updateButton = new IButton("Apply");
         updateButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {

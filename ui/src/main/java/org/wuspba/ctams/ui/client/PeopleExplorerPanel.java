@@ -180,7 +180,7 @@ public class PeopleExplorerPanel extends VLayout {
                 winModal.show();
             }
         });
-        IButton updateButton = new IButton("Modify");
+        IButton updateButton = new IButton("Apply");
         updateButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
