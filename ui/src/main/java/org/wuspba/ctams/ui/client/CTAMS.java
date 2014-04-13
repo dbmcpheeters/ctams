@@ -122,21 +122,21 @@ public class CTAMS implements EntryPoint {
 
         topBar.addSpacer(6);
         ImgButton sgwtHomeButton = new ImgButton();
-        sgwtHomeButton.setSrc("/ctams-ui/images/logo.jpg");
-        sgwtHomeButton.setWidth(33);
+        sgwtHomeButton.setSrc("/ctams-ui/images/ctams.png");
+        sgwtHomeButton.setWidth(57);
         sgwtHomeButton.setHeight(33);
         sgwtHomeButton.setPrompt("WUSPBA");
         sgwtHomeButton.setHoverStyle("interactImageHover");
         sgwtHomeButton.setShowRollOver(false);
         sgwtHomeButton.setShowDownIcon(false);
         sgwtHomeButton.setShowDown(false);
-        sgwtHomeButton.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                com.google.gwt.user.client.Window.open("http://www.wuspba.org/",
-                        "sgwt", null);
-            }
-        });
+//        sgwtHomeButton.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+//            @Override
+//            public void onClick(ClickEvent event) {
+//                com.google.gwt.user.client.Window.open("http://www.wuspba.org/",
+//                        "sgwt", null);
+//            }
+//        });
         topBar.addMember(sgwtHomeButton);
         topBar.addSpacer(6);
 

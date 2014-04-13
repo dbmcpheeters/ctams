@@ -27,6 +27,7 @@ import org.wuspba.ctams.model.Instrument;
 import org.wuspba.ctams.model.Person;
 import org.wuspba.ctams.model.Roster;
 import org.wuspba.ctams.model.SoloRegistration;
+import org.wuspba.ctams.model.Venue;
 import org.wuspba.ctams.util.XMLUtils;
 
 /**
@@ -50,6 +51,8 @@ public class DataUtils {
             return getRoster(request);
         } else if (type == SoloRegistration.class) {
             return getSoloRegistration(request);
+        } else if (type == Venue.class) {
+            return getVenue(request);
         }
 
         return new CTAMSDocument();
@@ -356,6 +359,30 @@ public class DataUtils {
 
         CTAMSDocument doc = new CTAMSDocument();
         doc.getSoloRegistrations().add(registration);
+
+        return doc;
+    }
+
+    protected static CTAMSDocument getVenue(HttpServletRequest request) {
+
+        Venue venue = new Venue();
+        venue.setId(request.getParameter("id"));
+        venue.setName(request.getParameter("name"));
+        venue.setSponsor(request.getParameter("sponsor"));
+        venue.setAddress(request.getParameter("address"));
+        venue.setCity(request.getParameter("city"));
+        venue.setState(request.getParameter("state"));
+        venue.setZip(request.getParameter("zip"));
+        venue.setCountry(request.getParameter("country"));
+        venue.setPhone(request.getParameter("phone"));
+        venue.setUrl(request.getParameter("url"));
+        venue.setEmail(request.getParameter("email"));
+        venue.setBranch(Branch.valueOf(request.getParameter("branch")));
+        venue.setBandContest(Boolean.valueOf(request.getParameter("bandContest")));
+        venue.setSoloContest(Boolean.valueOf(request.getParameter("soloContest")));
+
+        CTAMSDocument doc = new CTAMSDocument();
+        doc.getVenues().add(venue);
 
         return doc;
     }

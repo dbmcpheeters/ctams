@@ -41,6 +41,7 @@ import org.wuspba.ctams.model.Instrument;
 import org.wuspba.ctams.model.Person;
 import org.wuspba.ctams.model.Roster;
 import org.wuspba.ctams.model.SoloRegistration;
+import org.wuspba.ctams.model.Venue;
 
 /**
  *
@@ -81,6 +82,10 @@ public class PopulateData {
             statement = connect.createStatement();
             resultSet = statement.executeQuery("select * from Person");
             writePeopleResultSet(resultSet);
+
+            statement = connect.createStatement();
+            resultSet = statement.executeQuery("select * from Venue");
+            writeVenueResultSet(resultSet);
 
             URI uri = new URIBuilder()
                 .setScheme(PROTOCOL)
@@ -369,6 +374,88 @@ public class PopulateData {
                 .setHost(HOST)
                 .setPort(PORT)
                 .setPath(PATH + "/person")
+                .build();
+        
+        send(xml, uri);
+    }
+
+    private void writeVenueResultSet(ResultSet resultSet) throws SQLException, URISyntaxException {
+        CTAMSDocument doc = new CTAMSDocument();
+
+        while (resultSet.next()) {
+            String name = resultSet.getString("Name");
+            String sponsor = resultSet.getString("Sponsor");
+            String location = resultSet.getString("Location");
+            String address = resultSet.getString("Address");
+            String city = resultSet.getString("City");
+            String state = resultSet.getString("State");
+            String zip = resultSet.getString("Zip");
+            String telephone = resultSet.getString("Phone");
+            String email = resultSet.getString("Email");
+            String url = resultSet.getString("URL");
+            String soloContest = resultSet.getString("SoloContest");
+            String bandContest = resultSet.getString("BandContest");
+            String branch = resultSet.getString("BranchID");
+
+            Venue venue = new Venue();
+            venue.setName(name);
+            venue.setSponsor(sponsor);
+            venue.setLocation(location);
+            venue.setAddress(address);
+            venue.setCity(city);
+            venue.setState(state);
+            venue.setZip(zip);
+            venue.setPhone(telephone);
+            venue.setEmail(email);
+            venue.setUrl(url);
+
+            if(soloContest.equals("0")) {
+                venue.setSoloContest(false);
+            } else {
+                venue.setSoloContest(true);
+            }
+
+            if(bandContest.equals("-1")) {
+                venue.setBandContest(false);
+            } else {
+                venue.setBandContest(true);
+            }
+
+            if(branch != null) {
+                switch (branch) {
+                    case "1":
+                        venue.setBranch(Branch.NORTHERN);
+                        break;
+                    case "2":
+                        venue.setBranch(Branch.INTERMOUNTAIN);
+                        break;
+                    case "3":
+                        venue.setBranch(Branch.GREATBASIN);
+                        break;
+                    case "4":
+                        venue.setBranch(Branch.SOUTHERN);
+                        break;
+                    case "5":
+                        venue.setBranch(Branch.OTHER);
+                        break;
+                }
+            } else {
+                venue.setBranch(Branch.OTHER);
+            }
+
+            venue.setCountry("USA");
+
+            doc.getVenues().add(venue);
+        }
+
+        String xml = XMLUtils.marshal(doc);
+
+
+        URI uri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH + "/venue")
                 .build();
         
         send(xml, uri);

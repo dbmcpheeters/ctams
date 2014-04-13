@@ -252,6 +252,54 @@
             <param-value>/soloregistration</param-value>
         </init-param>
     </servlet>
+
+    <servlet>
+        <servlet-name>venueListServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.ListService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/venue</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>venueUpdateServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.UpdateService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/venue</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.Venue</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>venueAddServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.AddService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/venue</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.Venue</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>venueDeleteServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.DeleteService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/venue</param-value>
+        </init-param>
+    </servlet>
   
     <servlet-mapping>
         <servlet-name>bandListServlet</servlet-name>
@@ -351,6 +399,26 @@
     <servlet-mapping>
         <servlet-name>soloRegistrationDeleteServlet</servlet-name>
         <url-pattern>/soloregistrationdelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>venueListServlet</servlet-name>
+        <url-pattern>/venuelist</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>venueUpdateServlet</servlet-name>
+        <url-pattern>/venueupdate</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>venueAddServlet</servlet-name>
+        <url-pattern>/venueadd</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>venueDeleteServlet</servlet-name>
+        <url-pattern>/venuedelete</url-pattern>
     </servlet-mapping>
 
 </web-app>
