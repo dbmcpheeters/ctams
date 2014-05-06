@@ -31,7 +31,7 @@ public class CTAMSDocument {
     private final List<HiredJudge> hiredJudges = new ArrayList<>();
     
     @XmlElement(name = "judgeQualification")
-    private final List<JudgeQualification> qualifications = new ArrayList<>();
+    private final List<JudgeQualification> judgeQualifications = new ArrayList<>();
 
     @XmlElement(name = "venue")
     private final List<Venue> venues = new ArrayList<>();
@@ -87,7 +87,7 @@ public class CTAMSDocument {
      * @return the judges qualifications
      */
     public List<JudgeQualification> getJudgeQualifications() {
-        return qualifications;
+        return judgeQualifications;
     }
 
     /**
@@ -179,13 +179,6 @@ public class CTAMSDocument {
      */
     public List<HiredJudge> getHiredJudges() {
         return hiredJudges;
-    }
-
-    /**
-     * @return the qualifications
-     */
-    public List<JudgeQualification> getQualifications() {
-        return qualifications;
     }
 
     /**

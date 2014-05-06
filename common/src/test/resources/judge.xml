@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <CTAMS xmlns:ns2="ctams">
-    <person>
-        <id>andyPerson</id>
-        <title>Mr.</title>
-        <firstName>Andy</firstName>
-        <middleName>Ryan</middleName>
-        <nickName>The Man</nickName>
-        <lastName>Trimble</lastName>
-        <suffix></suffix>
-        <email>andy.trimble@gmail.com</email>
-        <address>214 S Hancock Ave.</address>
-        <city>Colorado Springs</city>
-        <state>CO</state>
-        <zip>80903</zip>
-        <country>USA</country>
-        <phone>719-555-5555</phone>
-        <notes>What a bad ass!</notes>
-        <lifeMember>true</lifeMember>
-        <branch>INTERMOUNTAIN</branch>
-    </person>
     <judge>
         <id>andyJudge</id>
-        <person>andyPerson</person>
+        <person>
+            <id>andyPerson</id>
+            <title>Mr.</title>
+            <firstName>Andy</firstName>
+            <middleName>Ryan</middleName>
+            <nickName>The Man</nickName>
+            <lastName>Trimble</lastName>
+            <suffix></suffix>
+            <email>andy.trimble@gmail.com</email>
+            <address>214 S Hancock Ave.</address>
+            <city>Colorado Springs</city>
+            <state>CO</state>
+            <zip>80903</zip>
+            <country>USA</country>
+            <phone>719-555-5555</phone>
+            <notes>What a bad ass!</notes>
+            <lifeMember>true</lifeMember>
+            <branch>INTERMOUNTAIN</branch>
+        </person>
         <qualification>
             <panel>B</panel>
             <type>BAND_ENSEMBLE</type>

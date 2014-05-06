@@ -300,6 +300,54 @@
             <param-value>/venue</param-value>
         </init-param>
     </servlet>
+
+    <servlet>
+        <servlet-name>judgeListServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.ListService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/judge</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>judgeUpdateServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.UpdateService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/judge</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.Judge</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>judgeAddServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.AddService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/judge</param-value>
+        </init-param>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>org.wuspba.ctams.model.Judge</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>judgeDeleteServlet</servlet-name>
+        <servlet-class>org.wuspba.ctams.ui.server.DeleteService</servlet-class>
+
+        <init-param>
+            <param-name>uri</param-name>
+            <param-value>/judge</param-value>
+        </init-param>
+    </servlet>
   
     <servlet-mapping>
         <servlet-name>bandListServlet</servlet-name>
@@ -419,6 +467,26 @@
     <servlet-mapping>
         <servlet-name>venueDeleteServlet</servlet-name>
         <url-pattern>/venuedelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>judgeListServlet</servlet-name>
+        <url-pattern>/judgelist</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>judgeUpdateServlet</servlet-name>
+        <url-pattern>/judgeupdate</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>judgeAddServlet</servlet-name>
+        <url-pattern>/judgeadd</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>judgeDeleteServlet</servlet-name>
+        <url-pattern>/judgedelete</url-pattern>
     </servlet-mapping>
 
 </web-app>

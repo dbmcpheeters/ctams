@@ -14,8 +14,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -38,6 +40,10 @@ import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Grade;
 import org.wuspba.ctams.model.Instrument;
+import org.wuspba.ctams.model.Judge;
+import org.wuspba.ctams.model.JudgePanelType;
+import org.wuspba.ctams.model.JudgeQualification;
+import org.wuspba.ctams.model.JudgeType;
 import org.wuspba.ctams.model.Person;
 import org.wuspba.ctams.model.Roster;
 import org.wuspba.ctams.model.SoloRegistration;
@@ -129,12 +135,41 @@ public class PopulateData {
                 .setPath(PATH + "/person")
                 .build();
 
+            URI judgeUri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH + "/judge")
+                .build();
+
+            URI qualUri = new URIBuilder()
+                .setScheme(PROTOCOL)
+                .setHost(HOST)
+                .setPort(PORT)
+                .setPath(PATH + "/judgequalification")
+                .build();
+
             CTAMSDocument bands = list(uri, new HashMap<String, String>());
             CTAMSDocument people = list(peopleUri, new HashMap<String, String>());
             CTAMSDocument registrations = new CTAMSDocument();
             CTAMSDocument soloRegistrations = new CTAMSDocument();
             CTAMSDocument bandMembers = new CTAMSDocument();
             CTAMSDocument rosters = new CTAMSDocument();
+            CTAMSDocument judges = new CTAMSDocument();
+
+            List<JudgeQualification> quals = new ArrayList<>();
+            for(JudgePanelType panel : JudgePanelType.values()) {
+                for(JudgeType type : JudgeType.values()) {
+                    JudgeQualification q = new JudgeQualification();
+                    q.setType(type);
+                    q.setPanel(panel);
+                    quals.add(q);
+                }
+            }
+            CTAMSDocument qualDocument = new CTAMSDocument();
+            qualDocument.getJudgeQualifications().addAll(quals);
+            send(XMLUtils.marshal(qualDocument), qualUri);
+            qualDocument = list(qualUri, new HashMap<String, String>());
 
             for(Person person : people.getPeople()) {
                 if(Math.random() < 0.3) {
@@ -149,8 +184,22 @@ public class PopulateData {
                     
                     soloRegistrations.getSoloRegistrations().add(soloReg);
                 }
+
+                if(Math.random() < 0.1) {
+                    Judge judge = new Judge();
+                    judge.setPerson(person);
+                    int qualNum = (int)(Math.random() * 4.0);
+                    for(int i = 0; i < qualNum; ++i) {
+                        JudgeQualification qual = qualDocument.getJudgeQualifications().get(
+                                (int)(Math.random() * qualDocument.getJudgeQualifications().size()));
+                        judge.getQualifications().add(qual);
+                    }
+                    
+                    judges.getJudges().add(judge);
+                }
             }
             send(XMLUtils.marshal(soloRegistrations), soloRegUri);
+//            send(XMLUtils.marshal(judges), judgeUri);
 
             for(Person person : people.getPeople()) {
                 BandMember member = new BandMember();

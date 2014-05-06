@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +31,6 @@ import org.wuspba.ctams.model.JudgeType;
 @ComponentScan
 @Controller
 @RequestMapping("/judgequalification")
-@Transactional
 public class JudgeQualificationController {
 
     private static final Logger LOG = LoggerFactory.getLogger(JudgeQualificationController.class);

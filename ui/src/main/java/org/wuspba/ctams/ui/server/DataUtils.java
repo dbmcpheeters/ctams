@@ -24,6 +24,10 @@ import org.wuspba.ctams.model.Branch;
 import org.wuspba.ctams.model.CTAMSDocument;
 import org.wuspba.ctams.model.Grade;
 import org.wuspba.ctams.model.Instrument;
+import org.wuspba.ctams.model.Judge;
+import org.wuspba.ctams.model.JudgePanelType;
+import org.wuspba.ctams.model.JudgeQualification;
+import org.wuspba.ctams.model.JudgeType;
 import org.wuspba.ctams.model.Person;
 import org.wuspba.ctams.model.Roster;
 import org.wuspba.ctams.model.SoloRegistration;
@@ -53,6 +57,8 @@ public class DataUtils {
             return getSoloRegistration(request);
         } else if (type == Venue.class) {
             return getVenue(request);
+        } else if (type == Judge.class) {
+            return getJudge(request);
         }
 
         return new CTAMSDocument();
@@ -305,7 +311,7 @@ public class DataUtils {
         person.setCity(request.getParameter("city"));
         person.setState(request.getParameter("state"));
         person.setZip(request.getParameter("zip"));
-        person.setCountry(request.getParameter("Country"));
+        person.setCountry(request.getParameter("country"));
         person.setPhone(request.getParameter("phone"));
         person.setEmail(request.getParameter("email"));
         person.setNotes(request.getParameter("notes"));
@@ -383,6 +389,46 @@ public class DataUtils {
 
         CTAMSDocument doc = new CTAMSDocument();
         doc.getVenues().add(venue);
+
+        return doc;
+    }
+
+    protected static CTAMSDocument getJudge(HttpServletRequest request) {
+
+        Judge judge = new Judge();
+        judge.setId(request.getParameter("id"));
+        URIBuilder builder = new URIBuilder()
+                .setScheme(ServerUtils.PROTOCOL)
+                .setHost(ServerUtils.HOST)
+                .setPort(ServerUtils.PORT)
+                .setParameter("firstname", request.getParameter("firstName"))
+                .setParameter("lastname", request.getParameter("lastName"))
+                .setPath(ServerUtils.URI + "/person");
+
+        try {
+            String xml = ServerUtils.get(builder.build());
+            CTAMSDocument people = XMLUtils.unmarshal(xml);
+            judge.setPerson(people.getPeople().get(0));
+        } catch (IOException ex) {
+            LOG.error("Error finding band", ex);
+        } catch (URISyntaxException uex) {
+            LOG.error("Invalide URI", uex);
+        }
+
+        String qualString = request.getParameter("qualification");
+        if(qualString != null) {
+            String[] quals = qualString.split(",");
+            for(String qual : quals) {
+                String[] spl = qual.split("\\:");
+                JudgeQualification qualification = new JudgeQualification();
+                qualification.setType(JudgeType.valueOf(spl[0]));
+                qualification.setPanel(JudgePanelType.valueOf(spl[1]));
+                judge.getQualifications().add(qualification);
+            }
+        }
+
+        CTAMSDocument doc = new CTAMSDocument();
+        doc.getJudges().add(judge);
 
         return doc;
     }

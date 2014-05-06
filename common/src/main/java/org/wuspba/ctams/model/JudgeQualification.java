@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -30,6 +31,8 @@ public class JudgeQualification implements Serializable {
 
     @Id
     @Column(name = "QualificationID")
+    @XmlID
+    @XmlElement(name = "id", required = true)
     private String id;
 
     @Column(name = "PanelType")

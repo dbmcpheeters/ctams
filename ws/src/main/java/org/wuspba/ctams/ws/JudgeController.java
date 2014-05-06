@@ -33,8 +33,8 @@ import org.wuspba.ctams.model.Person;
  */
 @ComponentScan
 @Controller
-@RequestMapping("/judge")
 @Transactional
+@RequestMapping("/judge")
 public class JudgeController {
 
     private static final Logger LOG = LoggerFactory.getLogger(JudgeController.class);
@@ -54,10 +54,12 @@ public class JudgeController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody 
-    public String listJudges(
+    public CTAMSDocument listJudges(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "person", required = false, defaultValue = "") String person,
             @RequestParam(value = "qualification", required = false, defaultValue = "") String qualification) {
+
+        LOG.info("Listing judges");
 
         CTAMSDocument ret = new CTAMSDocument();
 
@@ -81,13 +83,17 @@ public class JudgeController {
             }
         }
 
+        LOG.info("Constructing object");
+
         for (Judge j : judges) {
             ret.getPeople().add(j.getPerson());
             ret.getJudgeQualifications().addAll(j.getQualifications());
             ret.getJudges().add(j);
         }
+        
+        LOG.info("Returning " + ret.toString());
 
-        return XMLUtils.marshal(ret);
+        return ret;
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
@@ -106,7 +112,7 @@ public class JudgeController {
     @RequestMapping(method = RequestMethod.POST,
             headers = {"content-type=application/xml"})
     @ResponseBody
-    public String modifyAddJudge(@RequestBody String xml) {
+    public CTAMSDocument modifyAddJudge(@RequestBody String xml) {
 
         CTAMSDocument judges = XMLUtils.unmarshal(xml);
 
@@ -119,9 +125,13 @@ public class JudgeController {
                 LOG.info("Updating judge " + j.getId());
             }
 
+            LOG.info("Saving judge");
+
             judgeRepository.save(j);
         }
 
-        return XMLUtils.marshal(judges);
+        LOG.info("Add/Update Complete");
+
+        return judges;
     }
 }

@@ -99,9 +99,9 @@
                         <contextPath>/</contextPath>
                     </webApp>
                     <stopKey>foo</stopKey>
-                    <stopPort>9999</stopPort>
+                    <stopPort>9998</stopPort>
                     <httpConnector>
-                        <port>8081</port>
+                        <port>8080</port>
                     </httpConnector>
                 </configuration>
             </plugin>

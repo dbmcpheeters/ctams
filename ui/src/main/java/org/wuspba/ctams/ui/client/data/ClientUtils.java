@@ -20,6 +20,8 @@ public enum ClientUtils  {
     private final LinkedHashMap instrumentMap = new LinkedHashMap();
     private final LinkedHashMap titleMap = new LinkedHashMap();
     private final LinkedHashMap memberTypeMap = new LinkedHashMap();
+    private final LinkedHashMap qualificationPanelMap = new LinkedHashMap();
+    private final LinkedHashMap qualificationTypeMap = new LinkedHashMap();
 
     private ClientUtils() {
         
@@ -59,6 +61,21 @@ public enum ClientUtils  {
         instrumentMap.put("TENOR", "Tenor Drummer");
         instrumentMap.put("BASS", "Bass Drummer");
         instrumentMap.put("DRUM_MAJOR", "Drum Major");
+
+        qualificationPanelMap.put("A", "A");
+        qualificationPanelMap.put("B", "B");
+        qualificationPanelMap.put("LOCAL", "Local");
+        qualificationPanelMap.put("DRUM_MAJOR", "Drum Major");
+        qualificationPanelMap.put("SHADOW", "Shadow");
+
+        qualificationTypeMap.put("BAND_PIPING", "Band Piping");
+        qualificationTypeMap.put("BAND_DRUMMING", "Band Drumming");
+        qualificationTypeMap.put("BAND_ENSEMBLE", "Band Ensemble");
+        qualificationTypeMap.put("SOLO_PIPING", "Solo Piping");
+        qualificationTypeMap.put("PIOBAIREACHD", "Piobaireachd");
+        qualificationTypeMap.put("SOLO_SNARE", "Solo Snare");
+        qualificationTypeMap.put("SOLO_BASS_TENOR", "Solo Bass and Tenor");
+        qualificationTypeMap.put("DRUM_MAJOR", "Drum Major");
     }
 
     /**
@@ -101,5 +118,19 @@ public enum ClientUtils  {
      */
     public LinkedHashMap getInstrumentMap() {
         return instrumentMap;
+    }
+
+    /**
+     * @return the qualificationPanelMap
+     */
+    public LinkedHashMap getQualificationPanelMap() {
+        return qualificationPanelMap;
+    }
+
+    /**
+     * @return the qualificationTypeMap
+     */
+    public LinkedHashMap getQualificationTypeMap() {
+        return qualificationTypeMap;
     }
 }

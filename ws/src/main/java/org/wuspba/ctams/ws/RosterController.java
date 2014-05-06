@@ -54,7 +54,8 @@ public class RosterController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    @ResponseBody public CTAMSDocument listRosters(
+    @ResponseBody 
+    public CTAMSDocument listRosters(
             @RequestParam(value = "id", required = false, defaultValue = "") String id,
             @RequestParam(value = "season", required = true, defaultValue = "") String season,
             @RequestParam(value = "band", required = false, defaultValue = "") String band,
